@@ -13,12 +13,12 @@ def _perm_denied():
 
 
 def _get_value(name):
-    with open(os.path.join(path, name), "r") as f:
+    with open(os.path.join(PATH, name), "r") as f:
         return int(f.read())
 
 
 def _set_value(name, value):
-    with open(os.path.join(path, name), "w") as f:
+    with open(os.path.join(PATH, name), "w") as f:
         f.write(value)
 
 
