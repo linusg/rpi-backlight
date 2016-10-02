@@ -4,7 +4,7 @@ import sys
 
 __author__ = "Linus Groh"
 __version__ = "1.0.0"
-path = "/sys/class/backlight/rpi_backlight/"
+PATH = "/sys/class/backlight/rpi_backlight/"
 
 
 def _perm_denied():
@@ -12,27 +12,31 @@ def _perm_denied():
     sys.exit()
 
 
-def get_actual_brightness():
-    global path
-    with open(os.path.join(path, "actual_brightness"), "r") as f:
+def _get_value(name):
+    with open(os.path.join(path, name), "r") as f:
         return int(f.read())
+
+
+def _set_value(name, value):
+    with open(os.path.join(path, name), "w") as f:
+        f.write(value)
+
+
+def get_actual_brightness():
+    return _get_value("actual_brightness")
 
 
 def get_max_brightness():
-    global path
-    with open(os.path.join(path, "max_brightness"), "r") as f:
-        return int(f.read())
+    return _get_value("max_brightness")
 
 
 def set_brightness(value, smooth=True):
-    global path
     if not 10 < value <= get_max_brightness() or type(value) != int:
         raise ValueError("value must be between 11 and {}, got {}".format(max_value, value))
 
     def run(value):
         try:
-            with open(os.path.join(path, "brightness"), "w") as f:
-                f.write(str(value))
+            _set_value("brightness", str(value))
         except PermissionError:
             _perm_denied()
     
@@ -49,11 +53,10 @@ def set_brightness(value, smooth=True):
 
 def set_power(on):
     try:
-        with open(os.path.join(path, "bl_power"), "w") as f:
-            if on:
-                f.write("0")
-            else:
-                f.write("1")
+        if on:
+            _set_value("bl_power", "1")
+        else:
+            _set_value("bl_power", "0")
     except PermissionError:
         _perm_denied()
 
