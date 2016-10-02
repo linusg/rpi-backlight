@@ -19,8 +19,8 @@ Features:
 Installation
 ------------
 
-- Install from PyPI using `pip install rpi_backlight`, or
-- clone this repository and `python setup.py install`.
+- Install from PyPI using ``pip install rpi_backlight``, or
+- clone this repository and ``python setup.py install``.
 
 Usage
 -----
@@ -37,7 +37,7 @@ Example in a Python shell::
     20
     >>> bl.set_power(False)
 
-**NOTE: Code using this library has to be run as root, e.g. `sudo python file.py`!**
+**NOTE: Code using this library has to be run as root, e.g.** ``sudo python file.py`` **!**
 
 Requirements
 ------------
@@ -48,7 +48,7 @@ Requirements
 Todo
 ----
 
-- Create a really simple GUI in `pygobject` to change the display brightness, maybe just a scale/slider
+- Create a really simple GUI in ``pygobject`` to change the display brightness, maybe just a scale/slider
 
 I would be happy if you can help shortening this todo-list!
 
