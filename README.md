@@ -26,7 +26,7 @@ The code is very small and simple, but will be extended in the future for new fe
 **NOTE: Code using this library has to be run as root, e.g. `sudo python file.py`!**
 
 ## Todo
-- Create a really simple GUI in ´pygobject´ to change the display brightness, maybe just a scale/slider
+- Create a really simple GUI in `pygobject` to change the display brightness, maybe just a scale/slider
 
 I would be happy if you can help shortening this todo-list!
 
