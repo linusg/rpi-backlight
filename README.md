@@ -11,6 +11,11 @@ The code is very small and simple, but will be extended in the future for new fe
 - Get the current brightness
 - Get the maximum brightness
 
+## Installation
+
+- Install from PyPI using `pip install rpi_backlight`, or
+- clone this repository and `python setup.py install`.
+
 ## Example
 
     >>> import rpi_backlight as bl
@@ -24,6 +29,10 @@ The code is very small and simple, but will be extended in the future for new fe
     >>> bl.set_power(False)
 
 **NOTE: Code using this library has to be run as root, e.g. `sudo python file.py`!**
+
+## Requirements
+- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
+- Python 2 or 3
 
 ## Todo
 - Create a really simple GUI in `pygobject` to change the display brightness, maybe just a scale/slider
