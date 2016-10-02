@@ -22,8 +22,10 @@ Installation
 - Install from PyPI using `pip install rpi_backlight`, or
 - clone this repository and `python setup.py install`.
 
-Example
--------
+Usage
+-----
+
+Example in a Python shell::
 
     >>> import rpi_backlight as bl
     >>> bl.set_brightness(20, smooth=True)
