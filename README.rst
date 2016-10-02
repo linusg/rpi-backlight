@@ -48,6 +48,7 @@ Requirements
 Todo
 ----
 
+- Allow to set the brightness fading duration in ``set_brightness(value)``
 - Create a really simple GUI in ``pygobject`` to change the display brightness, maybe just a scale/slider
 
 I would be happy if you can help shortening this todo-list!
