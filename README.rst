@@ -11,7 +11,7 @@ The code is very small and simple, but will be extended in the future for new fe
 Features:
 ---------
 
-- Change the display brigntness **smoothly** or **abrupt**
+- Change the display brightness **smoothly** or **abrupt**
 - Set the display power on or off
 - Get the current brightness
 - Get the maximum brightness
