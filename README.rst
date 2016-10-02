@@ -1,22 +1,29 @@
-# rpi-backlight
-## Python library containing some functions to control the 7" touch display from the Raspberry Pi foundation.
+rpi-backlight
+=============
+
+Python library containing some functions to control the 7" touch display from the Raspberry Pi foundation.
+----------------------------------------------------------------------------------------------------------
 
 **WARNING: This comes with absolutely no warranty, do anything on your own risk!**
 
 The code is very small and simple, but will be extended in the future for new features. Feel free to contribute!
 
-## Features:
+Features:
+---------
+
 - Change the display brigntness **smoothly** or **abrupt**
 - Set the display power on or off
 - Get the current brightness
 - Get the maximum brightness
 
-## Installation
+Installation
+------------
 
 - Install from PyPI using `pip install rpi_backlight`, or
 - clone this repository and `python setup.py install`.
 
-## Example
+Example
+-------
 
     >>> import rpi_backlight as bl
     >>> bl.set_brightness(20, smooth=True)
@@ -30,14 +37,20 @@ The code is very small and simple, but will be extended in the future for new fe
 
 **NOTE: Code using this library has to be run as root, e.g. `sudo python file.py`!**
 
-## Requirements
+Requirements
+------------
+
 - A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
 - Python 2 or 3
 
-## Todo
+Todo
+----
+
 - Create a really simple GUI in `pygobject` to change the display brightness, maybe just a scale/slider
 
 I would be happy if you can help shortening this todo-list!
 
-## License
+License
+-------
+
 The source code and all other files in this repository are licensed under the MIT license, so you can easily use it in your own projects.
