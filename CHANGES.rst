@@ -1,6 +1,11 @@
 Changes
 =======
 
+1.3.1
+-----
+
+- Fixed type conversion
+
 1.3.0
 -----
 
