@@ -31,12 +31,12 @@ def _set_value(name, value):
 
 def get_actual_brightness():
     """Return the actual display brightness."""
-    return _get_value("actual_brightness")
+    return int(_get_value("actual_brightness"))
 
 
 def get_max_brightness():
     """Return the maximum display brightness."""
-    return _get_value("max_brightness")
+    return int(_get_value("max_brightness"))
 
 
 def get_power():
