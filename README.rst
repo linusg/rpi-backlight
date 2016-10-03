@@ -29,6 +29,11 @@ Installation
 Usage
 -----
 
+Start from the command line:
+
+- ``rpi-backlight`` for a CLI
+- ``rpi-backlight-gui`` for a GUI (experimental)
+
 Example in a Python shell::
 
     >>> import rpi_backlight as bl

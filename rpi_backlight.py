@@ -96,5 +96,34 @@ def cli():
 
 
 def gui():
-    print("This is currently on the TODO-list!")
-    sys.exit()
+    import gi
+    gi.require_version("Gtk", "3.0")
+    from gi.repository import Gtk
+
+    win = Gtk.Window(title="Set display brightness")
+
+    ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=11, upper=255)
+    scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
+    
+    def on_scale_changed(scale, data):
+        value = int(scale.get_value())
+        set_brightness(value)
+    
+    scale.connect("button-release-event", on_scale_changed)
+    scale.connect("key_release_event", on_scale_changed)
+    scale.connect("scroll-event", on_scale_changed)
+    scale.set_size_request(350, 50)
+
+    # Main Container
+    main_container = Gtk.Fixed()
+    main_container.put(scale, 10, 10)
+
+    # Main Window
+    win.connect("delete-event", Gtk.main_quit)
+    win.connect("destroy", Gtk.main_quit)
+    win.add(main_container)
+    win.resize(400, 50)
+    win.set_position(Gtk.WindowPosition.CENTER)
+
+    win.show_all()
+    Gtk.main()
