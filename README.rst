@@ -16,6 +16,8 @@ Features:
 - Get the current brightness
 - Get the maximum brightness
 - Get the display power state (on/off)
+- Command line interface
+- Graphical user interface
 
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/example.gif
    :alt: Example
