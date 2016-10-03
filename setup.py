@@ -8,7 +8,7 @@ with open("README.rst", "r") as f:
 setup(name="rpi_backlight",
       py_modules=["rpi_backlight"],
       version=__version__,
-      description="Python library containing some functions to control the 7\" touch display from the Raspberry Pi foundation.",
+      description="A Python module for controlling power and brightness of the official Raspberry Pi 7\" touch display.",
       long_description=long_description,
       author="Linus Groh",
       license="MIT",
