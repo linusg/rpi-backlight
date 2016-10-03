@@ -5,6 +5,7 @@ Changes
 -----
 
 - Fixed ``set_power(on)`` function
+- Added function to get the current power state of the LCD
 - Added docstrings
 - Code cleanup and improvements
 
