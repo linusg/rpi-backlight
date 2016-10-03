@@ -4,7 +4,7 @@ Changes
 1.1.0
 -----
 
-- Fixed ``set_power(on)```function
+- Fixed ``set_power(on)`` function
 - Added docstrings
 - Code cleanup and improvements
 
