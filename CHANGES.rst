@@ -1,6 +1,17 @@
 Changes
 =======
 
+1.2.1
+-----
+
+- Fixed CLI and typo
+
+1.2.0
+-----
+
+- Added command line interface (`rpi-backlight` and `rpi-backlight-gui`)
+- Code improvements - thanks @deets
+
 1.1.0
 -----
 
