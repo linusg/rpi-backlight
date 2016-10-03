@@ -10,7 +10,7 @@ import os
 import sys
 
 __author__ = "Linus Groh"
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 
