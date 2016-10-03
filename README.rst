@@ -15,6 +15,7 @@ Features:
 - Set the display power on or off
 - Get the current brightness
 - Get the maximum brightness
+- Get the display power state (on/off)
 
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/example.gif
    :alt: Example
