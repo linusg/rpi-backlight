@@ -10,7 +10,7 @@ import os
 import sys
 
 __author__ = "Linus Groh"
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 
@@ -78,11 +78,12 @@ def set_power(on):
 
 
 def cli():
+    global input
     if sys.version.startswith("2"):
         input = raw_input
         
     while True:
-        value = input("Enter value of brightness (between 11 ad 255): ")
+        value = input("Enter value of brightness (between 11 and 255): ")
         try:
             value = int(value)
             if 10 < value < 256:
