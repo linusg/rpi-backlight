@@ -29,4 +29,10 @@ setup(name="rpi_backlight",
           "Topic :: Utilities",
           "Topic :: Software Development :: Libraries",
           "Topic :: Software Development :: Libraries :: Python Modules"],
+      entry_points={
+          "console_scripts": [
+              "rpi-backlight = rpi_backlight:cli",
+              "rpi-backlight-gui = rpi_backlight:gui",
+          ],
+      },
       )

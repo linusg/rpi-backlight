@@ -1,5 +1,8 @@
 """rpi_backlight.py
 A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
+
+Author: Linus Groh (mail@linusgroh.de)
+License: MIT license
 """
 from __future__ import print_function
 import time
@@ -18,12 +21,12 @@ def _perm_denied():
 
 def _get_value(name):
     with open(os.path.join(PATH, name), "r") as f:
-        return int(f.read())
+        return f.read()
 
 
 def _set_value(name, value):
     with open(os.path.join(PATH, name), "w") as f:
-        f.write(value)
+        f.write(str(value))
 
 
 def get_actual_brightness():
@@ -51,7 +54,7 @@ def set_brightness(value, smooth=True):
 
     def run(value):
         try:
-            _set_value("brightness", str(value))
+            _set_value("brightness", value)
         except PermissionError:
             _perm_denied()
     
@@ -69,25 +72,28 @@ def set_brightness(value, smooth=True):
 def set_power(on):
     """Power the display power on or off."""
     try:
-        if on:
-            _set_value("bl_power", "0")
-        else:
-            _set_value("bl_power", "1")
+        _set_value("bl_power", int(not on))
     except PermissionError:
         _perm_denied()
 
 
-if __name__ == "__main__":
+def cli():
     if sys.version.startswith("2"):
         input = raw_input
         
-    success = False
-    while not success:
-        value = input("Enter value of brightness (between 11 and 255): ")
+    while True:
+        value = input("Enter value of brightness (between 11 ad 255): ")
         try:
             value = int(value)
+            if 10 < value < 256:
+                break
+            else:
+                continue   
         except ValueError:
             continue
-        if 10 < value < 256:
-            set_brightness(value)
-            success = True
+    set_brightness(value)
+
+
+def gui():
+    print("This is currently on the TODO-list!")
+    sys.exit()

@@ -32,8 +32,8 @@ Usage
 Example in a Python shell::
 
     >>> import rpi_backlight as bl
-    >>> bl.set_brightness(20, smooth=True)
-    >>> bl.set_brightness(255, smooth=True)
+    >>> bl.set_brightness(20)
+    >>> bl.set_brightness(255)
     >>> bl.set_brightness(20, smooth=False)
     >>> bl.get_max_brightness()
     255
