@@ -16,6 +16,9 @@ Features:
 - Get the current brightness
 - Get the maximum brightness
 
+.. image:: https://github.com/linusg/rpi-backlight/blob/master/example.gif
+   :alt: Example
+
 Installation
 ------------
 
