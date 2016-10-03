@@ -39,7 +39,7 @@ Example in a Python shell::
     True
     >>> bl.set_power(False)
 
-**NOTE: Code using ``set_*`` functions of this library has to be run as root, e.g.** ``sudo python file.py`` **!**
+**NOTE: Code using** ``set_`` **functions of this library has to be run as root, e.g.** ``sudo python file.py`` **!**
 
 Requirements
 ------------
