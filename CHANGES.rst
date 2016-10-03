@@ -1,6 +1,11 @@
 Changes
 =======
 
+1.3.0
+-----
+
+- Added experimantal GUI (start with ``rpi-backlight-gui``)
+
 1.2.1
 -----
 
