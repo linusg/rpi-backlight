@@ -63,6 +63,7 @@ Todo
 
 - Allow to set the brightness fading duration in ``set_brightness(value)``
 - Create a really simple GUI in ``pygobject`` to change the display brightness, maybe just a scale/slider
+
   - Partially done, but only tested on Ubuntu 16.04 / Python 3.5
   - Make GUI more stable
   - Ensure it runs on the Pi under both Python 2 and 3
