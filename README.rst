@@ -17,7 +17,7 @@ Features:
 - Get the maximum brightness
 - Get the display power state (on/off)
 - Command line interface
-- Graphical user interface
+- Graphical user interface (experimental)
 
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/example.gif
    :alt: Example
@@ -63,6 +63,9 @@ Todo
 
 - Allow to set the brightness fading duration in ``set_brightness(value)``
 - Create a really simple GUI in ``pygobject`` to change the display brightness, maybe just a scale/slider
+  - Partially done, but only tested on Ubuntu 16.04 / Python 3.5
+  - Make GUI more stable
+  - Ensure it runs on the Pi under both Python 2 and 3
 
 I would be happy if you can help shortening this todo-list!
 
