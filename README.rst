@@ -22,6 +22,12 @@ Features:
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/example.gif
    :alt: Example
 
+Requirements
+------------
+
+- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
+- Python 2 or 3
+
 Installation
 ------------
 
@@ -51,12 +57,6 @@ Example in a Python shell::
     >>> bl.set_power(False)
 
 **NOTE: Code using** ``set_`` **functions of this library has to be run as root, e.g.** ``sudo python file.py`` **!**
-
-Requirements
-------------
-
-- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
-- Python 2 or 3
 
 Todo
 ----
