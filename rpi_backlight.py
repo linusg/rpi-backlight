@@ -96,9 +96,13 @@ def cli():
 
 
 def gui():
-    import gi
-    gi.require_version("Gtk", "3.0")
-    from gi.repository import Gtk
+    try:
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+    except ImportError:
+        print("Sorry, this needs pygobject to be installed!")
+        sys.exit()
 
     win = Gtk.Window(title="Set display brightness")
 
