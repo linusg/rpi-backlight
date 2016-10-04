@@ -17,9 +17,9 @@ Features:
 - Get the maximum brightness
 - Get the display power state (on/off)
 - Command line interface
-- Graphical user interface (experimental)
+- Graphical user interface
 
-.. image:: https://github.com/linusg/rpi-backlight/blob/master/example.gif
+.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/example.gif
    :alt: Example
 
 Requirements
@@ -38,10 +38,8 @@ Installation
 Usage
 -----
 
-Start from the command line:
-
-- ``rpi-backlight`` for a CLI
-- ``rpi-backlight-gui`` for a GUI (experimental)
+API
+***
 
 Example in a Python shell::
 
@@ -58,6 +56,24 @@ Example in a Python shell::
     >>> bl.set_power(False)
 
 **NOTE: Code using** ``set_`` **functions of this library has to be run as root, e.g.** ``sudo python file.py`` **!**
+
+CLI
+***
+
+.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/cli.png
+   :alt: Command Line Interface
+
+Open a terminal and run ``rpi-backlight`` as root.
+
+GUI
+***
+
+.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/gui.png
+   :alt: Graphical User Interface
+
+Open a terminal and run ``rpi-backlight-gui`` as root.
+
+**NOTE: This is currently experimental, but should work quite well.**
 
 Todo
 ----
