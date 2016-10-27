@@ -4,10 +4,6 @@ rpi-backlight
 A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 ---------------------------------------------------------------------------------------------------
 
-**WARNING: This comes with absolutely no warranty, do anything on your own risk!**
-
-The code is very small and simple, but will be extended in the future for new features. Feel free to contribute!
-
 Features:
 ---------
 
@@ -79,10 +75,9 @@ Todo
 ----
 
 - Allow to set the brightness fading duration in ``set_brightness(value)``
-- Create a really simple GUI in ``pygobject`` to change the display brightness, maybe just a scale/slider
+- (*Create a really simple GUI in ``pygobject`` to change the display brightness, maybe just a scale/slider*)
 
-  - Partially done, but only tested on Ubuntu 16.04 / Python 3.5
-  - Make GUI more stable
+  - Partially done, but not tested across several Python versions and distros
   - Ensure it runs on the Pi under both Python 2 and 3
 
 I would be happy if you can help shortening this todo-list!
