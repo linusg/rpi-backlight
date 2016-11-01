@@ -43,18 +43,18 @@ Example in a Python shell::
 CLI
 ***
 
+Open a terminal and run ``rpi-backlight`` as root.
+
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/cli.png
    :alt: Command Line Interface
-
-Open a terminal and run ``rpi-backlight`` as root.
 
 GUI
 ***
 
+Open a terminal and run ``rpi-backlight-gui`` as root.
+
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/gui.png
    :alt: Graphical User Interface
-
-Open a terminal and run ``rpi-backlight-gui`` as root.
 
 **NOTE: This is currently experimental, but should work quite well.**
 
@@ -63,7 +63,7 @@ Requirements
 
 - A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
 - Python 2 or 3
-- Optional: ``pygobject`` for the GUI
+- Optional: ``pygobject`` for the GUI, is already installed on a modern Raspian
 
 Installation
 ------------
@@ -77,7 +77,7 @@ Todo
 - Allow to set the brightness fading duration in ``set_brightness(value)``
 - (*Create a really simple GUI in* ``pygobject`` *to change the display brightness, maybe just a scale/slider*)
 
-  - Partially done, but not tested across several Python versions and distros
+  - Most of it done, but not tested across several Python versions and distros
   - Ensure it runs on the Pi under both Python 2 and 3
 
 I would be happy if you can help shortening this todo-list!
