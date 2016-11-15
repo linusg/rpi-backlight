@@ -100,6 +100,7 @@ I would be happy if you can help shortening this todo-list!
 External Links
 --------------
 
+- `Website <https://linusg.github.io/rpi-backlight/>`_
 - `Travis CI: Build tests <https://travis-ci.org/linusg/rpi-backlight>`_
 - `Landscape.io: Code health tests <https://landscape.io/github/linusg/rpi-backlight/master>`_
 - `readthedocs.org: Documentation <https://rpi-backlight.readthedocs.io/en/latest/>`_
