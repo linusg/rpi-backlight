@@ -1,6 +1,20 @@
 Changes
 =======
 
+1.4.0
+-----
+
+- Check for ``pygobject`` being installed
+- Code cleanup
+- README improvements
+
+  - Added external links
+  - Added badges
+  - Fixed typos
+
+- Moved to Travis CI and Landscape.io for builds and code health testing
+- Prepared docs hosting at readthedocs.org
+
 1.3.1
 -----
 
