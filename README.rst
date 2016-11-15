@@ -86,8 +86,6 @@ Open a terminal and run ``rpi-backlight-gui`` as root.
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/gui.png
    :alt: Graphical User Interface
 
-**NOTE: This is currently experimental, but should work quite well.**
-
 Todo
 ----
 
