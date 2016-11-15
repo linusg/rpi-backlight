@@ -1,6 +1,22 @@
 rpi-backlight
 =============
 
+.. image:: https://api.travis-ci.org/linusg/rpi-backlight.svg?branch=master
+   :target: https://travis-ci.org/linusg/rpi-backlight
+   :alt: Travis CI test status
+
+.. image:: https://landscape.io/github/linusg/rpi-backlight/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/linusg/rpi-backlight/master
+   :alt: Code health
+
+.. image:: https://img.shields.io/pypi/v/rpi_backlight.svg
+   :target: https://pypi.python.org/pypi/rpi_backlight
+   :alt: Version
+
+.. image:: https://img.shields.io/badge/docs-latest-blue.svg
+   :target: https://rpi-backlight.readthedocs.io/en/latest/
+   :alt: Documentation
+   
 A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 ---------------------------------------------------------------------------------------------------
 
