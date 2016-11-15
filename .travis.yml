@@ -26,6 +26,6 @@ install:
   - pip install -e .
 
 script:
-  - python -c "x = lambda: True; x()" # py.test tests/
+  - none # py.test tests/
 
 skip_join: false
