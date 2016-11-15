@@ -1,8 +1,8 @@
-"""rpi_backlight.py
-A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
+"""
+*A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.*
 
-Author: Linus Groh (mail@linusgroh.de)
-License: MIT license
+:Author: Linus Groh (mail@linusgroh.de)
+:License: MIT license
 """
 from __future__ import print_function
 import time
