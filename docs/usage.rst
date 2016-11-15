@@ -23,7 +23,7 @@ Application programming interface
     True
     >>> bl.set_power(False)
 
-   Also see the :ref:`API overview <api>` for reference.
+   Also see the :ref:`rpi-backlight API` for reference.
 
    .. note::
       In order to run any of the ``set_`` functions, you have to run your
