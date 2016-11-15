@@ -73,7 +73,7 @@ def set_brightness(value, smooth=True):
 
 
 def set_power(on):
-    """Power the display power on or off."""
+    """Set the display power on or off."""
     try:
         _set_value("bl_power", int(not on))
     except PermissionError:
@@ -81,6 +81,7 @@ def set_power(on):
 
 
 def cli():
+    """Start the command line interface."""
     global input
     if sys.version.startswith("2"):
         input = raw_input
@@ -99,6 +100,7 @@ def cli():
 
 
 def gui():
+    """Start the graphical user interface."""
     try:
         import gi
         gi.require_version("Gtk", "3.0")
