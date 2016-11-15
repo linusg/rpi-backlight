@@ -1,9 +1,15 @@
 Introduction
 ============
 
-When I bought the official 7" touch LCD for my Raspberry Pi, I was happy about it. With one exception: *the display brightness*.
+.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/example.gif
+   :alt: Example
 
-I googled some hours, and hacked somy Python code together. Time passed by, and the whole project turned into a Python module. rpi-backlight was born.
+When I bought the official 7" touch LCD for my Raspberry Pi, I was happy
+about it. With one exception: *you can't change the display brightness out of
+the box*.
+
+I googled some hours, and hacked somy Python code together. Time passed by,
+and the whole project turned into a Python module.rpi-backlight was born.
 
 Maybe I should add some note here:
 
@@ -23,6 +29,7 @@ Currenly the code has the following features:
 - Command line interface
 - Graphical user interface
 
-Now, you are able to easily set the brightness of your display from the commandline, a GUI and even Python code!
+Now, you are able to easily set the brightness of your display from the
+commandline, a GUI and even Python code!
 
 .. include:: global.rst

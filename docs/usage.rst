@@ -36,7 +36,7 @@ Open a terminal and run ``rpi-backlight`` as root, e.g.::
 
     sudo rpi-backlight
 
-.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/cli.png
+.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/cli.png
    :alt: Command Line Interface
 
 Graphical user interface
@@ -46,7 +46,7 @@ Open a terminal and run ``rpi-backlight-gui`` as root, e.g.::
 
     sudo rpi-backlight-gui
 
-.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/gui.png
+.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui.png
    :alt: Graphical User Interface
 
 .. include:: global.rst

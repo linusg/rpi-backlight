@@ -20,7 +20,7 @@ rpi-backlight
 A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 ---------------------------------------------------------------------------------------------------
 
-.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/example.gif
+.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/example.gif
    :alt: Example
 
 Features
@@ -75,7 +75,7 @@ CLI
 
 Open a terminal and run ``rpi-backlight`` as root.
 
-.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/cli.png
+.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/cli.png
    :alt: Command Line Interface
 
 GUI
@@ -83,7 +83,7 @@ GUI
 
 Open a terminal and run ``rpi-backlight-gui`` as root.
 
-.. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/gui.png
+.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui.png
    :alt: Graphical User Interface
 
 Todo
