@@ -1,4 +1,4 @@
-rpi_backlight module
+rpi_backlight API
 ====================
 
 .. automodule:: rpi_backlight

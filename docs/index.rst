@@ -16,7 +16,7 @@ Contents
    intro
    installation
    usage
-   rpi_backlight
+   api
    
    changes
    license
