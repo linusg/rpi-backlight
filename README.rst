@@ -23,19 +23,6 @@ A Python module for controlling power and brightness of the official Raspberry P
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/example.gif
    :alt: Example
 
-- `Features`_
-- `Requirements`_
-- `Installation`_
-- `Usage`_
-
-  - `API`_
-  - `CLI`_
-  - `GUI`_
- 
-- `Todo`_
-- `External Links`_
-- `License`_
-
 Features
 --------
 
