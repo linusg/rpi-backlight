@@ -23,8 +23,21 @@ A Python module for controlling power and brightness of the official Raspberry P
 .. image:: https://github.com/linusg/rpi-backlight/blob/master/docs/example.gif
    :alt: Example
 
-Features:
----------
+- `Features`_
+- `Usage`_
+
+   - `API`_
+   - `CLI`_
+   - `GUI`_
+
+- `Requirements`_
+- `Installation`_
+- `Todo`_
+- `External Links`_
+- `License`_
+
+Features
+--------
 
 - Change the display brightness **smoothly** or **abrupt**
 - Set the display power on or off
@@ -97,6 +110,13 @@ Todo
   - Ensure it runs on the Pi under both Python 2 and 3
 
 I would be happy if you can help shortening this todo-list!
+
+External Links
+--------------
+
+- `Travis CI: Build tests <https://travis-ci.org/linusg/rpi-backlight>`_
+- `Landscape.io: Code health tests <https://landscape.io/github/linusg/rpi-backlight/master>`_
+- `readthedocs.org: Documentation <https://rpi-backlight.readthedocs.io/en/latest/>`_
 
 License
 -------
