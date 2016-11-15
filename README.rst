@@ -24,14 +24,14 @@ A Python module for controlling power and brightness of the official Raspberry P
    :alt: Example
 
 - `Features`_
-- `Usage`_
-
-   - `API`_
-   - `CLI`_
-   - `GUI`_
-
 - `Requirements`_
 - `Installation`_
+- `Usage`_
+
+  - `API`_
+  - `CLI`_
+  - `GUI`_
+ 
 - `Todo`_
 - `External Links`_
 - `License`_
@@ -46,6 +46,20 @@ Features
 - Get the display power state (on/off)
 - Command line interface
 - Graphical user interface
+
+
+Requirements
+------------
+
+- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
+- Python 2 or 3
+- Optional: ``pygobject`` for the GUI, is already installed on a modern Raspian
+
+Installation
+------------
+
+- Install from PyPI using ``pip install rpi_backlight``, or
+- clone this repository and ``python setup.py install``.
 
 Usage
 -----
@@ -86,19 +100,6 @@ Open a terminal and run ``rpi-backlight-gui`` as root.
    :alt: Graphical User Interface
 
 **NOTE: This is currently experimental, but should work quite well.**
-
-Requirements
-------------
-
-- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
-- Python 2 or 3
-- Optional: ``pygobject`` for the GUI, is already installed on a modern Raspian
-
-Installation
-------------
-
-- Install from PyPI using ``pip install rpi_backlight``, or
-- clone this repository and ``python setup.py install``.
 
 Todo
 ----
