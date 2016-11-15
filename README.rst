@@ -38,9 +38,9 @@ Features
 Requirements
 ------------
 
-- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
+- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher** running a Linux-based OS
 - Python 2 or 3
-- Optional: ``pygobject`` for the GUI, is likely to be already installed on a recent Raspian
+- Optional: ``pygobject`` for the GUI, is likely to be already installed on a recent Rasbpian
 
 Installation
 ------------
