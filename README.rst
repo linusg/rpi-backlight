@@ -13,10 +13,6 @@ rpi-backlight
    :target: https://github.com/linusg/rpi-backlight/issues
    :alt: Issues
    
-.. image:: https://img.shields.io/github/downloads/linusg/rpi-backlight/total.svg
-   :target: https://github.com/linusg/rpi-backlight/releases
-   :alt: Downloads
-   
 .. image:: https://img.shields.io/pypi/v/rpi_backlight.svg
    :target: https://pypi.python.org/pypi/rpi_backlight
    :alt: Version
