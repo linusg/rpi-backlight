@@ -5,7 +5,7 @@ rpi-backlight
    :target: https://travis-ci.org/linusg/rpi-backlight
    :alt: Travis CI status
 
-.. image:: https://img.shields.io/github/downloads/linusg/rpi-backlight/total.svg
+.. image:: https://landscape.io/github/linusg/rpi-backlight/master/landscape.svg?style=flat
    :target: https://landscape.io/github/linusg/rpi-backlight/master
    :alt: Code health
 
@@ -13,7 +13,7 @@ rpi-backlight
    :target: https://github.com/linusg/rpi-backlight/issues
    :alt: Issues
    
-.. image:: https://landscape.io/github/linusg/rpi-backlight/master/landscape.svg?style=flat
+.. image:: https://img.shields.io/github/downloads/linusg/rpi-backlight/total.svg
    :target: https://github.com/linusg/rpi-backlight/releases
    :alt: Downloads
    
