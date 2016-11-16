@@ -9,7 +9,7 @@ rpi-backlight
    :target: https://landscape.io/github/linusg/rpi-backlight/master
    :alt: Code health
 
-.. image:: https://img.shields.io/github/issues-raw/badges/shields/website.svg
+.. image:: https://img.shields.io/github/issues-raw/linusg/rpi-backlight/website.svg
    :target: https://github.com/linusg/rpi-backlight/issues
    :alt: Issues
    
