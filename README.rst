@@ -3,20 +3,36 @@ rpi-backlight
 
 .. image:: https://api.travis-ci.org/linusg/rpi-backlight.svg?branch=master
    :target: https://travis-ci.org/linusg/rpi-backlight
-   :alt: Travis CI test status
+   :alt: Travis CI status
 
-.. image:: https://landscape.io/github/linusg/rpi-backlight/master/landscape.svg?style=flat
+.. image:: https://img.shields.io/github/downloads/linusg/rpi-backlight/total.svg
    :target: https://landscape.io/github/linusg/rpi-backlight/master
    :alt: Code health
 
+.. image:: https://img.shields.io/github/issues-raw/badges/shields/website.svg
+   :target: https://github.com/linusg/rpi-backlight/issues
+   :alt: Issues
+   
+.. image:: https://landscape.io/github/linusg/rpi-backlight/master/landscape.svg?style=flat
+   :target: https://github.com/linusg/rpi-backlight/releases
+   :alt: Downloads
+   
 .. image:: https://img.shields.io/pypi/v/rpi_backlight.svg
    :target: https://pypi.python.org/pypi/rpi_backlight
    :alt: Version
+   
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg
+   :target: https://github.com/linusg/rpi-backlight/blob/master/LICENSE
+   :alt: License
 
 .. image:: https://img.shields.io/badge/docs-latest-blue.svg
    :target: https://rpi-backlight.readthedocs.io/en/latest/
    :alt: Documentation
-   
+
+.. image:: https://img.shields.io/website-up-down-green-red/http/shields.io.svg
+   :target: https://linusg.github.io/rpi-backlight/
+   :alt: Website
+
 A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 ---------------------------------------------------------------------------------------------------
 
