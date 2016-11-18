@@ -35,14 +35,14 @@ Installation
 - Install from PyPI using ``pip install rpi_backlight``, or
 - clone this repository and ``python setup.py install``.
 
-may require the editing of backlight rules file
-```
-sudo nano /etc/udev/rules.d/backlight-permissions.rules
-```
+Note: You may need to edit the backlight rules file in order to run the code:
+
+    sudo nano /etc/udev/rules.d/backlight-permissions.rules
+
 insert the line
-```
-SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"
-```
+
+    SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"
+
 
 Usage
 -----
