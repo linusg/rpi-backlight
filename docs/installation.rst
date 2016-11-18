@@ -33,6 +33,15 @@ Installation process
    using the setup script::
 
     sudo python setup.py install
+    
+    
+  **Note:** You may need to edit the backlight rules file in order to run the code::
+
+    sudo nano /etc/udev/rules.d/backlight-permissions.rules
+
+  Insert the line::
+
+    SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"
 
 #. Just check the installation::
 
