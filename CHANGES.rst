@@ -1,6 +1,11 @@
 Changes
 =======
 
+1.5.0
+-----
+
+- PR #3 by Scouttp: Fixed permission errors
+
 1.4.0
 -----
 
