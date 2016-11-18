@@ -1,0 +1,31 @@
+language: python
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.pip-accel
+
+os:
+  - linux
+
+python:
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "nightly"
+
+matrix:
+  allow_failures:
+      - python: "nightly"
+
+install:
+  - python -m pip install -U pip
+  - pip install -e .
+
+script:
+  - python -V # py.test tests/
+
+skip_join: false

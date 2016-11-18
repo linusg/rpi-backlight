@@ -1,8 +1,8 @@
-"""rpi_backlight.py
-A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
+"""
+*A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.*
 
-Author: Linus Groh (mail@linusgroh.de)
-License: MIT license
+:Author: Linus Groh (mail@linusgroh.de)
+:License: MIT license
 """
 from __future__ import print_function
 import time
@@ -10,7 +10,7 @@ import os
 import sys
 
 __author__ = "Linus Groh"
-__version__ = "1.3.1"
+__version__ = "1.4.0"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 
@@ -49,7 +49,10 @@ def get_power():
 
 def set_brightness(value, smooth=True):
     """Set the display brightness."""
-    if not 10 < value <= get_max_brightness() or type(value) != int:
+    max_value = get_max_brightness()
+    if type(value) != int:
+        raise ValueError("integer required, got '{}'".format(type(value)))
+    if not 10 < value <= max_value:
         raise ValueError("value must be between 11 and {}, got {}".format(max_value, value))
 
     def run(value):
@@ -70,7 +73,7 @@ def set_brightness(value, smooth=True):
 
 
 def set_power(on):
-    """Power the display power on or off."""
+    """Set the display power on or off."""
     try:
         _set_value("bl_power", int(not on))
     except PermissionError:
@@ -78,6 +81,7 @@ def set_power(on):
 
 
 def cli():
+    """Start the command line interface."""
     global input
     if sys.version.startswith("2"):
         input = raw_input
@@ -96,6 +100,7 @@ def cli():
 
 
 def gui():
+    """Start the graphical user interface."""
     try:
         import gi
         gi.require_version("Gtk", "3.0")
@@ -109,7 +114,7 @@ def gui():
     ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=11, upper=255)
     scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
     
-    def on_scale_changed(scale, data):
+    def on_scale_changed(scale, _):
         value = int(scale.get_value())
         set_brightness(value)
     
