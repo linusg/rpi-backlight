@@ -32,7 +32,7 @@ Installation process
    As an alternative you can get the source code from GitHub_ and install it
    using the setup script::
 
-    python setup.py install
+    sudo python setup.py install
 
 #. Just check the installation::
 
