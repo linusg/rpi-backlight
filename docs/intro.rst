@@ -8,8 +8,8 @@ When I bought the official 7" touch LCD for my Raspberry Pi, I was happy
 about it. With one exception: *you can't change the display brightness out of
 the box*.
 
-I googled some hours, and hacked somy Python code together. Time passed by,
-and the whole project turned into a Python module.rpi-backlight was born.
+I googled some hours, and hacked some Python code together. Time passed by,
+and the whole project turned into a Python module: rpi-backlight.
 
 Maybe I should add some note here:
 
