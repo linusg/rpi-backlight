@@ -5,6 +5,9 @@ Changes
 -----
 
 - PR #3 by Scouttp: Fixed permission errors
+- Added documentation
+- Code improvements
+- Fixed typos
 
 1.4.0
 -----
