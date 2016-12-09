@@ -57,8 +57,13 @@ Requirements
 Installation
 ------------
 
-- Install from PyPI using ``pip install rpi_backlight``, or
-- clone this repository and ``sudo python setup.py install``.
+- Install from PyPI using::
+
+    pip install rpi_backlight
+    
+- *or* clone this repository and install by::
+
+    sudo python setup.py install
 
 **Note:** You may need to edit the backlight rules file in order to run the code::
 
