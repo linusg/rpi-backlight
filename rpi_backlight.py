@@ -20,9 +20,11 @@ def _perm_denied():
 
 
 def _get_value(name):
-    with open(os.path.join(PATH, name), "r") as f:
-        return f.read()
-
+    try:
+        with open(os.path.join(PATH, name), "r") as f:
+            return f.read()
+    except PermissionError:
+        _perm_denied()
 
 def _set_value(name, value):
     with open(os.path.join(PATH, name), "w") as f:
@@ -41,10 +43,7 @@ def get_max_brightness():
 
 def get_power():
     """Return wether the display is powered on or not."""
-    try:
-        return not _get_value("bl_power")
-    except PermissionError:
-        _perm_denied()
+    return not _get_value("bl_power")
 
 
 def set_brightness(value, smooth=True):
@@ -54,22 +53,16 @@ def set_brightness(value, smooth=True):
         raise ValueError("integer required, got '{}'".format(type(value)))
     if not 10 < value <= max_value:
         raise ValueError("value must be between 11 and {}, got {}".format(max_value, value))
-
-    def run(value):
-        try:
-            _set_value("brightness", value)
-        except PermissionError:
-            _perm_denied()
     
     if smooth:
         actual = get_actual_brightness()
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
 
-            run(actual)
+            _set_value("brightness", actual)
             time.sleep(0.01)
     else:
-        run(value)
+        _set_value("brightness", value)
 
 
 def set_power(on):
