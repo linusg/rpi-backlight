@@ -5,7 +5,7 @@ Application programming interface
 ---------------------------------
 
 #. Make sure you've :ref:`installed <installation>` the library correctly.
-#. Run Python as root (see the note at the end of this page) and import
+#. Run Python as root (see the note at the end of this section) and import
    ``rpi_backlight``::
 
     >>> import rpi_backlight as bl
