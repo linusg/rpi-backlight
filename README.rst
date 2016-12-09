@@ -25,10 +25,6 @@ rpi-backlight
    :target: https://rpi-backlight.readthedocs.io/en/latest/
    :alt: Documentation
 
-.. image:: https://img.shields.io/website-up-down-green-red/http/shields.io.svg
-   :target: https://linusg.github.io/rpi-backlight/
-   :alt: Website
-
 A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 ---------------------------------------------------------------------------------------------------
 
@@ -126,7 +122,6 @@ I would be happy if you can help shortening this todo-list!
 External Links
 --------------
 
-- `Website <https://linusg.github.io/rpi-backlight/>`_
 - `Travis CI: Build tests <https://travis-ci.org/linusg/rpi-backlight>`_
 - `Landscape.io: Code health tests <https://landscape.io/github/linusg/rpi-backlight/master>`_
 - `readthedocs.org: Documentation <https://rpi-backlight.readthedocs.io/en/latest/>`_
