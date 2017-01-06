@@ -19,7 +19,7 @@ Maybe I should add some note here:
    also used for the GitHub repository. The second one is the Python module
    name, used on PyPI and when importing the module.
 
-Currenly the code has the following features:
+Currenlty the code has the following features:
 
 - Change the display brightness **smoothly** or **abrupt**
 - Set the display power on or off
