@@ -42,7 +42,7 @@ Changes
 -----
 
 - Added command line interface (`rpi-backlight` and `rpi-backlight-gui`)
-- Code improvements - thanks @deets
+- Code improvements - thanks to deets
 
 1.1.0
 -----
