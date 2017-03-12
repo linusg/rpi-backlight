@@ -36,6 +36,8 @@ Open a terminal and run ``rpi-backlight`` as root, e.g.::
 
     sudo rpi-backlight
 
+**NOTE: The command line interface could change in the future, providing more otions instead of being just an user input application!**
+
 .. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/cli.png
    :alt: Command Line Interface
 
