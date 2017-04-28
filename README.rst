@@ -57,9 +57,11 @@ Installation
 
     pip install rpi_backlight
     
-- *or* clone this repository and install by::
+- or clone this repository and install by::
 
-    sudo python setup.py install
+    git clone https://github.com/linusg/rpi-backlight.git
+    cd rpi-backlight
+    sudo python3 setup.py install
 
 **Note:** You may need to edit the backlight rules file in order to run the code::
 
@@ -90,7 +92,7 @@ Example in a Python shell::
     True
     >>> bl.set_power(False)
 
-**NOTE: Code using** ``set_`` **functions of this library has to be run as root, e.g.** ``sudo python file.py`` **!**
+**NOTE: Code using** ``set_`` **functions of this library has to be run as root, e.g.** ``sudo python file.py`` **, if the permissions for changing the backlight were not changed as described in the installation section!**
 
 CLI
 ***
