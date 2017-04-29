@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'rpi-backlight'
-copyright = '2016, Linus Groh'
+copyright = '2017, Linus Groh'
 author = 'Linus Groh'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -139,7 +139,7 @@ html_theme = 'sphinx_rtd_theme'
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = 'rpi-backlight v1.4.0'
+# html_title = 'rpi-backlight v1.6.0'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #

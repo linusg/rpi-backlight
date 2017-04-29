@@ -1,6 +1,15 @@
 Changes
 =======
 
+1.6.0
+-----
+
+- Added ``duration`` parameter to ``set_brightness``
+- ``smooth`` now defaults to ``False``
+- Huge improvements on CLI
+- Fixed renamed function in examples
+- Minor code and readme improvements
+
 1.5.0
 -----
 

@@ -42,7 +42,6 @@ Features
 - Command line interface
 - Graphical user interface
 
-
 Requirements
 ------------
 
@@ -71,7 +70,6 @@ Insert the line::
 
     SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"
 
-
 Usage
 -----
 
@@ -81,12 +79,11 @@ API
 Example in a Python shell::
 
     >>> import rpi_backlight as bl
-    >>> bl.set_brightness(20)
     >>> bl.set_brightness(255)
-    >>> bl.set_brightness(20, smooth=False)
+    >>> bl.set_brightness(20, smooth=True, duration=3)
     >>> bl.get_max_brightness()
     255
-    >>> bl.get_current_brightness()
+    >>> bl.get_actual_brightness()
     20
     >>> bl.get_power()
     True
@@ -97,12 +94,17 @@ Example in a Python shell::
 CLI
 ***
 
-Open a terminal and run ``rpi-backlight`` as root.
+Open a terminal and run ``rpi-backlight`` as root::
 
-**NOTE: The command line interface could change in the future, providing more otions instead of being just an user input application!**
-
-.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/cli.png
-   :alt: Command Line Interface
+    $ rpi-backlight -b 255
+    $ rpi-backlight -b 20 -s -d 3
+    $ rpi-backlight --max-brightness
+    255
+    $ rpi-backlight --actual-brightness
+    20
+    $ rpi-backlight --power
+    True
+    $ rpi-backlight --off
 
 GUI
 ***
@@ -115,13 +117,7 @@ Open a terminal and run ``rpi-backlight-gui`` as root.
 Todo
 ----
 
-- Allow to set the brightness fading duration in ``set_brightness(value)``
-- (*Create a really simple GUI in* ``pygobject`` *to change the display brightness, maybe just a scale/slider*)
-
-  - Most of it done, but not tested across several Python versions and distros
-  - Ensure it runs on the Pi under both Python 2 and 3
-
-I would be happy if you can help shortening this todo-list!
+Yay, this list is currently empty! Feel free to add ideas here.
 
 External Links
 --------------
