@@ -48,7 +48,7 @@ def get_max_brightness():
 
 def get_power():
     """Return wether the display is powered on or not."""
-    return not _get_value("bl_power")
+    return not int(_get_value("bl_power"))
 
 
 def set_brightness(value, smooth=False, duration=1):
