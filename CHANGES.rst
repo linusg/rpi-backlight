@@ -1,10 +1,16 @@
 Changes
 =======
 
+1.7.1
+-----
+
+- Fixed typo in ``CHANGES.rst``
+- Fixed rendering of parameters and return types in the documentation
+
 1.7.0
 -----
 
-- Fixed bug ``in get_power``, which would eventually always return False
+- Fixed bug in ``get_power``, which would eventually always return False
 - Added parameters and return types in docstrings
 
 1.6.0
