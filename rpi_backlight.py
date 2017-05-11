@@ -14,7 +14,7 @@ import sys
 import argparse
 
 __author__ = "Linus Groh"
-__version__ = "1.6.0"
+__version__ = "1.7.0"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 
@@ -37,22 +37,32 @@ def _set_value(name, value):
 
 
 def get_actual_brightness():
-    """Return the actual display brightness."""
+    """Return the actual display brightness.
+    :rtype: int
+    """
     return int(_get_value("actual_brightness"))
 
 
 def get_max_brightness():
-    """Return the maximum display brightness."""
+    """Return the maximum display brightness.
+    :rtype: int
+    """
     return int(_get_value("max_brightness"))
 
 
 def get_power():
-    """Return wether the display is powered on or not."""
+    """Return wether the display is powered on or not.
+    :rtype: bool
+    """
     return not int(_get_value("bl_power"))
 
 
 def set_brightness(value, smooth=False, duration=1):
-    """Set the display brightness."""
+    """Set the display brightness.
+    :param value: Brightness value between 11 and 255
+    :param smooth: Boolean if the brightness should be faded or not
+    :param duration: Fading duration in seconds
+    """
     max_value = get_max_brightness()
     if not isinstance(value, int):
         raise ValueError(
@@ -77,7 +87,9 @@ def set_brightness(value, smooth=False, duration=1):
 
 
 def set_power(on):
-    """Set the display power on or off."""
+    """Set the display power on or off.
+    :param on: Boolean whether the display should be powered on or not
+    """
     try:
         _set_value("bl_power", int(not on))
     except PermissionError:
