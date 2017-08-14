@@ -6,7 +6,7 @@ rpi-backlight
    :alt: Travis CI status
 
 .. image:: https://landscape.io/github/linusg/rpi-backlight/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/linusg/rpi-backlight/master
+   :target: https://landscape.io/github/linusg/rpi-backlight
    :alt: Code health
 
 .. image:: https://img.shields.io/github/issues/linusg/rpi-backlight.svg
