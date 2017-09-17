@@ -1,6 +1,12 @@
 Changes
 =======
 
+1.8.0
+-----
+
+- Fix permission error inconsistency across Python versions
+- Update link to PyPI
+
 1.7.1
 -----
 

@@ -14,7 +14,7 @@ rpi-backlight
    :alt: Issues
    
 .. image:: https://img.shields.io/pypi/v/rpi_backlight.svg
-   :target: https://pypi.python.org/pypi/rpi_backlight
+   :target: https://pypi.org/project/rpi_backlight/
    :alt: Version
    
 .. image:: https://img.shields.io/github/license/mashape/apistatus.svg

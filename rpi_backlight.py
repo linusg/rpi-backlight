@@ -14,12 +14,13 @@ import sys
 import argparse
 
 __author__ = "Linus Groh"
-__version__ = "1.7.1"
+__version__ = "1.8.0"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 
 def _perm_denied():
-    print("This program must be run as root!")
+    print("A permission error occured. You must either run this program as root or change the")
+    print("permissions for the backlight access as described on the GitHub page.")
     sys.exit()
 
 
@@ -27,13 +28,18 @@ def _get_value(name):
     try:
         with open(os.path.join(PATH, name), "r") as f:
             return f.read()
-    except PermissionError:
-        _perm_denied()
+    except (OSError, IOError) as err:
+        if err.errno == 13:
+            _perm_denied()
 
 
 def _set_value(name, value):
-    with open(os.path.join(PATH, name), "w") as f:
-        f.write(str(value))
+    try:
+        with open(os.path.join(PATH, name), "w") as f:
+            f.write(str(value))
+    except (OSError, IOError) as err:
+        if err.errno == 13:
+            _perm_denied()
 
 
 def get_actual_brightness():
@@ -42,6 +48,7 @@ def get_actual_brightness():
     :return: Actual brightness value.
     :rtype: int
     """
+
     return int(_get_value("actual_brightness"))
 
 
@@ -51,6 +58,7 @@ def get_max_brightness():
     :return: Maximum possible brightness value.
     :rtype: int
     """
+
     return int(_get_value("max_brightness"))
 
 
@@ -60,6 +68,7 @@ def get_power():
     :return: Whether the diplay is powered on or not.
     :rtype: bool
     """
+
     return not int(_get_value("bl_power"))
 
 
@@ -70,6 +79,7 @@ def set_brightness(value, smooth=False, duration=1):
     :param smooth: Boolean if the brightness should be faded or not
     :param duration: Fading duration in seconds
     """
+
     max_value = get_max_brightness()
     if not isinstance(value, int):
         raise ValueError(
@@ -98,10 +108,8 @@ def set_power(on):
 
     :param on: Boolean whether the display should be powered on or not
     """
-    try:
-        _set_value("bl_power", int(not on))
-    except PermissionError:
-        _perm_denied()
+
+    _set_value("bl_power", int(not on))
 
 
 def cli():
