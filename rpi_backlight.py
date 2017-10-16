@@ -14,7 +14,7 @@ import sys
 import argparse
 
 __author__ = "Linus Groh"
-__version__ = "1.8.0"
+__version__ = "1.8.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 

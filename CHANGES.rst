@@ -1,6 +1,11 @@
 Changes
 =======
 
+1.8.1
+-----
+
+- Fix float division issue with Python 2
+
 1.8.0
 -----
 
