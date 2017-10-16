@@ -7,7 +7,7 @@ Ships with a CLI, GUI and Python API.
 :Author: Linus Groh
 :License: MIT license
 """
-from __future__ import print_function
+from __future__ import print_function, division
 import time
 import os
 import sys
