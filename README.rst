@@ -78,7 +78,9 @@ Usage
 API
 ***
 
-Example in a Python shell::
+Example in a Python shell:
+
+.. code:: python
 
     >>> import rpi_backlight as bl
     >>> bl.set_brightness(255)
@@ -96,7 +98,9 @@ Example in a Python shell::
 CLI
 ***
 
-Open a terminal and run ``rpi-backlight`` as root::
+Open a terminal and run ``rpi-backlight`` as root:
+
+.. code:: bash
 
     $ rpi-backlight -b 255
     $ rpi-backlight -b 20 -s -d 3
