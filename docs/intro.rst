@@ -19,7 +19,7 @@ Maybe I should add some note here:
    also used for the GitHub repository. The second one is the Python module
    name, used on PyPI and when importing the module.
 
-Currenlty the code has the following features:
+Currently it has the following features:
 
 - Change the display brightness **smoothly** or **abrupt**
 - Set the display power on or off
@@ -29,7 +29,7 @@ Currenlty the code has the following features:
 - Command line interface
 - Graphical user interface
 
-Now, you are able to easily set the brightness of your display from the
-commandline, a GUI and even Python code!
+Now you are able to easily set the brightness of your display from the
+command line, a GUI and even Python code!
 
 .. include:: global.rst
