@@ -1,2 +1,2 @@
-.. _`PyPI`: http://pypi.python.org/pypi/rpi-backlight
+.. _`PyPI`: https://pypi.org/project/rpi_backlight/
 .. _`GitHub`: https://github.com/linusg/rpi_backlight
