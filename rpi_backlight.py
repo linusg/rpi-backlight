@@ -15,7 +15,7 @@ import argparse
 
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
-PATH = "/sys/class/backlight/rpi_backlight/"
+PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
 
 
 def _perm_denied():
@@ -48,8 +48,7 @@ def get_actual_brightness():
     :return: Actual brightness value.
     :rtype: int
     """
-
-    return int(_get_value("actual_brightness"))
+    return int(_get_value("tinker_mcu_bl"))
 
 
 def get_max_brightness():
@@ -59,7 +58,7 @@ def get_max_brightness():
     :rtype: int
     """
 
-    return int(_get_value("max_brightness"))
+    return 255
 
 
 def get_power():
@@ -69,24 +68,23 @@ def get_power():
     :rtype: bool
     """
 
-    return not int(_get_value("bl_power"))
+    return not int(_get_value("tinker_mcu_bl"))
 
 
 def set_brightness(value, smooth=False, duration=1):
     """Set the display brightness.
 
-    :param value: Brightness value between 11 and 255
+    :param value: Brightness value between 0 and 255
     :param smooth: Boolean if the brightness should be faded or not
     :param duration: Fading duration in seconds
     """
-
     max_value = get_max_brightness()
     if not isinstance(value, int):
         raise ValueError(
             "integer required, got '{}'".format(type(value)))
-    if not 10 < value <= max_value:
+    if not -1 < value <= max_value:
         raise ValueError(
-            "value must be between 11 and {}, got {}".format(max_value, value))
+            "value must be between 0 and {}, got {}".format(max_value, value))
 
     if smooth:
         if not isinstance(duration, (int, float)):
@@ -97,10 +95,10 @@ def set_brightness(value, smooth=False, duration=1):
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
 
-            _set_value("brightness", actual)
+            _set_value("tinker_mcu_bl", actual)
             time.sleep(duration/diff)
     else:
-        _set_value("brightness", value)
+        _set_value("tinker_mcu_bl", value)
 
 
 def set_power(on):
@@ -108,9 +106,12 @@ def set_power(on):
 
     :param on: Boolean whether the display should be powered on or not
     """
-
-    _set_value("bl_power", int(not on))
-
+    if int(_get_value("tinker_mcu_bl")) == 0:
+        if on == True:
+            _set_value("tinker_mcu_bl", 255)
+    else:
+        if on == False:
+            _set_value("tinker_mcu_bl", 0)
 
 def cli():
     """Start the command line interface."""
@@ -118,8 +119,8 @@ def cli():
         description="Control power and brightness of the "
                     "official Raspberry Pi 7\" touch display.")
     parser.add_argument("-b", "--brightness", metavar='VALUE',
-                        type=int, choices=range(11, 256),
-                        help="set the display brightness to VALUE (11-255)")
+                        type=int, choices=range(0, 256),
+                        help="set the display brightness to VALUE (0-255)")
     parser.add_argument("-d", "--duration", type=int, default=1,
                         help="fading duration in seconds")
     parser.add_argument("-s", "--smooth", action='store_true',
@@ -138,7 +139,7 @@ def cli():
 
     if all(arg in (False, None) for arg in (
             args.off, args.on, args.brightness, args.max_brightness,
-            args.actual_brightness, args.power)):
+            args.actual_brightness, args.power, args.duration, args.smooth)):
         parser.print_help()
 
     if args.off is True:
@@ -147,7 +148,7 @@ def cli():
     if args.on is True:
         set_power(True)
 
-    if args.brightness:
+    if isinstance(args.brightness, int):
         set_brightness(args.brightness, args.smooth, args.duration)
 
     if args.max_brightness:
@@ -158,7 +159,6 @@ def cli():
 
     if args.power:
         print(get_power())
-
 
 def gui():
     """Start the graphical user interface."""
@@ -172,7 +172,7 @@ def gui():
 
     win = Gtk.Window(title="Set display brightness")
 
-    ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=11, upper=255)
+    ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=0, upper=255)
     scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
 
     def on_scale_changed(s, _):
