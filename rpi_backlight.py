@@ -68,9 +68,9 @@ def get_power():
     :rtype: bool
     """
     if int(_get_value("tinker_mcu_bl")) == 0:
-        return False
+        return "Off"
     else:
-        return True
+        return "On"
 
 
 def set_brightness(value, smooth=False, duration=1):
