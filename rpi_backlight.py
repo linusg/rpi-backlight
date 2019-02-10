@@ -67,8 +67,10 @@ def get_power():
     :return: Whether the diplay is powered on or not.
     :rtype: bool
     """
-
-    return not int(_get_value("tinker_mcu_bl"))
+    if int(_get_value("tinker_mcu_bl")) == 0:
+        return False
+    else:
+        return True
 
 
 def set_brightness(value, smooth=False, duration=1):
