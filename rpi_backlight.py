@@ -115,6 +115,14 @@ def set_power(on):
         if on == False:
             _set_value("tinker_mcu_bl", 0)
 
+def toggle_power():
+    """Toggle the display power on or off.
+    """
+    if int(_get_value("tinker_mcu_bl")) == 0:
+        _set_value("tinker_mcu_bl", 255)
+    else:
+        _set_value("tinker_mcu_bl", 0)
+
 def cli():
     """Start the command line interface."""
     parser = argparse.ArgumentParser(
@@ -131,6 +139,8 @@ def cli():
                         help="set the display powered on")
     parser.add_argument("--off", action='store_true',
                         help="set the display powered off")
+    parser.add_argument("--toggle", action='store_true',
+                        help="toggle the display power")
     parser.add_argument("--max-brightness", action='store_true',
                         help="get the maximum display brightness")
     parser.add_argument("--actual-brightness", action='store_true',
@@ -140,7 +150,7 @@ def cli():
     args = parser.parse_args()
 
     if all(arg in (False, None) for arg in (
-            args.off, args.on, args.brightness, args.max_brightness,
+            args.off, args.on, args.toggle, args.brightness, args.max_brightness,
             args.actual_brightness, args.power, args.duration, args.smooth)):
         parser.print_help()
 
@@ -161,6 +171,9 @@ def cli():
 
     if args.power:
         print(get_power())
+
+    if args.toggle:
+        toggle_power()
 
 def gui():
     """Start the graphical user interface."""
