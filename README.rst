@@ -111,6 +111,8 @@ Open a terminal and run ``rpi-backlight`` as root:
     $ rpi-backlight --power
     True
     $ rpi-backlight --off
+    $ rpi-backlight --on
+    $ rpi-backlight --toggle
 
 GUI
 ***
