@@ -5,10 +5,6 @@ rpi-backlight
    :target: https://travis-ci.org/linusg/rpi-backlight
    :alt: Travis CI status
 
-.. image:: https://landscape.io/github/linusg/rpi-backlight/master/landscape.svg?style=flat
-   :target: https://landscape.io/github/linusg/rpi-backlight
-   :alt: Code health
-
 .. image:: https://img.shields.io/github/issues/linusg/rpi-backlight.svg
    :target: https://github.com/linusg/rpi-backlight/issues
    :alt: Issues
@@ -129,7 +125,6 @@ External Links
 --------------
 
 - `Travis CI: Build tests <https://travis-ci.org/linusg/rpi-backlight>`_
-- `Landscape.io: Code health tests <https://landscape.io/github/linusg/rpi-backlight/master>`_
 - `readthedocs.org: Documentation <https://rpi-backlight.readthedocs.io/en/latest/>`_
 
 License
