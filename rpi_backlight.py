@@ -7,18 +7,19 @@ Ships with a CLI, GUI and Python API.
 :Author: Linus Groh
 :License: MIT license
 """
-from __future__ import print_function, division
-import time
+
+import argparse
 import os
 import sys
-import argparse
+import time
+from typing import Any
 
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 
-def _perm_denied():
+def _perm_denied() -> None:
     print(
         "A permission error occured. You must either run this program as root or change the"
     )
@@ -26,7 +27,7 @@ def _perm_denied():
     sys.exit()
 
 
-def _get_value(name):
+def _get_value(name: str) -> str:
     try:
         with open(os.path.join(PATH, name), "r") as f:
             return f.read()
@@ -35,7 +36,7 @@ def _get_value(name):
             _perm_denied()
 
 
-def _set_value(name, value):
+def _set_value(name: str, value: Any) -> None:
     try:
         with open(os.path.join(PATH, name), "w") as f:
             f.write(str(value))
@@ -44,7 +45,7 @@ def _set_value(name, value):
             _perm_denied()
 
 
-def get_actual_brightness():
+def get_actual_brightness() -> int:
     """Return the actual display brightness.
 
     :return: Actual brightness value.
@@ -54,7 +55,7 @@ def get_actual_brightness():
     return int(_get_value("actual_brightness"))
 
 
-def get_max_brightness():
+def get_max_brightness() -> int:
     """Return the maximum display brightness.
 
     :return: Maximum possible brightness value.
@@ -64,17 +65,18 @@ def get_max_brightness():
     return int(_get_value("max_brightness"))
 
 
-def get_power():
+def get_power() -> bool:
     """Return wether the display is powered on or not.
 
     :return: Whether the diplay is powered on or not.
     :rtype: bool
     """
 
+    # 0 is on, 1 is off
     return not int(_get_value("bl_power"))
 
 
-def set_brightness(value, smooth=False, duration=1):
+def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> None:
     """Set the display brightness.
 
     :param value: Brightness value between 11 and 255
@@ -106,16 +108,17 @@ def set_brightness(value, smooth=False, duration=1):
         _set_value("brightness", value)
 
 
-def set_power(on):
+def set_power(on: bool) -> None:
     """Set the display power on or off.
 
     :param on: Boolean whether the display should be powered on or not
     """
 
+    # 0 is on, 1 is off
     _set_value("bl_power", int(not on))
 
 
-def cli():
+def cli() -> None:
     """Start the command line interface."""
     parser = argparse.ArgumentParser(
         description="Control power and brightness of the "
@@ -189,7 +192,7 @@ def cli():
         print(get_power())
 
 
-def gui():
+def gui() -> None:
     """Start the graphical user interface."""
     try:
         import gi

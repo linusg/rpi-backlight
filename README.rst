@@ -48,7 +48,7 @@ Requirements
 ------------
 
 - A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher** running a Linux-based OS
-- Python 2 or 3
+- Python 3.5 or higher
 - Optional: ``pygobject`` for the GUI, is likely to be already installed on a recent Raspbian
 
 Installation
