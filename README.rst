@@ -56,7 +56,7 @@ Installation
 
 - Install from PyPI using::
 
-    pip install rpi_backlight
+    pip3 install rpi_backlight
     
 - or clone this repository and install by::
 
@@ -64,13 +64,9 @@ Installation
     cd rpi-backlight
     sudo python3 setup.py install
 
-**Note:** You may need to edit the backlight rules file in order to run the code::
+**Note:** You may need to change the backlight rules file in order to run the code::
 
-    sudo nano /etc/udev/rules.d/backlight-permissions.rules
-
-Insert the line::
-
-    SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"
+    echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"' | sudo tee -a /etc/udev/rules.d/backlight-permissions.rules
 
 Usage
 -----
@@ -93,7 +89,7 @@ Example in a Python shell:
     True
     >>> bl.set_power(False)
 
-**NOTE: Code using** ``set_`` **functions of this library has to be run as root, e.g.** ``sudo python file.py`` **, if the permissions for changing the backlight were not changed as described in the installation section!**
+**NOTE: Code using** ``set_`` **functions of this library has to be run as root, e.g.** ``sudo python3 file.py`` **, if the permissions for changing the backlight were not changed as described in the installation section!**
 
 CLI
 ***
