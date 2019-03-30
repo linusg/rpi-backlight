@@ -103,8 +103,7 @@ def set_power(on: bool) -> None:
     _set_value("bl_power", int(not on))
 
 
-def cli() -> None:
-    """Start the command line interface."""
+def _create_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Control power and brightness of the "
         'official Raspberry Pi 7" touch display.'
@@ -143,6 +142,12 @@ def cli() -> None:
     parser.add_argument(
         "--power", action="store_true", help="get the current power state"
     )
+    return parser
+
+
+def cli() -> None:
+    """Start the command line interface."""
+    parser = _create_argument_parser()
     args = parser.parse_args()
 
     if all(
