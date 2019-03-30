@@ -2,7 +2,7 @@ from setuptools import setup
 from rpi_backlight import __version__
 
 
-with open("README.rst", "r") as f:
+with open("README.md", "r") as f:
     long_description = f.read()
 
 setup(
@@ -12,6 +12,7 @@ setup(
     description="A Python module for controlling power and brightness "
     'of the official Raspberry Pi 7" touch display.',
     long_description=long_description,
+    long_description_content_type="text/markdown"
     author="Linus Groh",
     license="MIT",
     author_email="mail@linusgroh.de",
