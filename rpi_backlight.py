@@ -46,32 +46,17 @@ def _set_value(name: str, value: Any) -> None:
 
 
 def get_actual_brightness() -> int:
-    """Return the actual display brightness.
-
-    :return: Actual brightness value.
-    :rtype: int
-    """
-
+    """Return the actual display brightness."""
     return int(_get_value("actual_brightness"))
 
 
 def get_max_brightness() -> int:
-    """Return the maximum display brightness.
-
-    :return: Maximum possible brightness value.
-    :rtype: int
-    """
-
+    """Return the maximum display brightness."""
     return int(_get_value("max_brightness"))
 
 
 def get_power() -> bool:
-    """Return wether the display is powered on or not.
-
-    :return: Whether the diplay is powered on or not.
-    :rtype: bool
-    """
-
+    """Return wether the display is powered on or not."""
     # 0 is on, 1 is off
     return not int(_get_value("bl_power"))
 
