@@ -19,7 +19,9 @@ PATH = "/sys/class/backlight/rpi_backlight/"
 
 
 def _perm_denied():
-    print("A permission error occured. You must either run this program as root or change the")
+    print(
+        "A permission error occured. You must either run this program as root or change the"
+    )
     print("permissions for the backlight access as described on the GitHub page.")
     sys.exit()
 
@@ -82,23 +84,24 @@ def set_brightness(value, smooth=False, duration=1):
 
     max_value = get_max_brightness()
     if not isinstance(value, int):
-        raise ValueError(
-            "integer required, got '{}'".format(type(value)))
+        raise ValueError("integer required, got '{}'".format(type(value)))
     if not 10 < value <= max_value:
         raise ValueError(
-            "value must be between 11 and {}, got {}".format(max_value, value))
+            "value must be between 11 and {}, got {}".format(max_value, value)
+        )
 
     if smooth:
         if not isinstance(duration, (int, float)):
             raise ValueError(
-                "integer or float required, got '{}'".format(type(duration)))
+                "integer or float required, got '{}'".format(type(duration))
+            )
         actual = get_actual_brightness()
-        diff = abs(value-actual)
+        diff = abs(value - actual)
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
 
             _set_value("brightness", actual)
-            time.sleep(duration/diff)
+            time.sleep(duration / diff)
     else:
         _set_value("brightness", value)
 
@@ -116,29 +119,55 @@ def cli():
     """Start the command line interface."""
     parser = argparse.ArgumentParser(
         description="Control power and brightness of the "
-                    "official Raspberry Pi 7\" touch display.")
-    parser.add_argument("-b", "--brightness", metavar='VALUE',
-                        type=int, choices=range(11, 256),
-                        help="set the display brightness to VALUE (11-255)")
-    parser.add_argument("-d", "--duration", type=int, default=1,
-                        help="fading duration in seconds")
-    parser.add_argument("-s", "--smooth", action='store_true',
-                        help="fade the display brightness, see -d/--duration")
-    parser.add_argument("--on", action='store_true',
-                        help="set the display powered on")
-    parser.add_argument("--off", action='store_true',
-                        help="set the display powered off")
-    parser.add_argument("--max-brightness", action='store_true',
-                        help="get the maximum display brightness")
-    parser.add_argument("--actual-brightness", action='store_true',
-                        help="get the actual display brightness")
-    parser.add_argument("--power", action='store_true',
-                        help="get the current power state")
+        'official Raspberry Pi 7" touch display.'
+    )
+    parser.add_argument(
+        "-b",
+        "--brightness",
+        metavar="VALUE",
+        type=int,
+        choices=range(11, 256),
+        help="set the display brightness to VALUE (11-255)",
+    )
+    parser.add_argument(
+        "-d", "--duration", type=int, default=1, help="fading duration in seconds"
+    )
+    parser.add_argument(
+        "-s",
+        "--smooth",
+        action="store_true",
+        help="fade the display brightness, see -d/--duration",
+    )
+    parser.add_argument("--on", action="store_true", help="set the display powered on")
+    parser.add_argument(
+        "--off", action="store_true", help="set the display powered off"
+    )
+    parser.add_argument(
+        "--max-brightness",
+        action="store_true",
+        help="get the maximum display brightness",
+    )
+    parser.add_argument(
+        "--actual-brightness",
+        action="store_true",
+        help="get the actual display brightness",
+    )
+    parser.add_argument(
+        "--power", action="store_true", help="get the current power state"
+    )
     args = parser.parse_args()
 
-    if all(arg in (False, None) for arg in (
-            args.off, args.on, args.brightness, args.max_brightness,
-            args.actual_brightness, args.power)):
+    if all(
+        arg in (False, None)
+        for arg in (
+            args.off,
+            args.on,
+            args.brightness,
+            args.max_brightness,
+            args.actual_brightness,
+            args.power,
+        )
+    ):
         parser.print_help()
 
     if args.off is True:
@@ -164,6 +193,7 @@ def gui():
     """Start the graphical user interface."""
     try:
         import gi
+
         gi.require_version("Gtk", "3.0")
         from gi.repository import Gtk
     except ImportError:

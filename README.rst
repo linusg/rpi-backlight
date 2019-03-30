@@ -8,15 +8,19 @@ rpi-backlight
 .. image:: https://img.shields.io/github/issues/linusg/rpi-backlight.svg
    :target: https://github.com/linusg/rpi-backlight/issues
    :alt: Issues
+
+.. image:: https://img.shields.io/github/license/mashape/apistatus.svg
+   :target: https://github.com/linusg/rpi-backlight/blob/master/LICENSE
+   :alt: License
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/ambv/black
+   :alt: Black
    
 .. image:: https://img.shields.io/pypi/v/rpi_backlight.svg
    :target: https://pypi.org/project/rpi_backlight/
    :alt: Version
    
-.. image:: https://img.shields.io/github/license/mashape/apistatus.svg
-   :target: https://github.com/linusg/rpi-backlight/blob/master/LICENSE
-   :alt: License
-
 .. image:: https://img.shields.io/badge/docs-latest-blue.svg
    :target: https://rpi-backlight.readthedocs.io/en/latest/
    :alt: Documentation
