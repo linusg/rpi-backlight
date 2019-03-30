@@ -11,7 +11,7 @@ Requirements
 - A **Raspberry Pi** (obviously) including a correctly assembled **7" touch
   display v1.1 or higher**. There's no way to get the version programmatically,
   just look on the display's circuit board.
-- Python 2 or 3
+- Python 3.5 or higher
 - Optional: ``pygobject`` for the GUI, is likely to be already installed on a
   recent Raspbian
 
@@ -27,7 +27,7 @@ Installation process
 #. The rpi-backlight library is available on PyPI_, so you can install it
    using ``pip``::
 
-    pip install rpi_backlight
+    pip3 install rpi_backlight
 
    As an alternative you can get the source code from GitHub_ and install it
    using the setup script::
@@ -36,13 +36,9 @@ Installation process
     cd rpi-backlight
     sudo python3 setup.py install
 
-   **Note:** You may need to edit the backlight rules file in order to run the code::
+   **Note:** You may need to update the backlight rules file in order to run the code::
 
-    sudo nano /etc/udev/rules.d/backlight-permissions.rules
-
-   Insert the line::
-
-    SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"
+    echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"' | sudo tee -a /etc/udev/rules.d/backlight-permissions.rules
 
 #. Just check the installation::
 
