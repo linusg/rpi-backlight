@@ -12,7 +12,7 @@ setup(
     description="A Python module for controlling power and brightness "
     'of the official Raspberry Pi 7" touch display.',
     long_description=long_description,
-    long_description_content_type="text/markdown"
+    long_description_content_type="text/markdown",
     author="Linus Groh",
     license="MIT",
     author_email="mail@linusgroh.de",
