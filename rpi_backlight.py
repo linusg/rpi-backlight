@@ -16,7 +16,8 @@ from typing import Any
 
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
-PATH = "/sys/class/backlight/rpi_backlight/"
+PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
+
 
 
 def _perm_denied() -> None:
@@ -47,24 +48,27 @@ def _set_value(name: str, value: Any) -> None:
 
 def get_actual_brightness() -> int:
     """Return the actual display brightness."""
-    return int(_get_value("actual_brightness"))
+    return int(_get_value("tinker_mcu_bl"))
 
 
 def get_max_brightness() -> int:
     """Return the maximum display brightness."""
-    return int(_get_value("max_brightness"))
+    return 255
 
 
 def get_power() -> bool:
     """Return wether the display is powered on or not."""
     # 0 is on, 1 is off
-    return not int(_get_value("bl_power"))
+    if int(_get_value("tinker_mcu_bl")) == 0:
+        return "Off"
+    else:
+        return "On"
 
 
 def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> None:
     """Set the display brightness.
 
-    :param value: Brightness value between 11 and 255
+    :param value: Brightness value between 0 and 255
     :param smooth: Boolean if the brightness should be faded or not
     :param duration: Fading duration in seconds
     """
@@ -72,9 +76,9 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
     max_value = get_max_brightness()
     if not isinstance(value, int):
         raise ValueError("integer required, got '{}'".format(type(value)))
-    if not 10 < value <= max_value:
+    if not -1 < value <= max_value:
         raise ValueError(
-            "value must be between 11 and {}, got {}".format(max_value, value)
+            "value must be between 0 and {}, got {}".format(max_value, value)
         )
 
     if smooth:
@@ -87,10 +91,10 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
 
-            _set_value("brightness", actual)
+            _set_value("tinker_mcu_bl", actual)
             time.sleep(duration / diff)
     else:
-        _set_value("brightness", value)
+         _set_value("tinker_mcu_bl", value)
 
 
 def set_power(on: bool) -> None:
@@ -100,7 +104,20 @@ def set_power(on: bool) -> None:
     """
 
     # 0 is on, 1 is off
-    _set_value("bl_power", int(not on))
+    if int(_get_value("tinker_mcu_bl")) == 0:
+        if on == True:
+            _set_value("tinker_mcu_bl", 255)
+    else:
+        if on == False:
+            _set_value("tinker_mcu_bl", 0)
+
+def toggle_power():
+    """Toggle the display power on or off.
+    """
+    if int(_get_value("tinker_mcu_bl")) == 0:
+        _set_value("tinker_mcu_bl", 255)
+    else:
+        _set_value("tinker_mcu_bl", 0)
 
 
 def _create_argument_parser() -> argparse.ArgumentParser:
@@ -113,8 +130,8 @@ def _create_argument_parser() -> argparse.ArgumentParser:
         "--brightness",
         metavar="VALUE",
         type=int,
-        choices=range(11, 256),
-        help="set the display brightness to VALUE (11-255)",
+        choices=range(0, 256),
+        help="set the display brightness to VALUE (0-255)",
     )
     parser.add_argument(
         "-d", "--duration", type=int, default=1, help="fading duration in seconds"
@@ -129,6 +146,8 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--off", action="store_true", help="set the display powered off"
     )
+    parser.add_argument("--toggle", action='store_true',
+                        help="toggle the display power")
     parser.add_argument(
         "--max-brightness",
         action="store_true",
@@ -155,10 +174,13 @@ def cli() -> None:
         for arg in (
             args.off,
             args.on,
+            args.toggle,
             args.brightness,
             args.max_brightness,
             args.actual_brightness,
             args.power,
+            args.duration, 
+            args.smooth,
         )
     ):
         parser.print_help()
@@ -169,7 +191,7 @@ def cli() -> None:
     if args.on is True:
         set_power(True)
 
-    if args.brightness:
+    if isinstance(args.brightness, int):
         set_brightness(args.brightness, args.smooth, args.duration)
 
     if args.max_brightness:
@@ -180,6 +202,9 @@ def cli() -> None:
 
     if args.power:
         print(get_power())
+        
+    if args.toggle:
+        toggle_power()
 
 
 def gui() -> None:
@@ -195,7 +220,7 @@ def gui() -> None:
 
     win = Gtk.Window(title="Set display brightness")
 
-    ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=11, upper=255)
+    ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=0, upper=255)
     scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
 
     def on_scale_changed(s, _):
