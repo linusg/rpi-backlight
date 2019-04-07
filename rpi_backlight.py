@@ -210,10 +210,12 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 
 def init() -> None:
     global MODE, PATH
-    if 'Raspberry Pi' in open('/sys/firmware/devicetree/base/model').read():
+    with open("/sys/firmware/devicetree/base/model") as f:
+        model_information = f.read()
+    if "Raspberry Pi" in model_information:
         PATH = "/sys/class/backlight/rpi_backlight/"
         MODE = "MODE_RPI"
-    elif 'Tinker Board' in open('/sys/firmware/devicetree/base/model').read():
+    elif "Tinker Board" in model_information:
         PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
         MODE = "MODE_TINKERBOARD"
     else:
