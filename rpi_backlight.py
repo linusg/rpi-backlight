@@ -64,7 +64,7 @@ def get_max_brightness() -> int:
     if mode == "MODE_TINKERBOARD":
         return 255
     elif mode == "MODE_RPI":
-        return int(_get_value("actual_brightness"))
+        return int(_get_value("max_brightness"))
     
 
 def get_power() -> bool:
