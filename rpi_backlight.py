@@ -17,9 +17,9 @@ from typing import Any
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
-MODE_TINKERBOARD = "TINKERBOARD"
-MODE_RPI = "RPI"
-
+MODE_TINKERBOARD = "MODE_TINKERBOARD"
+MODE_RPI = "MODE_RPI"
+MODE = MODE_RPI
 
 
 def _perm_denied() -> None:
@@ -67,7 +67,7 @@ def get_max_brightness() -> int:
 
 
 def get_power() -> bool:
-    """Return wether the display is powered on or not."""
+    """Return whether the display is powered on or not."""
     # 0 is on, 1 is off
     if MODE == MODE_TINKERBOARD:
         return int(_get_value("tinker_mcu_bl")) == 0
@@ -214,10 +214,10 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 def init() -> None:
     if 'Raspberry Pi' in open('/sys/firmware/devicetree/base/model').read():
         PATH = "/sys/class/backlight/rpi_backlight/"
-        MODE = "PI"
+        MODE = "MODE_RPI"
     elif 'Tinker Board' in open('/sys/firmware/devicetree/base/model').read():
         PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
-        MODE = "TINKERBOARD"
+        MODE = "MODE_TINKERBOARD"
     else:
         print("Error: Could not detect OS.")
         sys.exit()
