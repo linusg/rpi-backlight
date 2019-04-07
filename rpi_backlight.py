@@ -16,8 +16,8 @@ from typing import Any
 
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
-path = "/sys/class/backlight/rpi_backlight/"
-mode = "MODE_RPI"
+PATH = "/sys/class/backlight/rpi_backlight/"
+MODE = "MODE_RPI"
 
 
 def _perm_denied() -> None:
@@ -30,7 +30,7 @@ def _perm_denied() -> None:
 
 def _get_value(name: str) -> str:
     try:
-        with open(os.path.join(path, name), "r") as f:
+        with open(os.path.join(PATH, name), "r") as f:
             return f.read()
     except (OSError, IOError) as err:
         if err.errno == 13:
@@ -39,7 +39,7 @@ def _get_value(name: str) -> str:
 
 def _set_value(name: str, value: Any) -> None:
     try:
-        with open(os.path.join(path, name), "w") as f:
+        with open(os.path.join(PATH, name), "w") as f:
             f.write(str(value))
     except (OSError, IOError) as err:
         if err.errno == 13:
@@ -47,35 +47,35 @@ def _set_value(name: str, value: Any) -> None:
 
 
 def set_brightness_value(value: Any) -> None:
-    if mode == "MODE_TINKERBOARD":
+    if MODE == "MODE_TINKERBOARD":
         _set_value("tinker_mcu_bl", value)
-    elif mode == "MODE_RPI":
+    elif MODE == "MODE_RPI":
         _set_value("bl_power", value)
 
 def get_actual_brightness() -> int:
     """Return the actual display brightness."""
-    if mode == "MODE_TINKERBOARD":
+    if MODE == "MODE_TINKERBOARD":
         return int(_get_value("tinker_mcu_bl"))
-    elif mode == "MODE_RPI":
+    elif MODE == "MODE_RPI":
         return int(_get_value("actual_brightness"))
 
 def get_max_brightness() -> int:
     """Return the maximum display brightness."""
-    if mode == "MODE_TINKERBOARD":
+    if MODE == "MODE_TINKERBOARD":
         return 255
-    elif mode == "MODE_RPI":
+    elif MODE == "MODE_RPI":
         return int(_get_value("max_brightness"))
     
 
 def get_power() -> bool:
     """Return whether the display is powered on or not."""
     # 0 is on, 1 is off
-    if mode == "MODE_TINKERBOARD":
+    if MODE == "MODE_TINKERBOARD":
         if get_actual_brightness():
             return True
         else:
             return False
-    elif mode == "MODE_RPI":
+    elif MODE == "MODE_RPI":
         return not int(_get_value("bl_power"))
 
 
@@ -113,7 +113,7 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
     :param on: Boolean whether the display should be powered on or not
     """
     # 0 is on, 1 is off
-    if mode == "MODE_RPI":
+    if MODE == "MODE_RPI":
         _set_value("bl_power", int(not on))
     else:
         if on:
@@ -137,9 +137,9 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
 
 def toggle_power(smooth: bool = True, duration: float = 1) -> None:
     """Toggle the display power on or off."""
-    if mode == "MODE_RPI":
+    if MODE == "MODE_RPI":
         set_power(not get_power())
-    elif mode == "MODE_TINKERBOARD":
+    elif MODE == "MODE_TINKERBOARD":
         if int(_get_value("tinker_mcu_bl")) == 0:
             value = 255
         else:
@@ -209,13 +209,13 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     return parser
 
 def init() -> None:
-    global mode, path
+    global MODE, PATH
     if 'Raspberry Pi' in open('/sys/firmware/devicetree/base/model').read():
-        path = "/sys/class/backlight/rpi_backlight/"
-        mode = "MODE_RPI"
+        PATH = "/sys/class/backlight/rpi_backlight/"
+        MODE = "MODE_RPI"
     elif 'Tinker Board' in open('/sys/firmware/devicetree/base/model').read():
-        path = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
-        mode = "MODE_TINKERBOARD"
+        PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
+        MODE = "MODE_TINKERBOARD"
     else:
         raise ValueError("Error: unsupport OS, or OS could not be detected!")
         sys.exit()
