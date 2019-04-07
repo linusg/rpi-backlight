@@ -118,16 +118,12 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
     :param on: Boolean whether the display should be powered on or not
     """
     # 0 is on, 1 is off
-    if mode == "MODE_TINKERBOARD":
-        if on:
-            value = 255
-        else:
+    if on:
+        value = 255
+    else: 
+        if mode == "MODE_TINKERBOARD":
             value = 0
-    elif mode == "MODE_RPI":
-        #To be reviewed by LinusG
-        if on:
-            value = 255
-        else:
+        elif mode == "MODE_RPI":
             value = 10
     if smooth:
         if not isinstance(duration, (int, float)):
@@ -141,10 +137,13 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
             set_brightness_value(actual)
             time.sleep(duration / diff)
     else:
-        if get_brightness_value() == 0:
-            set_brightness_value(255)
-        else:
-            set_brightness_value(0)
+        if mode == "MODE_TINKERBOARD":
+            if on:
+                set_brightness_value(value)
+            else:
+                set_brightness_value(value)
+        elif mode == "MODE_RPI":
+            _set_value("bl_power", int(not on))
 
 def toggle_power(smooth: bool = True, duration: float = 1) -> None:
     """Toggle the display power on or off."""
@@ -171,9 +170,9 @@ def toggle_power(smooth: bool = True, duration: float = 1) -> None:
             time.sleep(duration / diff)
     else:
         if get_brightness_value() == 0:
-            set_brightness_value(255)
+            set_brightness_value(value)
         else:
-            set_brightness_value(0)
+            set_brightness_value(value)
 
 def _create_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
