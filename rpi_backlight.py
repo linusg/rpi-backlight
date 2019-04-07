@@ -16,7 +16,8 @@ from typing import Any
 
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
-PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
+PATH = "/sys/class/backlight/rpi_backlight/"
+MODE = "PI"
 
 
 
@@ -48,18 +49,30 @@ def _set_value(name: str, value: Any) -> None:
 
 def get_actual_brightness() -> int:
     """Return the actual display brightness."""
-    return int(_get_value("tinker_mcu_bl"))
+    if MODE=="TINKERBOARD":
+        return int(_get_value("tinker_mcu_bl"))
+    elif MODE=="PI":
+        return int(_get_value("actual_brightness"))
+
 
 
 def get_max_brightness() -> int:
     """Return the maximum display brightness."""
-    return 255
+    if MODE=="TINKERBOARD":
+        255
+    elif MODE=="PI":
+        return int(_get_value("actual_brightness"))
+    
 
 
 def get_power() -> bool:
     """Return wether the display is powered on or not."""
     # 0 is on, 1 is off
-    return int(_get_value("tinker_mcu_bl")) == 0
+    if MODE=="TINKERBOARD":
+        return int(_get_value("tinker_mcu_bl")) == 0
+    elif MODE=="PI":
+        return not int(_get_value("bl_power"))
+
 
 
 def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> None:
@@ -88,10 +101,17 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
 
+        if MODE=="TINKERBOARD":
             _set_value("tinker_mcu_bl", actual)
+        elif MODE=="PI":
+            _set_value("brightness", actual)
             time.sleep(duration / diff)
     else:
-        _set_value("tinker_mcu_bl", value)
+        if MODE=="TINKERBOARD":
+            _set_value("brightness", value)
+        elif MODE=="PI":
+            _set_value("bl_power", int(not on))
+        
 
 
 def set_power(on: bool) -> None:
@@ -101,19 +121,28 @@ def set_power(on: bool) -> None:
     """
 
     # 0 is on, 1 is off
-    if int(_get_value("tinker_mcu_bl")) == 0:
-        if on == True:
-            _set_value("tinker_mcu_bl", 255)
-    else:
-        if on == False:
-            _set_value("tinker_mcu_bl", 0)
+    if MODE=="TINKERBOARD":
+        if int(_get_value("tinker_mcu_bl")) == 0:
+            if on == True:
+               _set_value("tinker_mcu_bl", 255)
+        else:
+            if on == False:
+                _set_value("tinker_mcu_bl", 0)
+    elif MODE=="PI":
+        _set_value("bl_power", int(not on))
+
+
 
 def toggle_power() -> None:
     """Toggle the display power on or off."""
-    if int(_get_value("tinker_mcu_bl")) == 0:
-        _set_value("tinker_mcu_bl", 255)
-    else:
-        _set_value("tinker_mcu_bl", 0)
+    if MODE=="TINKERBOARD":
+        if int(_get_value("tinker_mcu_bl")) == 0:
+            _set_value("tinker_mcu_bl", 255)
+        else:
+            _set_value("tinker_mcu_bl", 0)
+    elif MODE=="PI":
+        #To be filled in by @Linusg
+
 
 
 def _create_argument_parser() -> argparse.ArgumentParser:
@@ -121,7 +150,8 @@ def _create_argument_parser() -> argparse.ArgumentParser:
         description="Control power and brightness of the "
         'official Raspberry Pi 7" touch display.'
     )
-    parser.add_argument(
+    if MODE=="TINKERBOARD":
+        parser.add_argument(
         "-b",
         "--brightness",
         metavar="VALUE",
@@ -129,6 +159,17 @@ def _create_argument_parser() -> argparse.ArgumentParser:
         choices=range(0, 256),
         help="set the display brightness to VALUE (0-255)",
     )
+
+    elif MODE=="PI":
+        parser.add_argument(
+        "-b",
+        "--brightness",
+        metavar="VALUE",
+        type=int,
+        choices=range(11, 256),
+        help="set the display brightness to VALUE (11-255)",
+    )
+
     parser.add_argument(
         "-d", "--duration", type=int, default=1, help="fading duration in seconds"
     )
@@ -163,9 +204,20 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     )
     return parser
 
+def init() -> None:
+    if 'Raspberry Pi' in open('/sys/firmware/devicetree/base/model').read():
+        PATH = "/sys/class/backlight/rpi_backlight/"
+        MODE = "PI"
+    elif 'Tinker Board' in open('/sys/firmware/devicetree/base/model').read():
+        PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
+        MODE = "TINKERBOARD"
+    else:
+        print("Error: Could not detect OS.")
+        sys.exit()
 
 def cli() -> None:
     """Start the command line interface."""
+    init()
     parser = _create_argument_parser()
     args = parser.parse_args()
 
@@ -207,6 +259,7 @@ def cli() -> None:
 
 def gui() -> None:
     """Start the graphical user interface."""
+    init()
     try:
         import gi
 
@@ -218,7 +271,10 @@ def gui() -> None:
 
     win = Gtk.Window(title="Set display brightness")
 
-    ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=0, upper=255)
+    if MODE=="TINKERBOARD":
+        ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=0, upper=255)
+    elif MODE=="PI":
+        ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=11, upper=255)
     scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
 
     def on_scale_changed(s, _):
