@@ -149,9 +149,8 @@ def toggle_power() -> None:
         else:
             _set_value("tinker_mcu_bl", 0)
     elif MODE == MODE_RPI:
-        #To be filled in by @Linusg
-
-
+        #To be reviewed in by @Linusg
+        set_power(not get_power())
 
 def _create_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
