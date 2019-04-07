@@ -16,8 +16,8 @@ from typing import Any
 
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
-path = ""
-mode = ""
+path = "/sys/class/backlight/rpi_backlight/"
+mode = "MODE_RPI"
 
 
 def _perm_denied() -> None:
