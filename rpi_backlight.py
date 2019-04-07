@@ -217,7 +217,7 @@ def init() -> None:
         PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
         MODE = "MODE_TINKERBOARD"
     else:
-        raise ValueError("Error: unsupport OS, or OS could not be detected!")
+        raise ValueError("unsupported OS, or OS could not be detected!")
         sys.exit()
 
 def cli() -> None:
