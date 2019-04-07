@@ -125,14 +125,7 @@ def set_power(on: bool) -> None:
 
 def toggle_power() -> None:
     """Toggle the display power on or off."""
-    if MODE == "MODE_RPI":
-        set_power(not get_power())
-    elif MODE == "MODE_TINKERBOARD":
-        if int(_get_value("tinker_mcu_bl")) == 0:
-            value = 255
-        else:
-            value = 0
-        set_brightness_value(value)
+    set_power(not get_power())
 
 def _create_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
