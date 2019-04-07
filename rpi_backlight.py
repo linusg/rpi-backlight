@@ -52,7 +52,7 @@ def set_brightness_value(value: Any) -> None:
     elif mode == "MODE_RPI":
         _set_value("bl_power", value)
 
-def get_brightness_value() -> int:
+def get_actual_brightness() -> int:
     """Return the actual display brightness."""
     if mode == "MODE_TINKERBOARD":
         return int(_get_value("tinker_mcu_bl"))
@@ -71,7 +71,10 @@ def get_power() -> bool:
     """Return whether the display is powered on or not."""
     # 0 is on, 1 is off
     if mode == "MODE_TINKERBOARD":
-        return not int(_get_value("tinker_mcu_bl"))
+        if get_actual_brightness():
+            return True
+        else:
+            return False
     elif mode == "MODE_RPI":
         return not int(_get_value("bl_power"))
 
@@ -86,24 +89,16 @@ def set_brightness(value: int, smooth: bool = True, duration: float = 1) -> None
     max_value = get_max_brightness()
     if not isinstance(value, int):
         raise ValueError("integer required, got '{}'".format(type(value)))
-
-    if mode == "MODE_TINKERBOARD":
-            if not -1 < value <= max_value:
-                raise ValueError(
-                    "value must be between 0 and {}, got {}".format(max_value, value)
-                )
-    elif mode == "MODE_RPI":
-        if not -10 < value <= max_value:
-                raise ValueError(
-                    "value must be between 0 and {}, got {}".format(max_value, value)
-                )
-
+    if not -1 < value <= max_value:
+        raise ValueError(
+            "value must be between 0 and {}, got {}".format(max_value, value)
+        )
     if smooth:
         if not isinstance(duration, (int, float)):
             raise ValueError(
                 "integer or float required, got '{}'".format(type(duration))
             )
-        actual = get_brightness_value()
+        actual = get_actual_brightness()
         diff = abs(value - actual)
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
@@ -130,7 +125,7 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
                 raise ValueError(
                     "integer or float required, got '{}'".format(type(duration))
                 )
-            actual = get_brightness_value()
+            actual = get_actual_brightness()
             diff = abs(value - actual)
             while actual != value:
                 actual = actual - 1 if actual > value else actual + 1
@@ -149,42 +144,33 @@ def toggle_power(smooth: bool = True, duration: float = 1) -> None:
             value = 255
         else:
             value = 0
-    if smooth:
-        if not isinstance(duration, (int, float)):
-            raise ValueError(
-                "integer or float required, got '{}'".format(type(duration))
-            )
-        actual = get_brightness_value()
-        diff = abs(value - actual)
-        while actual != value:
-            actual = actual - 1 if actual > value else actual + 1
-            set_brightness_value(actual)
-            time.sleep(duration / diff)
-    else:
-        set_brightness_value(value)
+        if smooth:
+            if not isinstance(duration, (int, float)):
+                raise ValueError(
+                    "integer or float required, got '{}'".format(type(duration))
+                )
+            actual = get_actual_brightness()
+            diff = abs(value - actual)
+            while actual != value:
+                actual = actual - 1 if actual > value else actual + 1
+                set_brightness_value(actual)
+                time.sleep(duration / diff)
+        else:
+            set_brightness_value(value)
 
 def _create_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Control power and brightness of the "
         'official Raspberry Pi 7" touch display.'
     )
-    if mode == "MODE_TINKERBOARD":
-        parser.add_argument(
+
+    parser.add_argument(
         "-b",
         "--brightness",
         metavar="VALUE",
         type=int,
         choices=range(0, 256),
         help="set the display brightness to VALUE (0-255)",
-    )
-    elif mode == "MODE_RPI":
-        parser.add_argument(
-        "-b",
-        "--brightness",
-        metavar="VALUE",
-        type=int,
-        choices=range(11, 256),
-        help="set the display brightness to VALUE (11-255)",
     )
 
     parser.add_argument(
@@ -231,7 +217,7 @@ def init() -> None:
         path = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
         mode = "MODE_TINKERBOARD"
     else:
-        print("Error: Could not detect OS.")
+        raise ValueError("Error: unsupport OS, or OS could not be detected!")
         sys.exit()
 
 def cli() -> None:
@@ -268,7 +254,7 @@ def cli() -> None:
         print(get_max_brightness())
 
     if args.actual_brightness:
-        print(get_brightness_value())
+        print(get_actual_brightness())
 
     if args.power:
         print(get_power())
@@ -290,11 +276,7 @@ def gui() -> None:
         sys.exit()
 
     win = Gtk.Window(title="Set display brightness")
-
-    if mode == "MODE_TINKERBOARD":
-        ad1 = Gtk.Adjustment(value=get_brightness_value(), lower=0, upper=255)
-    elif mode == "MODE_RPI":
-        ad1 = Gtk.Adjustment(value=get_brightness_value(), lower=11, upper=255)
+    ad1 = Gtk.Adjustment(value=get_actual_brightness(), lower=0, upper=255)
     scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=ad1)
 
     def on_scale_changed(s, _):
