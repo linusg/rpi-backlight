@@ -118,40 +118,38 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
     :param on: Boolean whether the display should be powered on or not
     """
     # 0 is on, 1 is off
-    if on:
-        value = 255
-    else: 
-        if mode == "MODE_TINKERBOARD":
-            value = 0
-        elif mode == "MODE_RPI":
-            value = 10
-    if smooth:
-        if not isinstance(duration, (int, float)):
-            raise ValueError(
-                "integer or float required, got '{}'".format(type(duration))
-            )
-        actual = get_brightness_value()
-        diff = abs(value - actual)
-        while actual != value:
-            actual = actual - 1 if actual > value else actual + 1
-            set_brightness_value(actual)
-            time.sleep(duration / diff)
+    if mode == "MODE_RPI":
+        _set_value("bl_power", int(not on))
     else:
-        if mode == "MODE_TINKERBOARD":
+        if on:
+            value = 255
+        else: 
+            value = 0
+        if smooth:
+            if not isinstance(duration, (int, float)):
+                raise ValueError(
+                    "integer or float required, got '{}'".format(type(duration))
+                )
+            actual = get_brightness_value()
+            diff = abs(value - actual)
+            while actual != value:
+                actual = actual - 1 if actual > value else actual + 1
+                set_brightness_value(actual)
+                time.sleep(duration / diff)
+        else:
             set_brightness_value(value)
-        elif mode == "MODE_RPI":
-            _set_value("bl_power", int(not on))
+            
 
 def toggle_power(smooth: bool = True, duration: float = 1) -> None:
     """Toggle the display power on or off."""
     if mode == "MODE_TINKERBOARD":
-            if int(_get_value("tinker_mcu_bl")) == 0:
-                value = 255
-            else:
-                value = 0
+        if int(_get_value("tinker_mcu_bl")) == 0:
+            value = 255
+        else:
+            value = 0
     elif mode == "MODE_RPI":
         if int(_get_value("actual_brightness")) == 0:
-                value = 255
+            value = 255
         else:
             value = 10
     if smooth:
