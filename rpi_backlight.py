@@ -138,10 +138,7 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
             time.sleep(duration / diff)
     else:
         if mode == "MODE_TINKERBOARD":
-            if on:
-                set_brightness_value(value)
-            else:
-                set_brightness_value(value)
+            set_brightness_value(value)
         elif mode == "MODE_RPI":
             _set_value("bl_power", int(not on))
 
@@ -169,10 +166,7 @@ def toggle_power(smooth: bool = True, duration: float = 1) -> None:
             set_brightness_value(actual)
             time.sleep(duration / diff)
     else:
-        if get_brightness_value() == 0:
-            set_brightness_value(value)
-        else:
-            set_brightness_value(value)
+        set_brightness_value(value)
 
 def _create_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
