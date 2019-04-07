@@ -60,9 +60,9 @@ def get_power() -> bool:
     """Return wether the display is powered on or not."""
     # 0 is on, 1 is off
     if int(_get_value("tinker_mcu_bl")) == 0:
-        return 1
+        return True
     else:
-        return 0
+        return False
 
 
 def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> None:
