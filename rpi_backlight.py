@@ -46,7 +46,7 @@ def _set_value(name: str, value: Any) -> None:
             _perm_denied()
 
 
-def set_brightness_value(value: Any) -> None:
+def set_brightness_value(value: int) -> None:
     if MODE == "MODE_TINKERBOARD":
         _set_value("tinker_mcu_bl", value)
     elif MODE == "MODE_RPI":
@@ -108,7 +108,7 @@ def set_brightness(value: int, smooth: bool = True, duration: float = 1) -> None
         set_brightness_value(value)
 
 
-def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
+def set_power(on: bool, smooth: bool = False, duration: float = 1) -> None:
     """Set the display power on or off.
     :param on: Boolean whether the display should be powered on or not
     """
@@ -135,7 +135,7 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
             set_brightness_value(value)
 
 
-def toggle_power(smooth: bool = True, duration: float = 1) -> None:
+def toggle_power(smooth: bool = False, duration: float = 1) -> None:
     """Toggle the display power on or off."""
     if MODE == "MODE_RPI":
         set_power(not get_power())
@@ -179,7 +179,6 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-s",
         "--smooth",
-        default=False,
         action="store_true",
         help="fade the display brightness, see -d/--duration",
     )
@@ -189,6 +188,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--toggle",
+        default=False,
         action='store_true',
         help="toggle the display power",
     )
