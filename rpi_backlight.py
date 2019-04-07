@@ -86,10 +86,17 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
     max_value = get_max_brightness()
     if not isinstance(value, int):
         raise ValueError("integer required, got '{}'".format(type(value)))
-    if not -1 < value <= max_value:
-        raise ValueError(
-            "value must be between 0 and {}, got {}".format(max_value, value)
-        )
+
+    if MODE=="TINKERBOARD":
+            if not -1 < value <= max_value:
+                raise ValueError(
+                    "value must be between 0 and {}, got {}".format(max_value, value)
+                )
+    elif MODE=="PI":
+        if not -10 < value <= max_value:
+                raise ValueError(
+                    "value must be between 0 and {}, got {}".format(max_value, value)
+                )
 
     if smooth:
         if not isinstance(duration, (int, float)):
