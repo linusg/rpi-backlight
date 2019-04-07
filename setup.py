@@ -227,7 +227,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-s",
         "--smooth",
-        default=True,
+        default=False,
         action="store_true",
         help="fade the display brightness, see -d/--duration",
     )
