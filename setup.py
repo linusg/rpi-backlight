@@ -73,8 +73,7 @@ def get_power() -> bool:
         return not int(_get_value("bl_power"))
 
 
-
-def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> None:
+def set_brightness(value: int, smooth: bool = True, duration: float = 1) -> None:
     """Set the display brightness.
 
     :param value: Brightness value between 0 and 255
@@ -105,10 +104,8 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
         diff = abs(value - actual)
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
-
             if mode == "MODE_TINKERBOARD":
                 _set_value("tinker_mcu_bl", actual)
-                time.sleep(duration / diff)
             elif mode == "MODE_RPI":
                 _set_value("brightness", actual)
             time.sleep(duration / diff)
@@ -116,37 +113,90 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
         if mode == "MODE_TINKERBOARD":
             _set_value("tinker_mcu_bl", value)
         elif mode == "MODE_RPI":
-            _set_value("bl_power", int(not on))
+            _set_value("bl_power", value)
 
-def set_power(on: bool) -> None:
+def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
     """Set the display power on or off.
-
     :param on: Boolean whether the display should be powered on or not
     """
-
     # 0 is on, 1 is off
     if mode == "MODE_TINKERBOARD":
-        if int(_get_value("tinker_mcu_bl")) == 0:
-            if on:
-               _set_value("tinker_mcu_bl", 255)
+        if on:
+            value = 255
         else:
-            if not on:
-                _set_value("tinker_mcu_bl", 0)
+            value = 0
     elif mode == "MODE_RPI":
-        _set_value("bl_power", int(not on))
+        #To be reviewed by LinusG
+        if on:
+            value = 255
+        else:
+            value = 10
+    if smooth:
+        if not isinstance(duration, (int, float)):
+            raise ValueError(
+                "integer or float required, got '{}'".format(type(duration))
+            )
+        actual = get_actual_brightness()
+        diff = abs(value - actual)
+        while actual != value:
+            actual = actual - 1 if actual > value else actual + 1
 
+            if mode == "MODE_TINKERBOARD":
+                _set_value("tinker_mcu_bl", actual)
+            elif mode == "MODE_RPI":
+                _set_value("brightness", actual)
+            time.sleep(duration / diff)
+    else:
+        if mode == "MODE_TINKERBOARD":
+            if int(_get_value("tinker_mcu_bl")) == 0:
+                _set_value("tinker_mcu_bl", 255)
+            else:
+                _set_value("tinker_mcu_bl", 0)
+        elif mode == "MODE_RPI":
+            if int(_get_value("actual_brightness")) == 0:
+                _set_value("bl_power", 255)
+            else:
+                _set_value("bl_power", 0)
 
-
-def toggle_power() -> None:
+def toggle_power(smooth: bool = True, duration: float = 1) -> None:
     """Toggle the display power on or off."""
     if mode == "MODE_TINKERBOARD":
-        if int(_get_value("tinker_mcu_bl")) == 0:
-            _set_value("tinker_mcu_bl", 255)
-        else:
-            _set_value("tinker_mcu_bl", 0)
+            if int(_get_value("tinker_mcu_bl")) == 0:
+                value = 255
+            else:
+                value = 0
     elif mode == "MODE_RPI":
-        #To be reviewed in by @Linusg
-        set_power(not get_power())
+        if int(_get_value("actual_brightness")) == 0:
+                value = 255
+        else:
+            value = 10
+    if smooth:
+        if not isinstance(duration, (int, float)):
+            raise ValueError(
+                "integer or float required, got '{}'".format(type(duration))
+            )
+        actual = get_actual_brightness()
+        diff = abs(value - actual)
+        while actual != value:
+            actual = actual - 1 if actual > value else actual + 1
+
+            if mode == "MODE_TINKERBOARD":
+                _set_value("tinker_mcu_bl", actual)
+            elif mode == "MODE_RPI":
+                _set_value("brightness", actual)
+            time.sleep(duration / diff)
+    else:
+        if mode == "MODE_TINKERBOARD":
+            if int(_get_value("tinker_mcu_bl")) == 0:
+                _set_value("tinker_mcu_bl", 255)
+            else:
+                _set_value("tinker_mcu_bl", 0)
+        elif mode == "MODE_RPI":
+            #To be reviewed by LinusG
+            if int(_get_value("actual_brightness")) == 0:
+                _set_value("bl_power", 255)
+            else:
+                _set_value("bl_power", 0)
 
 def _create_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -178,6 +228,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-s",
         "--smooth",
+        default=True,
         action="store_true",
         help="fade the display brightness, see -d/--duration",
     )
@@ -234,15 +285,17 @@ def cli() -> None:
             args.max_brightness,
             args.actual_brightness,
             args.power,
+            args.duration, 
+            args.smooth,
         )
     ):
         parser.print_help()
 
     if args.off:
-        set_power(False)
+        set_power(False, args.smooth, args.duration)
 
     if args.on:
-        set_power(True)
+        set_power(True, args.smooth, args.duration)
 
     if isinstance(args.brightness, int):
         set_brightness(args.brightness, args.smooth, args.duration)
@@ -257,7 +310,7 @@ def cli() -> None:
         print(get_power())
         
     if args.toggle:
-        toggle_power()
+        toggle_power(args.smooth, args.duration)
 
 
 def gui() -> None:
