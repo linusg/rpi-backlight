@@ -192,7 +192,6 @@ def toggle_power(smooth: bool = True, duration: float = 1) -> None:
             else:
                 _set_value("tinker_mcu_bl", 0)
         elif mode == "MODE_RPI":
-            #To be reviewed by LinusG
             if int(_get_value("actual_brightness")) == 0:
                 _set_value("bl_power", 255)
             else:
