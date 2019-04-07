@@ -22,7 +22,8 @@
 
 - A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher** running a Linux-based OS
 - Python 3.5 or higher
-- ``gir1.2-gtk-3.0`` for the GUI, install via sudo apt-get install gir1.2-gtk-3.0
+- For Raspberry Pi: Optional: `pygobject` for the GUI, is likely to be already installed on a recent Raspbian
+- For Tinkerboard: ``gir1.2-gtk-3.0`` for the GUI, install via sudo apt-get install gir1.2-gtk-3.0
 
 ## Installation
 
@@ -41,7 +42,11 @@
   ```
 
 **Note:** You may need to change the backlight rules file in order to run the code:
-
+- For Raspberry Pi:
+```console
+$ echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"' | sudo tee -a /etc/udev/rules.d/backlight-permissions.rules
+```
+- For Tinkerboard: 
 ```console
 $ echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/devices/platform/ff150000.i2c/i2c-3/3-0045/tinker_mcu_bl"' | sudo tee -a /etc/udev/rules.d/backlight-permissions.rules
 ```
