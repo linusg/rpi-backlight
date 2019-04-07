@@ -179,8 +179,6 @@ def cli() -> None:
             args.max_brightness,
             args.actual_brightness,
             args.power,
-            args.duration, 
-            args.smooth,
         )
     ):
         parser.print_help()
