@@ -146,8 +146,12 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--off", action="store_true", help="set the display powered off"
     )
-    parser.add_argument("--toggle", action='store_true',
-                        help="toggle the display power")
+    parser.add_argument(
+        "--toggle",
+        action='store_true',
+        help="toggle the display power",
+    )
+    
     parser.add_argument(
         "--max-brightness",
         action="store_true",
