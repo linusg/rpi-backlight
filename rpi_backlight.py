@@ -94,7 +94,7 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
             _set_value("tinker_mcu_bl", actual)
             time.sleep(duration / diff)
     else:
-         _set_value("tinker_mcu_bl", value)
+        _set_value("tinker_mcu_bl", value)
 
 
 def set_power(on: bool) -> None:
