@@ -138,20 +138,17 @@ def set_power(on: bool, smooth: bool = True, duration: float = 1) -> None:
                 time.sleep(duration / diff)
         else:
             set_brightness_value(value)
-            
+
 
 def toggle_power(smooth: bool = True, duration: float = 1) -> None:
     """Toggle the display power on or off."""
-    if mode == "MODE_TINKERBOARD":
+    if mode == "MODE_RPI":
+        set_power(not get_power())
+    elif mode == "MODE_TINKERBOARD":
         if int(_get_value("tinker_mcu_bl")) == 0:
             value = 255
         else:
             value = 0
-    elif mode == "MODE_RPI":
-        if int(_get_value("actual_brightness")) == 0:
-            value = 255
-        else:
-            value = 10
     if smooth:
         if not isinstance(duration, (int, float)):
             raise ValueError(
