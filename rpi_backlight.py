@@ -111,7 +111,7 @@ def set_power(on: bool) -> None:
         if on == False:
             _set_value("tinker_mcu_bl", 0)
 
-def toggle_power():
+def toggle_power() -> None:
     """Toggle the display power on or off.
     """
     if int(_get_value("tinker_mcu_bl")) == 0:
