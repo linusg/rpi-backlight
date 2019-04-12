@@ -177,17 +177,17 @@ def _create_argument_parser() -> argparse.ArgumentParser:
 
 def init() -> None:
     global MODE, PATH
-    with open("/sys/firmware/devicetree/base/model") as f:
-        model_information = f.read()
-    if "Raspberry Pi" in model_information:
-        PATH = "/sys/class/backlight/rpi_backlight/"
-        MODE = "MODE_RPI"
-    elif "Tinker Board" in model_information:
-        PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
-        MODE = "MODE_TINKERBOARD"
-    else:
+    try:
+        with open("/sys/firmware/devicetree/base/model") as f:
+            model_information = f.read()
+        if "Raspberry Pi" in model_information:
+            PATH = "/sys/class/backlight/rpi_backlight/"
+            MODE = "MODE_RPI"
+        elif "Tinker Board" in model_information:
+            PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
+            MODE = "MODE_TINKERBOARD"
+    except ValueError as error:
         raise ValueError("unsupported OS, or OS could not be detected!")
-        sys.exit()
 
 def cli() -> None:
     """Start the command line interface."""
