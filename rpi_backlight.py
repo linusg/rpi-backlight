@@ -47,7 +47,7 @@ def _set_value(name: str, value: Any) -> None:
             _perm_denied()
 
 
-def __set_brightness_value(value: int) -> None:
+def _set_brightness_value(value: int) -> None:
     if MODE == MODE_TINKERBOARD:
         _set_value("tinker_mcu_bl", value)
     elif MODE == MODE_RPI:
@@ -103,10 +103,10 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
         diff = abs(value - actual)
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
-            __set_brightness_value(actual)
+            _set_brightness_value(actual)
             time.sleep(duration / diff)
     else:
-        __set_brightness_value(value)
+        _set_brightness_value(value)
 
 
 def set_power(on: bool) -> None:
@@ -121,7 +121,7 @@ def set_power(on: bool) -> None:
             value = 255
         else: 
             value = 0
-        __set_brightness_value(value)
+        _set_brightness_value(value)
 
 
 def toggle_power() -> None:
