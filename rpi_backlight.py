@@ -18,7 +18,8 @@ __author__ = "Linus Groh"
 __version__ = "1.8.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
 MODE = "MODE_RPI"
-
+MODE_TINKERBOARD = "TINKERBOARD"
+MODE_RPI = "RPI"
 
 def _perm_denied() -> None:
     print(
@@ -47,35 +48,35 @@ def _set_value(name: str, value: Any) -> None:
 
 
 def __set_brightness_value(value: int) -> None:
-    if MODE == "MODE_TINKERBOARD":
+    if MODE == MODE_TINKERBOARD:
         _set_value("tinker_mcu_bl", value)
-    elif MODE == "MODE_RPI":
+    elif MODE == MODE_RPI:
         _set_value("bl_power", value)
 
 def get_actual_brightness() -> int:
     """Return the actual display brightness."""
-    if MODE == "MODE_TINKERBOARD":
+    if MODE == MODE_TINKERBOARD:
         return int(_get_value("tinker_mcu_bl"))
-    elif MODE == "MODE_RPI":
+    elif MODE == MODE_RPI:
         return int(_get_value("actual_brightness"))
 
 def get_max_brightness() -> int:
     """Return the maximum display brightness."""
-    if MODE == "MODE_TINKERBOARD":
+    if MODE == MODE_TINKERBOARD:
         return 255
-    elif MODE == "MODE_RPI":
+    elif MODE == MODE_RPI:
         return int(_get_value("max_brightness"))
     
 
 def get_power() -> bool:
     """Return whether the display is powered on or not."""
     # 0 is on, 1 is off
-    if MODE == "MODE_TINKERBOARD":
+    if MODE == MODE_TINKERBOARD:
         if get_actual_brightness():
             return True
         else:
             return False
-    elif MODE == "MODE_RPI":
+    elif MODE == MODE_RPI:
         return not int(_get_value("bl_power"))
 
 
@@ -113,9 +114,9 @@ def set_power(on: bool) -> None:
     :param on: Boolean whether the display should be powered on or not
     """
     # 0 is on, 1 is off
-    if MODE == "MODE_RPI":
+    if MODE == MODE_RPI:
         _set_value("bl_power", int(not get_power))
-    elif MODE == "MODE_TINKERBOARD":
+    elif MODE == MODE_TINKERBOARD:
         if on:
             value = 255
         else: 
@@ -182,10 +183,10 @@ def init() -> None:
             model_information = f.read()
         if "Raspberry Pi" in model_information:
             PATH = "/sys/class/backlight/rpi_backlight/"
-            MODE = "MODE_RPI"
+            MODE = MODE_RPI
         elif "Tinker Board" in model_information:
             PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
-            MODE = "MODE_TINKERBOARD"
+            MODE = MODE_TINKERBOARD
     except ValueError as error:
         raise ValueError("unsupported OS, or OS could not be detected!")
 
