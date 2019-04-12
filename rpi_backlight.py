@@ -46,7 +46,7 @@ def _set_value(name: str, value: Any) -> None:
             _perm_denied()
 
 
-def set_brightness_value(value: int) -> None:
+def __set_brightness_value(value: int) -> None:
     if MODE == "MODE_TINKERBOARD":
         _set_value("tinker_mcu_bl", value)
     elif MODE == "MODE_RPI":
