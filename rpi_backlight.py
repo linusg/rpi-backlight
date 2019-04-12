@@ -19,7 +19,7 @@ __version__ = "1.8.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
 MODE = "MODE_RPI"
 MODE_TINKERBOARD = "TINKERBOARD"
-MODE_RPI = "RPI"
+MODE_RPI = RPI
 
 def _perm_denied() -> None:
     print(
@@ -103,10 +103,10 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
         diff = abs(value - actual)
         while actual != value:
             actual = actual - 1 if actual > value else actual + 1
-            set_brightness_value(actual)
+            __set_brightness_value(actual)
             time.sleep(duration / diff)
     else:
-        set_brightness_value(value)
+        __set_brightness_value(value)
 
 
 def set_power(on: bool) -> None:
@@ -121,7 +121,7 @@ def set_power(on: bool) -> None:
             value = 255
         else: 
             value = 0
-        set_brightness_value(value)
+        __set_brightness_value(value)
 
 
 def toggle_power() -> None:
