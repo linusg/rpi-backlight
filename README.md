@@ -22,8 +22,9 @@
 
 - A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher** running a Linux-based OS
 - Python 3.5 or higher
-- For Raspberry Pi: Optional: `pygobject` for the GUI, is likely to be already installed on a recent Raspbian
-- For Tinkerboard: ``gir1.2-gtk-3.0`` for the GUI, install via sudo apt-get install gir1.2-gtk-3.0
+- For the GUI (optional):
+  - For Raspberry Pi: `pygobject`, is likely to be already installed on a recent Raspbian Desktop
+  - For Tinkerboard: ``gir1.2-gtk-3.0``, install via `sudo apt-get install gir1.2-gtk-3.0`
 
 ## Installation
 
