@@ -17,9 +17,9 @@ from typing import Any
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
-MODE = "MODE_RPI"
 MODE_TINKERBOARD = "TINKERBOARD"
-MODE_RPI = RPI
+MODE_RPI = "RPI"
+MODE = MODE_RPI
 
 def _perm_denied() -> None:
     print(
@@ -187,8 +187,8 @@ def init() -> None:
         elif "Tinker Board" in model_information:
             PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
             MODE = MODE_TINKERBOARD
-    except ValueError as error:
-        raise ValueError("unsupported OS, or OS could not be detected!")
+    except Exception as error:
+        raise Exception("unsupported OS, or OS could not be detected!")
 
 def cli() -> None:
     """Start the command line interface."""
