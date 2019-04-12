@@ -79,7 +79,7 @@ def get_power() -> bool:
         return not int(_get_value("bl_power"))
 
 
-def set_brightness(value: int, smooth: bool = True, duration: float = 1) -> None:
+def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> None:
     """Set the display brightness.
 
     :param value: Brightness value between 0 and 255
@@ -138,7 +138,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
         "--brightness",
         metavar="VALUE",
         type=int,
-        choices=range(0, 256),
+        choices=range(256),
         help="set the display brightness to VALUE (0-255)",
     )
 
@@ -147,7 +147,6 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "-s",
-        "--smooth",
         default=False,
         action="store_true",
         help="fade the display brightness, see -d/--duration",
@@ -158,7 +157,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--toggle",
-        action='store_true',
+        action="store_true",
         help="toggle the display power",
     )
     
