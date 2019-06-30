@@ -93,6 +93,43 @@ Open a terminal and run `rpi-backlight-gui` as root.
 
 ![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui.png)
 
+### Adding a shortcut to the LXDE panel
+
+First, create a `.desktop` file for rpi-backlight (e.g. `/home/pi/.local/share/applications/rpi-backlight.desktop`) with the following content:
+
+```
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=rpi-backlight GUI
+Exec=/home/pi/.local/bin/rpi-backlight-gui
+Icon=/usr/share/icons/HighContrast/256x256/status/display-brightness.png
+Categories=Utility;
+```
+
+_The absolute path to `rpi-backlight-gui` might differ if you did not follow the installation instructions above, e.g. installed as root._
+
+Make it executable:
+
+```console
+$ chmod +x /home/pi/.local/share/applications/rpi-backlight.desktop
+```
+
+You should now be able to start the rpi-backlight GUI from the menu: `(Raspberry pi Logo) → Accessoires → rpi-backlight GUI`.
+
+Next, right-click on the panel and choose `Add / Remove panel items`. Select `Application Launch Bar` and click `Preferences`:
+
+![Panel Preferences](docs/panel_preferences.png)
+
+Select `rpi-backlight GUI` on the right and click `Add`:
+
+![Application Launch Bar](docs/application_launch_bar.png)
+
+You're done! The result should look like this:
+
+![Panel Result](docs/panel_result.png)
+
 ## Todo
 
 Yay, this list is currently empty! Feel free to add ideas here.
