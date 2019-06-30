@@ -8,6 +8,8 @@ Ships with a CLI, GUI and Python API.
 :License: MIT license
 """
 
+from __future__ import print_function, division
+
 import argparse
 import os
 import sys
