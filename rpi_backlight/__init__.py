@@ -1,5 +1,4 @@
 import time
-from os import PathLike
 from pathlib import Path
 from typing import Any, Callable, Union
 
@@ -19,7 +18,7 @@ def _permission_denied() -> None:
 
 class Backlight:
     def __init__(
-        self, backlight_sysfs_path: Union[str, bytes, PathLike] = _BACKLIGHT_SYSFS_PATH
+        self, backlight_sysfs_path: Union[str, bytes, Path] = _BACKLIGHT_SYSFS_PATH
     ):
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._max_brightness = self._get_value("max_brightness")  # 255
