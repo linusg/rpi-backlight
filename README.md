@@ -8,6 +8,10 @@
 
 **Note:** _Since creation of this GIF, the API, specifically the default parameters of the `set_brightness` function, has changed a little bit, so please don't try to use it as the API reference 🙂_
 
+## Version 2 coming!
+
+Please note that version 2 with a new, improved API will come soon, see [issue #14](https://github.com/linusg/rpi-backlight/issues/14). Feedback is much appreciated!
+
 ## Features
 
 - Change the display brightness **smoothly** or **abrupt**
