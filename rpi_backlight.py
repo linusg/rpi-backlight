@@ -12,14 +12,13 @@ import argparse
 import os
 import sys
 import time
-from typing import Any
 
 __author__ = "Linus Groh"
 __version__ = "1.8.1"
 PATH = "/sys/class/backlight/rpi_backlight/"
 
 
-def _perm_denied() -> None:
+def _perm_denied():
     print(
         "A permission error occured. You must either run this program as root or change the"
     )
@@ -27,7 +26,7 @@ def _perm_denied() -> None:
     sys.exit()
 
 
-def _get_value(name: str) -> str:
+def _get_value(name):
     try:
         with open(os.path.join(PATH, name), "r") as f:
             return f.read()
@@ -36,7 +35,7 @@ def _get_value(name: str) -> str:
             _perm_denied()
 
 
-def _set_value(name: str, value: Any) -> None:
+def _set_value(name, value):
     try:
         with open(os.path.join(PATH, name), "w") as f:
             f.write(str(value))
@@ -45,23 +44,23 @@ def _set_value(name: str, value: Any) -> None:
             _perm_denied()
 
 
-def get_actual_brightness() -> int:
+def get_actual_brightness():
     """Return the actual display brightness."""
     return int(_get_value("actual_brightness"))
 
 
-def get_max_brightness() -> int:
+def get_max_brightness():
     """Return the maximum display brightness."""
     return int(_get_value("max_brightness"))
 
 
-def get_power() -> bool:
+def get_power():
     """Return wether the display is powered on or not."""
     # 0 is on, 1 is off
     return not int(_get_value("bl_power"))
 
 
-def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> None:
+def set_brightness(value, smooth=False, duration=1):
     """Set the display brightness.
 
     :param value: Brightness value between 11 and 255
@@ -93,7 +92,7 @@ def set_brightness(value: int, smooth: bool = False, duration: float = 1) -> Non
         _set_value("brightness", value)
 
 
-def set_power(on: bool) -> None:
+def set_power(on):
     """Set the display power on or off.
 
     :param on: Boolean whether the display should be powered on or not
@@ -103,7 +102,7 @@ def set_power(on: bool) -> None:
     _set_value("bl_power", int(not on))
 
 
-def _create_argument_parser() -> argparse.ArgumentParser:
+def _create_argument_parser():
     parser = argparse.ArgumentParser(
         description="Control power and brightness of the "
         'official Raspberry Pi 7" touch display.'
@@ -145,7 +144,7 @@ def _create_argument_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def cli() -> None:
+def cli():
     """Start the command line interface."""
     parser = _create_argument_parser()
     args = parser.parse_args()
@@ -182,7 +181,7 @@ def cli() -> None:
         print(get_power())
 
 
-def gui() -> None:
+def gui():
     """Start the graphical user interface."""
     try:
         import gi
