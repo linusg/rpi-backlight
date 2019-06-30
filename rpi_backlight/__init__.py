@@ -58,7 +58,7 @@ class Backlight:
         if not isinstance(value, (int, float)) or isinstance(value, bool):
             raise TypeError("value must be a number, got {0}".format(type(value)))
         if value < 0 or value > 100:
-            raise ValueError("value must be in range 0-100, got {0}")
+            raise ValueError("value must be in range 0-100, got {0}".format(value))
 
         if self._fade_duration > 0:
             current_value = self.brightness
