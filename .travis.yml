@@ -1,6 +1,5 @@
 language: python
-dist: xenial
-sudo: required
+dist: false
 
 cache:
   directories:
@@ -11,9 +10,11 @@ os:
   - linux
 
 python:
+  - "2.7"
+  - "3.3"
+  - "3.4"
   - "3.5"
   - "3.6"
-  - "3.7"
   - "nightly"
 
 matrix:
