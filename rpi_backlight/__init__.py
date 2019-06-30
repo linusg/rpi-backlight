@@ -22,7 +22,7 @@ class Backlight:
     ):
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._max_brightness = self._get_value("max_brightness")  # 255
-        self._fade_duration = 0
+        self.fade_duration = 0  # in seconds
 
     def _get_value(self, name: str) -> int:
         try:
@@ -60,13 +60,13 @@ class Backlight:
         if value < 0 or value > 100:
             raise ValueError("value must be in range 0-100, got {0}".format(value))
 
-        if self._fade_duration > 0:
+        if self.fade_duration > 0:
             current_value = self.brightness
             diff = abs(value - current_value)
             while current_value != value:
                 current_value += 1 if current_value < value else -1
                 self._set_value("brightness", self._denormalize_brightness(value))
-                time.sleep(self._fade_duration / diff)
+                time.sleep(self.fade_duration / diff)
         else:
             self._set_value("brightness", self._denormalize_brightness(value))
 
