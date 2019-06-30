@@ -1,5 +1,6 @@
 language: python
-dist: false
+dist: xenial
+sudo: required
 
 cache:
   directories:
@@ -10,21 +11,21 @@ os:
   - linux
 
 python:
-  - "2.7"
-  - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
   - "nightly"
 
 matrix:
   allow_failures:
-      - python: "nightly"
+    - python: "nightly"
 
 install:
-  - python -m pip install -U pip
+  - python -m pip install -U pip pytest black
   - pip install -e .
 
 script:
-  - python -V
+  - python -m pytest
+  - black --check --diff rpi_backlight tests
 
 skip_join: false
