@@ -75,7 +75,9 @@ class Backlight:
             diff = abs(value - current_value)
             while current_value != value:
                 current_value += step
-                self._set_value("brightness", self._denormalize_brightness(current_value))
+                self._set_value(
+                    "brightness", self._denormalize_brightness(current_value)
+                )
                 time.sleep(self.fade_duration / diff)
         else:
             self._set_value("brightness", self._denormalize_brightness(value))
