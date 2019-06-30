@@ -1,6 +1,7 @@
 import time
+from contextlib import contextmanager
 from pathlib import Path
-from typing import Any, Callable, Union
+from typing import Any, Callable, Iterator, Union
 
 __author__ = "Linus Groh"
 __version__ = "2.0.0a1"
@@ -45,6 +46,14 @@ class Backlight:
 
     def _denormalize_brightness(self, value: int) -> int:
         return int(round(value * self._max_brightness / 100))
+
+    @contextmanager
+    def fade(self, duration: float) -> Iterator:
+        """Context manager for temporarily changing the fade duration."""
+        old_duration = self.fade_duration
+        self.fade_duration = duration
+        yield
+        self.fade_duration = old_duration
 
     @property
     def brightness(self) -> float:

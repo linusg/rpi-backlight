@@ -56,3 +56,18 @@ def test_set_power() -> None:
 
         with pytest.raises(TypeError):
             backlight.power = 1
+
+
+def test_fade() -> None:
+    with FakeBacklightSysfs() as backlight_sysfs:
+        backlight = Backlight(backlight_sysfs_path=backlight_sysfs.path)
+
+        assert backlight.fade_duration == 0
+
+        backlight.fade_duration = 0.1
+        assert backlight.fade_duration == 0.1
+
+        with backlight.fade(duration=0.5):
+            assert backlight.fade_duration == 0.5
+
+        assert backlight.fade_duration == 0.1
