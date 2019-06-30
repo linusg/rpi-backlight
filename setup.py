@@ -7,7 +7,6 @@ with open("README.md", "r") as f:
 
 setup(
     name="rpi_backlight",
-    py_modules=["rpi_backlight"],
     version=__version__,
     description="A Python module for controlling power and brightness "
     'of the official Raspberry Pi 7" touch display.',
@@ -20,13 +19,18 @@ setup(
     download_url="https://pypi.python.org/pypi/rpi_backlight",
     keywords=["raspberry pi", "display", "touchscreen", "brightness", "backlight"],
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 3 - Alpha",
+        "Environment :: Console",
+        "Environment :: X11 Applications :: GTK",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Operating System :: POSIX :: Linux",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: System",
         "Topic :: System :: Hardware",
         "Topic :: Multimedia",
@@ -34,6 +38,7 @@ setup(
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
+    packages=["rpi_backlight"],
     entry_points={
         "console_scripts": [
             "rpi-backlight = rpi_backlight:cli",
