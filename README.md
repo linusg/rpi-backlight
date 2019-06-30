@@ -12,6 +12,8 @@
 
 Please note that version 2 with a new, improved API will come soon, see [issue #14](https://github.com/linusg/rpi-backlight/issues/14). Feedback is much appreciated!
 
+You can check out the work in progress on the [`v2.0.0-alpha`](https://github.com/linusg/rpi-backlight/tree/v2.0.0-alpha) branch.
+
 ## Features
 
 - Change the display brightness **smoothly** or **abrupt**
