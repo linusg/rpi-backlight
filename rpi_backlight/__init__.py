@@ -7,7 +7,7 @@ __author__ = "Linus Groh"
 __version__ = "2.0.0a1"
 __all__ = ["Backlight"]
 
-BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
+_BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
 
 
 def _permission_denied() -> None:
@@ -19,7 +19,7 @@ def _permission_denied() -> None:
 
 class Backlight:
     def __init__(
-        self, backlight_sysfs_path: Union[str, bytes, PathLike] = BACKLIGHT_SYSFS_PATH
+        self, backlight_sysfs_path: Union[str, bytes, PathLike] = _BACKLIGHT_SYSFS_PATH
     ):
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._max_brightness = self._get_value("max_brightness")  # 255
