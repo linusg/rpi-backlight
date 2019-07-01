@@ -152,6 +152,16 @@ You're done! The result should look like this:
 
 ![Panel Result](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/panel_result.png)
 
+## Tests
+
+Tests use `pytest`, install with `pip3 install pytest`.
+
+Now, run from the repository root directory:
+
+```console
+$ python3 -m pytest
+```
+
 ## Todo
 
 I'm currently finalizing the 2.0.0 API and rebuilding the CLI - feel free to open an
