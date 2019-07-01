@@ -34,7 +34,7 @@ class Backlight:
             backlight_sysfs_path = _EMULATOR_SYSFS_TMP_FILE_PATH.read_text()
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._max_brightness = self._get_value("max_brightness")  # 255
-        self.fade_duration = 0  # in seconds
+        self._fade_duration = 0  # in seconds
 
     def _get_value(self, name: str) -> int:
         try:
@@ -65,6 +65,21 @@ class Backlight:
         self.fade_duration = duration
         yield
         self.fade_duration = old_duration
+
+    @property
+    def fade_duration(self) -> float:
+        """Return the fade duration."""
+        return self._fade_duration
+
+    @fade_duration.setter
+    def fade_duration(self, duration: float) -> None:
+        """Set the fade duration."""
+        # isinstance(True, int) is True, so additional check for bool.
+        if not isinstance(duration, (int, float)) or isinstance(duration, bool):
+            raise TypeError("value must be a number, got {0}".format(type(duration)))
+        if duration < 0:
+            raise ValueError("value must be >= 0, got {0}".format(duration))
+        self._fade_duration = duration
 
     @property
     def brightness(self) -> float:
