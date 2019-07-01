@@ -159,6 +159,7 @@ issue for bug reports and to discuss new features!
 
 ## External Links
 
+- [`rpi-backlight-emulator`](https://github.com/linusg/rpi-backlight-emulator)
 - [Travis CI: Build tests](https://travis-ci.org/linusg/rpi-backlight)
 - [readthedocs.org: Documentation](https://rpi-backlight.readthedocs.io/en/latest/)
 
