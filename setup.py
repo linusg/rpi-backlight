@@ -6,7 +6,7 @@ with open("README.md", "r") as f:
     long_description = f.read()
 
 setup(
-    name="rpi_backlight",
+    name="rpi-backlight",
     version=__version__,
     description="A Python module for controlling power and brightness "
     'of the official Raspberry Pi 7" touch display.',
@@ -16,7 +16,7 @@ setup(
     license="MIT",
     author_email="mail@linusgroh.de",
     url="https://github.com/linusg/rpi-backlight",
-    download_url="https://pypi.python.org/pypi/rpi_backlight",
+    download_url="https://pypi.org/project/rpi-backlight",
     keywords=["raspberry pi", "display", "touchscreen", "brightness", "backlight"],
     classifiers=[
         "Development Status :: 3 - Alpha",
