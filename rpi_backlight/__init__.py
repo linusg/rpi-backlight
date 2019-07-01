@@ -16,7 +16,7 @@ _EMULATOR_MAGIC_STRING = ":emulator:"
 def _permission_denied() -> None:
     raise PermissionError(
         "You must either run this program as root or change the permissions "
-        "for the backlight access as described on the GitHub page."
+        "for the backlight access as described in README.md."
     )
 
 
