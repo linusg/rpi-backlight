@@ -12,8 +12,7 @@ Requirements
   display v1.1 or higher**. There's no way to get the version programmatically,
   just look on the display's circuit board.
 - Python 3.5 or higher
-- Optional: ``pygobject`` for the GUI, is likely to be already installed on a
-  recent Raspbian
+- Optional: ``pygobject`` for the GUI, already installed on a recent Raspbian
 
 Installation process
 --------------------
@@ -25,25 +24,18 @@ Installation process
 #. Open up a terminal.
 
 #. The rpi-backlight library is available on PyPI_, so you can install it
-   using ``pip``::
+   using ``pip3``::
 
     pip3 install rpi_backlight
-
-   As an alternative you can get the source code from GitHub_ and install it
-   using the setup script::
-
-    git clone https://github.com/linusg/rpi-backlight.git
-    cd rpi-backlight
-    sudo python3 setup.py install
 
    **Note:** You may need to update the backlight rules file in order to run the code::
 
     echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"' | sudo tee -a /etc/udev/rules.d/backlight-permissions.rules
 
-#. Just check the installation::
+#. Now check the installation::
 
     >>> import rpi_backlight
-    >>> 
+    >>>
 
    And here we go!
 
