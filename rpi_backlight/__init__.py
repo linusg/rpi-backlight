@@ -1,6 +1,7 @@
 import time
 from contextlib import contextmanager
 from pathlib import Path
+from tempfile import gettempdir
 from typing import Any, Callable, Iterator, Union
 
 __author__ = "Linus Groh"
@@ -8,6 +9,8 @@ __version__ = "2.0.0a1"
 __all__ = ["Backlight"]
 
 _BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
+_EMULATOR_SYSFS_TMP_FILE_PATH = Path(gettempdir()) / "rpi-backlight-emulator.sysfs"
+_EMULATOR_MAGIC_STRING = ":emulator:"
 
 
 def _permission_denied() -> None:
@@ -21,6 +24,14 @@ class Backlight:
     def __init__(
         self, backlight_sysfs_path: Union[str, bytes, Path] = _BACKLIGHT_SYSFS_PATH
     ):
+        if backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
+            if not _EMULATOR_SYSFS_TMP_FILE_PATH.exists():
+                raise RuntimeError(
+                    "Emulator seems to be not running, {0} not found".format(
+                        _EMULATOR_SYSFS_TMP_FILE_PATH
+                    )
+                )
+            backlight_sysfs_path = _EMULATOR_SYSFS_TMP_FILE_PATH.read_text()
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._max_brightness = self._get_value("max_brightness")  # 255
         self.fade_duration = 0  # in seconds
