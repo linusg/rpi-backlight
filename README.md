@@ -1,18 +1,12 @@
 # rpi-backlight
 
-[![Travis CI](https://api.travis-ci.org/linusg/rpi-backlight.svg?branch=master)](https://travis-ci.org/linusg/rpi-backlight) [![Issues](https://img.shields.io/github/issues/linusg/rpi-backlight.svg)](https://github.com/linusg/rpi-backlight/issues) [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](ttps://github.com/linusg/rpi-backlight/blob/master/LICENSE) [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black) [![PyPI](https://img.shields.io/pypi/v/rpi_backlight.svg)](https://pypi.org/project/rpi_backlight/) [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://rpi-backlight.readthedocs.io/en/latest/)
+[![Travis CI](https://api.travis-ci.org/linusg/rpi-backlight.svg?branch=v2.0.0-alpha)](https://travis-ci.org/linusg/rpi-backlight) [![Issues](https://img.shields.io/github/issues/linusg/rpi-backlight.svg)](https://github.com/linusg/rpi-backlight/issues) [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](ttps://github.com/linusg/rpi-backlight/blob/master/LICENSE) [![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black) [![PyPI](https://img.shields.io/pypi/v/rpi_backlight.svg)](https://pypi.org/project/rpi_backlight/) [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://rpi-backlight.readthedocs.io/en/latest/)
 
 > A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 
 ![Example](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/example.gif)
 
 **Note:** _Since creation of this GIF, the API, specifically the default parameters of the `set_brightness` function, has changed a little bit, so please don't try to use it as the API reference 🙂_
-
-## Version 2 coming!
-
-Please note that version 2 with a new, improved API will come soon, see [issue #14](https://github.com/linusg/rpi-backlight/issues/14). Feedback is much appreciated!
-
-You can check out the work in progress on the [`v2.0.0-alpha`](https://github.com/linusg/rpi-backlight/tree/v2.0.0-alpha) branch.
 
 ## Features
 
@@ -27,24 +21,16 @@ You can check out the work in progress on the [`v2.0.0-alpha`](https://github.co
 ## Requirements
 
 - A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher** running a Linux-based OS
-- Python 2.7 or 3.4+
+- Python 3.5+
 - Optional: `pygobject` for the GUI, is likely to be already installed on a recent Raspbian
 
 ## Installation
 
-- Install from PyPI:
+Install from PyPI:
 
-  ```console
-  $ pip3 install rpi_backlight
-  ```
-
-- or clone this repository and install manually:
-
-  ```console
-  $ git clone https://github.com/linusg/rpi-backlight.git
-  $ cd rpi-backlight
-  $ sudo python3 setup.py install
-  ```
+```console
+$ pip3 install rpi_backlight
+```
 
 **Note:** You may need to change the backlight rules file in order to run the code:
 
@@ -59,23 +45,34 @@ $ echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brig
 Example in a Python shell:
 
 ```python
->>> import rpi_backlight as bl
->>> bl.set_brightness(255)
->>> bl.set_brightness(20, smooth=True, duration=3)
->>> bl.get_max_brightness()
-255
->>> bl.get_actual_brightness()
-20
->>> bl.get_power()
+>>> from rpi_backlight import Backlight
+>>>
+>>> backlight = Backlight()
+>>> backlight.brightness
+100
+>>> backlight.brightness = 50
+>>> backlight.brightness
+50
+>>>
+>>> with backlight.fade(duration=1):
+...     backlight.brightness = 0
+...
+>>> backlight.fade_duration = 0.5
+>>> # subsequent `backlight.brightness = x` will fade 500ms
+>>>
+>>> backlight.power
 True
->>> bl.set_power(False)
+>>> backlight.power = False
+>>> backlight.power
+False
+>>>
 ```
 
 **NOTE: Code using `set_` functions of this library has to be run as root, e.g. `sudo python3 file.py`, if the permissions for changing the backlight were not changed as described in the installation section!**
 
 ### CLI
 
-Open a terminal and run `rpi-backlight` as root:
+Open a terminal and run `rpi-backlight`:
 
 ```console
 $ rpi-backlight -b 255
@@ -91,7 +88,7 @@ $ rpi-backlight --off
 
 ### GUI
 
-Open a terminal and run `rpi-backlight-gui` as root.
+Open a terminal and run `rpi-backlight-gui`.
 
 ![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui.png)
 
