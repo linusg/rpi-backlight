@@ -1,11 +1,11 @@
 # rpi-backlight
 
 [![Travis CI](https://api.travis-ci.org/linusg/rpi-backlight.svg?branch=v2.0.0-alpha)](https://travis-ci.org/linusg/rpi-backlight)
-[![Issues](https://img.shields.io/github/issues/linusg/rpi-backlight.svg)](https://github.com/linusg/rpi-backlight/issues)
 [![License](https://img.shields.io/github/license/mashape/apistatus.svg)](ttps://github.com/linusg/rpi-backlight/blob/master/LICENSE)
-[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![PyPI](https://img.shields.io/pypi/v/rpi-backlight.svg)](https://pypi.org/project/rpi-backlight/)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://rpi-backlight.readthedocs.io/en/latest/)
+[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Issues](https://img.shields.io/github/issues/linusg/rpi-backlight.svg)](https://github.com/linusg/rpi-backlight/issues)
 
 > A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 
