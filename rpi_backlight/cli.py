@@ -74,7 +74,9 @@ def main():
             parser.error(
                 "-b/--set-brightness must be used without other options except for -d/--duration"
             )
-        backlight.brightness = args.set_brightness
+        # backlight.fade context manager can be used always as args.fade defaults to zero
+        with backlight.fade(duration=args.duration):
+            backlight.brightness = args.set_brightness
         return
 
     if args.set_power:
