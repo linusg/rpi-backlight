@@ -39,6 +39,10 @@ class Backlight:
     def _get_value(self, name: str) -> int:
         try:
             return int((self._backlight_sysfs_path / name).read_text())
+        except ValueError:
+            # Reading failed, sometimes file is empty when updating
+            # Try again
+            return self._get_value(name)
         except (OSError, IOError) as e:
             if e.errno == 13:
                 _permission_denied()
