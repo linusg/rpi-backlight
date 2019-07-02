@@ -44,6 +44,9 @@ $ pip3 install rpi-backlight
 $ echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"' | sudo tee -a /etc/udev/rules.d/backlight-permissions.rules
 ```
 
+Otherwise you'll have to run Python code, The GUI and CLI as root when _changing_ the
+power or brightness.
+
 ### Emulator
 
 For testing without a physical display (e.g. on your main Linux/macOS/Windows machine)
@@ -79,31 +82,35 @@ False
 >>>
 ```
 
-**NOTE: Code using `set_` functions of this library has to be run as root, e.g.**
-**`sudo python3 file.py`, if the permissions for changing the backlight were not**
-**changed as described in the installation section!**
-
 ### CLI
 
 Open a terminal and run `rpi-backlight`:
 
 ```console
 $ rpi-backlight -b 100
-$ rpi-backlight -b 20 -d 1
-$ rpi-backlight --brightness
+$ rpi-backlight --set-brightness 20 --duration 1.5
+$ rpi-backlight --get-brightness
 20
-$ rpi-backlight --power
+$ rpi-backlight --get-power
 on
-$ rpi-backlight --power off
-$ rpi-backlight --power
+$ rpi-backlight --p off
+$ rpi-backlight --get-power
 off
+$ rpi-backlight --set-power off :emulator:
+$
 ```
 
 Available flags:
 
-- `-b` / `--brightness` - get/set brightness
-- `-p` / `--power` - get/set power on/off
-- `-d` / `--duration` - use in combination with `-b` / `--brightness` to fade the brightness
+- `--get-brightness` - get brightness, will output value between 0 and 100
+- `--get-power` - get power, will output `on` or `off`
+- `-b` / `--set-brightness` - set brightness, provide value between 0 and 100
+- `-p` / `--set-power` - set power on/off, provide `on` or `off`
+- `-d` / `--duration` - use in combination with `-b` / `--brightness` to fade the
+  brightness, provide value in seconds >= 0
+
+You can set the backlight sysfs path using a positional argument, set it to `:emulator:`
+to use with `rpi-backlight-emulator`.
 
 ### GUI
 
