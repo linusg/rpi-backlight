@@ -175,12 +175,6 @@ $ python3 -m pytest
 I'm currently finalizing the 2.0.0 API and rebuilding the CLI - feel free to open an
 issue for bug reports and to discuss new features!
 
-## External Links
-
-- [`rpi-backlight-emulator`](https://github.com/linusg/rpi-backlight-emulator)
-- [Travis CI: Build tests](https://travis-ci.org/linusg/rpi-backlight)
-- [readthedocs.org: Documentation](https://rpi-backlight.readthedocs.io/en/latest/)
-
 ## License
 
 The source code and all other files in this repository are licensed under the MIT
