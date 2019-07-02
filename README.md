@@ -117,6 +117,7 @@ to use with `rpi-backlight-emulator`.
 Open a terminal and run `rpi-backlight-gui`.
 
 ![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui.png)
+![Graphical User Interface (2)](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui2.png)
 
 ### Adding a shortcut to the LXDE panel
 
