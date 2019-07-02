@@ -9,7 +9,7 @@
 
 > A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 
-![Example](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/example.gif)
+![Example](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/example.gif)
 
 **Note:** _This GIF was created using the old v1 API, so please don't use it as API reference 🙂_
 
@@ -116,8 +116,8 @@ to use with `rpi-backlight-emulator`.
 
 Open a terminal and run `rpi-backlight-gui`.
 
-![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui.png)
-![Graphical User Interface (2)](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/gui2.png)
+![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/gui.png)
+![Graphical User Interface (2)](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/gui2.png)
 
 ### Adding a shortcut to the LXDE panel
 
@@ -150,15 +150,15 @@ You should now be able to start the rpi-backlight GUI from the menu:
 Next, right-click on the panel and choose `Add / Remove panel items`. Select
 `Application Launch Bar` and click `Preferences`:
 
-![Panel Preferences](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/panel_preferences.png)
+![Panel Preferences](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/panel_preferences.png)
 
 Select `rpi-backlight GUI` on the right and click `Add`:
 
-![Application Launch Bar](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/application_launch_bar.png)
+![Application Launch Bar](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/application_launch_bar.png)
 
 You're done! The result should look like this:
 
-![Panel Result](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/panel_result.png)
+![Panel Result](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/panel_result.png)
 
 ## Tests
 
