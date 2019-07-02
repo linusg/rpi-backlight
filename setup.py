@@ -41,8 +41,8 @@ setup(
     packages=["rpi_backlight"],
     entry_points={
         "console_scripts": [
-            "rpi-backlight = rpi_backlight:cli",
-            "rpi-backlight-gui = rpi_backlight:gui",
+            "rpi-backlight = rpi_backlight.cli:main",
+            "rpi-backlight-gui = rpi_backlight.gui:main",
         ]
     },
 )
