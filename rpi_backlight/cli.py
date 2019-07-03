@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from . import Backlight
+from . import Backlight, __version__
 
 
 def _create_argument_parser():
@@ -41,6 +41,12 @@ def _create_argument_parser():
     )
     parser.add_argument(
         "-d", "--duration", type=float, default=0, help="fading duration in seconds"
+    )
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version="%(prog)s {version}".format(version=__version__),
     )
     return parser
 
