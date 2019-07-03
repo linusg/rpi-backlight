@@ -5,7 +5,7 @@ from tempfile import gettempdir
 from typing import Any, Callable, Iterator, Union
 
 __author__ = "Linus Groh"
-__version__ = "2.0.0b6"
+__version__ = "2.0.0b7"
 __all__ = ["Backlight"]
 
 _BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
