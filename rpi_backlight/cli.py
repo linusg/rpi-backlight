@@ -75,7 +75,7 @@ def main():
         print("on" if backlight.power else "off")
         return
 
-    if args.set_brightness:
+    if args.set_brightness is not None:
         if any((args.get_brightness, args.get_power, args.set_power)):
             parser.error(
                 "-b/--set-brightness must be used without other options except for -d/--duration"
