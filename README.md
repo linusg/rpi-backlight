@@ -108,6 +108,7 @@ Available flags:
 - `-p` / `--set-power` - set power on/off, provide `on` or `off`
 - `-d` / `--duration` - use in combination with `-b` / `--brightness` to fade the
   brightness, provide value in seconds >= 0
+- `-V` / `--Version` - show version and exit
 
 You can set the backlight sysfs path using a positional argument, set it to `:emulator:`
 to use with `rpi-backlight-emulator`.
