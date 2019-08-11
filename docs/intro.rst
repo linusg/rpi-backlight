@@ -1,15 +1,15 @@
 Introduction
 ============
 
-.. image:: https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/example.gif
+.. image:: _static/example.gif
    :alt: Example
 
-When I bought the official 7" touch LCD for my Raspberry Pi, I was happy
-about it. With one exception: *you can't change the display brightness out of
-the box*.
+When I bought the official Raspberry Pi 7" touch LCD, I was quite happy about it
+- with one exception: *you can't change the display brightness in a simple way
+out of the box*.
 
 I did some research and hacked some Python code together. Time passed by,
-and the whole project turned into a Python module: rpi-backlight.
+and the whole project turned into a Python module: ``rpi-backlight``.
 
 Currently it has the following features:
 

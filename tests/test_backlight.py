@@ -94,7 +94,8 @@ def test_fade() -> None:
         backlight.fade_duration = 0.1
         assert backlight.fade_duration == 0.1
 
-        with backlight.fade(duration=0.5):
+        with backlight.fade(duration=0.5) as _val:
+            assert _val is None
             assert backlight.fade_duration == 0.5
 
         assert backlight.fade_duration == 0.1

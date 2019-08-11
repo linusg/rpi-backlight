@@ -26,9 +26,9 @@
 ## Requirements
 
 - A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
-  running a Linux-based OS
+  (look on the display's circuit board to see its version) running a Linux-based OS
 - Python 3.5+
-- Optional: `pygobject` for the GUI, already installed on a recent Raspbian
+- Optional: ``pygobject`` for the GUI, already installed on a recent Raspbian
 
 ## Installation
 
@@ -38,14 +38,12 @@ Install from PyPI:
 $ pip3 install rpi-backlight
 ```
 
-**Note:** You may need to change the backlight rules file in order to run the code:
+**Note:** Create this udev rule to update permissions, otherwise you'll have to run
+Python code, the GUI and CLI as root when _changing_ the power or brightness:
 
 ```console
 $ echo 'SUBSYSTEM=="backlight",RUN+="/bin/chmod 666 /sys/class/backlight/%k/brightness /sys/class/backlight/%k/bl_power"' | sudo tee -a /etc/udev/rules.d/backlight-permissions.rules
 ```
-
-Otherwise you'll have to run Python code, The GUI and CLI as root when _changing_ the
-power or brightness.
 
 ### Emulator
 
@@ -84,7 +82,7 @@ False
 
 ### CLI
 
-Open a terminal and run `rpi-backlight`:
+Open a terminal and run `rpi-backlight`.
 
 ```console
 $ rpi-backlight -b 100
@@ -100,18 +98,7 @@ $ rpi-backlight --set-power off :emulator:
 $
 ```
 
-Available flags:
-
-- `--get-brightness` - get brightness, will output value between 0 and 100
-- `--get-power` - get power, will output `on` or `off`
-- `-b` / `--set-brightness` - set brightness, provide value between 0 and 100
-- `-p` / `--set-power` - set power on/off, provide `on` or `off`
-- `-d` / `--duration` - use in combination with `-b` / `--brightness` to fade the
-  brightness, provide value in seconds >= 0
-- `-V` / `--Version` - show version and exit
-
-You can set the backlight sysfs path using a positional argument, set it to `:emulator:`
-to use with `rpi-backlight-emulator`.
+For all available options see [docs](https://rpi-backlight.readthedocs.io/en/latest/usage.html#command-line-interface).
 
 ### GUI
 
@@ -122,44 +109,9 @@ Open a terminal and run `rpi-backlight-gui`.
 
 ### Adding a shortcut to the LXDE panel
 
-First, create a `.desktop` file for rpi-backlight (e.g.
-`/home/pi/.local/share/applications/rpi-backlight.desktop`) with the following content:
+![Panel result](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/panel_result.png)
 
-```
-[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=false
-Name=rpi-backlight GUI
-Exec=/home/pi/.local/bin/rpi-backlight-gui
-Icon=/usr/share/icons/HighContrast/256x256/status/display-brightness.png
-Categories=Utility;
-```
-
-_The absolute path to `rpi-backlight-gui` might differ if you did not follow the_
-_installation instructions above, e.g. installed as root._
-
-Make it executable:
-
-```console
-$ chmod +x /home/pi/.local/share/applications/rpi-backlight.desktop
-```
-
-You should now be able to start the rpi-backlight GUI from the menu:
-`(Raspberry pi Logo) → Accessoires → rpi-backlight GUI`.
-
-Next, right-click on the panel and choose `Add / Remove panel items`. Select
-`Application Launch Bar` and click `Preferences`:
-
-![Panel Preferences](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/panel_preferences.png)
-
-Select `rpi-backlight GUI` on the right and click `Add`:
-
-![Application Launch Bar](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/application_launch_bar.png)
-
-You're done! The result should look like this:
-
-![Panel Result](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/panel_result.png)
+See [docs](https://rpi-backlight.readthedocs.io/en/latest/usage.html#adding-a-shortcut-to-the-lxde-panel).
 
 ## Tests
 
@@ -171,10 +123,9 @@ Now, run from the repository root directory:
 $ python3 -m pytest
 ```
 
-## Todo
+## Contributing
 
-I'm currently finalizing the 2.0.0 API and rebuilding the CLI - feel free to open an
-issue for bug reports and to discuss new features!
+Please free to open an issue for bug reports and to discuss new features - pull requests for new features or bug fixes are welcome as well!
 
 ## License
 

@@ -1,7 +1,19 @@
-rpi-backlight API
-=================
+.. _api:
+
+API reference
+=============
 
 .. automodule:: rpi_backlight
     :members:
-    :undoc-members:
-    :show-inheritance:
+
+
+.. automodule:: rpi_backlight.cli
+    :members:
+
+
+.. automodule:: rpi_backlight.gui
+    :members:
+
+
+.. automodule:: rpi_backlight.utils
+    :members:

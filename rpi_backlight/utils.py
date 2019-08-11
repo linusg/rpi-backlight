@@ -5,6 +5,14 @@ __all__ = ["FakeBacklightSysfs"]
 
 
 class FakeBacklightSysfs:
+    """Context manager to create a temporary "fake sysfs" containing all relevant files.
+    Used for tests and emulation.
+
+    >>> with FakeBacklightSysfs() as backlight_sysfs:
+    ...     backlight = Backlight(backlight_sysfs_path=backlight_sysfs.path)
+    ...     # use `backlight` as usual
+    """
+
     def __init__(self) -> None:
         self._temp_dir = TemporaryDirectory()
         self.path = Path(self._temp_dir.name)

@@ -17,7 +17,7 @@ Contents
    installation
    usage
    api
-   
+
    changes
    license
 

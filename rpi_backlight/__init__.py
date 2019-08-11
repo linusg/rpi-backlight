@@ -2,7 +2,7 @@ import time
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import gettempdir
-from typing import Any, Callable, Iterator, Union
+from typing import Any, Callable, Union
 
 __author__ = "Linus Groh"
 __version__ = "2.0.0b7"
@@ -21,9 +21,12 @@ def _permission_denied() -> None:
 
 
 class Backlight:
+    """Main class to access and control the display backlight power and brightness."""
+
     def __init__(
         self, backlight_sysfs_path: Union[str, bytes, Path] = _BACKLIGHT_SYSFS_PATH
     ):
+        """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
             if not _EMULATOR_SYSFS_TMP_FILE_PATH.exists():
                 raise RuntimeError(
@@ -63,8 +66,16 @@ class Backlight:
         return int(round(value * self._max_brightness / 100))
 
     @contextmanager
-    def fade(self, duration: float) -> Iterator:
-        """Context manager for temporarily changing the fade duration."""
+    def fade(self, duration: float) -> None:
+        """Context manager for temporarily changing the fade duration.
+
+        >>> backlight = Backlight()
+        >>> with backlight.fade(duration=0.5):
+        ...     backlight.brightness = 1  # Fade to 100% brightness for 0.5s
+        ...
+        >>> with backlight.fade(duration=0):
+        ...     backlight.brightness = 0  # Set to 0% brightness without fading, use if you have set `backlight.fade_duration` > 0
+        """
         old_duration = self.fade_duration
         self.fade_duration = duration
         yield
@@ -72,7 +83,18 @@ class Backlight:
 
     @property
     def fade_duration(self) -> float:
-        """Return the fade duration."""
+        """The brightness fade duration in seconds, defaults to 0.
+        Also see :meth:`~rpi_backlight.Backlight.fade`.
+
+        >>> backlight = Backlight()
+        >>> backlight.fade_duration  # Fading is disabled by default
+        0
+        >>> backlight.fade_duration = 0.5  # Set to 500ms
+
+        :getter: Return the fade duration.
+        :setter: Set the fade duration.
+        :type: float
+        """
         return self._fade_duration
 
     @fade_duration.setter
@@ -87,7 +109,17 @@ class Backlight:
 
     @property
     def brightness(self) -> float:
-        """Return the display brightness."""
+        """The display brightness in range 0-100.
+
+        >>> backlight = Backlight()
+        >>> backlight.brightness  # Display is at 50% brightness
+        50
+        >>> backlight.brightness = 100  # Set to full brightness
+
+        :getter: Return the display brightness.
+        :setter: Set the display brightness.
+        :type: float
+        """
         return self._normalize_brightness(self._get_value("actual_brightness"))
 
     @brightness.setter
@@ -114,7 +146,17 @@ class Backlight:
 
     @property
     def power(self) -> bool:
-        """Return whether the display is powered on or off."""
+        """Turn the display on and off.
+
+        >>> backlight = Backlight()
+        >>> backlight.power  # Display is on
+        True
+        >>> backlight.power = False  # Turn display off
+
+        :getter: Return whether the display is powered on or off.
+        :setter: Set the display power on or off.
+        :type: bool
+        """
         # 0 is on, 1 is off
         return not self._get_value("bl_power")
 
