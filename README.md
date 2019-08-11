@@ -9,7 +9,7 @@
 
 > A Python module for controlling power and brightness of the official Raspberry Pi 7" touch display.
 
-![Example](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/example.gif)
+![Example](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/_static/example.gif)
 
 **Note:** _This GIF was created using the old v1 API, so please don't use it as API reference 🙂_
 
@@ -104,12 +104,12 @@ For all available options see [docs](https://rpi-backlight.readthedocs.io/en/lat
 
 Open a terminal and run `rpi-backlight-gui`.
 
-![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/gui.png)
-![Graphical User Interface (2)](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/gui2.png)
+![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/_static/gui.png)
+![Graphical User Interface (2)](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/_static/gui2.png)
 
 ### Adding a shortcut to the LXDE panel
 
-![Panel result](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/panel_result.png)
+![Panel result](https://raw.githubusercontent.com/linusg/rpi-backlight/v2.0.0-alpha/docs/_static/panel_result.png)
 
 See [docs](https://rpi-backlight.readthedocs.io/en/latest/usage.html#adding-a-shortcut-to-the-lxde-panel).
 
