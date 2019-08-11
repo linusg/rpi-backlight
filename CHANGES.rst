@@ -1,6 +1,14 @@
 Changes
 =======
 
+2.0.0
+-----
+
+- New, more pythonic API
+- Update CLI and GUI
+- Support emulator
+- Add tests
+
 1.8.1
 -----
 
