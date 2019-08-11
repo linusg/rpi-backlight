@@ -80,6 +80,8 @@ False
 >>>
 ```
 
+For more details see [docs](https://rpi-backlight.readthedocs.io/en/latest/api.html).
+
 ### CLI
 
 Open a terminal and run `rpi-backlight`.
