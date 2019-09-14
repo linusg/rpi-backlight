@@ -15,10 +15,9 @@
 
 ## Features
 
-- Change the display brightness **smoothly** or **abrupt**
+- Set the display brightness **smoothly** or **abrupt**
 - Set the display power on or off
 - Get the current brightness
-- Get the maximum brightness
 - Get the display power state (on/off)
 - Command line interface
 - Graphical user interface
