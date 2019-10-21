@@ -133,7 +133,7 @@ Make it executable:
     $ chmod +x /home/pi/.local/share/applications/rpi-backlight.desktop
 
 You should now be able to start the rpi-backlight GUI from the menu:
-``(Raspberry pi Logo) → Accessoires → rpi-backlight GUI``.
+``(Raspberry Pi Logo) → Accessoires → rpi-backlight GUI``.
 
 Next, right-click on the panel and choose ``Add / Remove panel items``. Select
 ``Application Launch Bar`` and click ``Preferences``:
