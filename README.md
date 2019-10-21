@@ -6,7 +6,7 @@
 ![Python Version](https://img.shields.io/pypi/pyversions/rpi-backlight)
 [![Downloads](https://pepy.tech/badge/rpi-backlight)](https://pepy.tech/project/rpi-backlight)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://rpi-backlight.readthedocs.io/en/latest/)
-[![License](https://img.shields.io/github/license/linusg/rpi-backlight?color=d63e97)](ttps://github.com/linusg/rpi-backlight/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/linusg/rpi-backlight?color=d63e97)](https://github.com/linusg/rpi-backlight/blob/master/LICENSE)
 [![Black](https://img.shields.io/badge/code%20style-black-000000)](https://github.com/ambv/black)
 [![Travis CI](https://api.travis-ci.org/linusg/rpi-backlight.svg?branch=master)](https://travis-ci.org/linusg/rpi-backlight)
 [![Read the Docs](https://img.shields.io/readthedocs/rpi-backlight)](https://rpi-backlight.readthedocs.io/en/latest/)
