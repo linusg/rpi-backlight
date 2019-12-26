@@ -2,10 +2,7 @@ language: python
 dist: xenial
 sudo: required
 
-cache:
-  directories:
-    - $HOME/.cache/pip
-    - $HOME/.pip-accel
+cache: pip
 
 os:
   - linux
@@ -14,6 +11,7 @@ python:
   - "3.5"
   - "3.6"
   - "3.7"
+  - "3.8"
   - "nightly"
 
 matrix:
