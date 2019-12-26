@@ -1,9 +1,11 @@
 import time
 from contextlib import contextmanager
-from os import PathLike
 from pathlib import Path
 from tempfile import gettempdir
-from typing import Any, Callable, Generator, Union
+from typing import Any, Callable, Generator, Union, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from os import PathLike
 
 __author__ = "Linus Groh"
 __version__ = "2.0.0"
@@ -25,7 +27,7 @@ class Backlight:
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
-        self, backlight_sysfs_path: Union[str, PathLike[str]] = _BACKLIGHT_SYSFS_PATH
+        self, backlight_sysfs_path: Union[str, "PathLike[str]"] = _BACKLIGHT_SYSFS_PATH
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
