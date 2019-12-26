@@ -1,8 +1,9 @@
 import time
 from contextlib import contextmanager
+from os import PathLike
 from pathlib import Path
 from tempfile import gettempdir
-from typing import Any, Callable, Union
+from typing import Any, Callable, Generator, Union
 
 __author__ = "Linus Groh"
 __version__ = "2.0.0"
@@ -24,7 +25,7 @@ class Backlight:
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
-        self, backlight_sysfs_path: Union[str, bytes, Path] = _BACKLIGHT_SYSFS_PATH
+        self, backlight_sysfs_path: Union[str, PathLike[str]] = _BACKLIGHT_SYSFS_PATH
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
@@ -37,7 +38,7 @@ class Backlight:
             backlight_sysfs_path = _EMULATOR_SYSFS_TMP_FILE_PATH.read_text()
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._max_brightness = self._get_value("max_brightness")  # 255
-        self._fade_duration = 0  # in seconds
+        self._fade_duration = 0.0  # in seconds
 
     def _get_value(self, name: str) -> int:
         try:
@@ -59,14 +60,14 @@ class Backlight:
                 _permission_denied()
             raise e
 
-    def _normalize_brightness(self, value: int) -> int:
+    def _normalize_brightness(self, value: float) -> int:
         return int(round(value / self._max_brightness * 100))
 
-    def _denormalize_brightness(self, value: int) -> int:
+    def _denormalize_brightness(self, value: float) -> int:
         return int(round(value * self._max_brightness / 100))
 
     @contextmanager
-    def fade(self, duration: float) -> None:
+    def fade(self, duration: float) -> Generator:
         """Context manager for temporarily changing the fade duration.
 
         >>> backlight = Backlight()
@@ -161,7 +162,7 @@ class Backlight:
         return not self._get_value("bl_power")
 
     @power.setter
-    def power(self, on: bool) -> bool:
+    def power(self, on: bool) -> None:
         """Set the display power on or off."""
         if not isinstance(on, bool):
             raise TypeError("value must be a bool, got {0}".format(type(on)))

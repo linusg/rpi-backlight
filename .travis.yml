@@ -21,13 +21,14 @@ matrix:
     - python: "nightly"
 
 install:
-  - python -m pip install -U pip pytest
+  - travis_retry pip install pytest mypy==0.761
   - python setup.py install
   # black needs Python 3.6+
   - if [[ $TRAVIS_PYTHON_VERSION != '3.5' ]]; then travis_retry pip install black; fi
 
 script:
   - python -m pytest
+  - mypy --ignore-missing-imports .
   - if [[ $TRAVIS_PYTHON_VERSION != '3.5' ]]; then black --check --diff rpi_backlight tests; fi
 
 skip_join: false
