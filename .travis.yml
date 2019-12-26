@@ -26,7 +26,6 @@ install:
 
 script:
   - python -m pytest
-  - 
   - if [[ $TRAVIS_PYTHON_VERSION != '3.5' ]]; then mypy --ignore-missing-imports .; fi
   - if [[ $TRAVIS_PYTHON_VERSION != '3.5' ]]; then black --check --diff rpi_backlight tests; fi
 
