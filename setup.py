@@ -19,7 +19,7 @@ setup(
     download_url="https://pypi.org/project/rpi-backlight",
     keywords=["raspberry pi", "display", "touchscreen", "brightness", "backlight"],
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Environment :: X11 Applications :: GTK",
         "Intended Audience :: Developers",
