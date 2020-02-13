@@ -1,6 +1,17 @@
 Changes
 =======
 
+2.0.1
+-----
+
+- Add mypy type checking
+- Add Python 3.8 to Travis CI config
+- Fix documentation readthedocs build
+- Fix typo in docs
+- Improve README.md
+- Mark project as stable on PyPI
+
+
 2.0.0
 -----
 
