@@ -1,4 +1,5 @@
 import time
+import enum
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import gettempdir
@@ -20,16 +21,25 @@ def _permission_denied() -> None:
     raise PermissionError(
         "You must either run this program as root or change the permissions "
         "for the backlight access as described in README.md."
-    )
+    ) 
 
-
-class Backlight:
+class Backlight():
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
         self, backlight_sysfs_path: Union[str, "PathLike[str]"] = _BACKLIGHT_SYSFS_PATH
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
+        try:
+            with open("/sys/firmware/devicetree/base/model") as f:
+                model_information = f.read()
+            if "Raspberry Pi" in model_information:
+                _BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
+            elif "Tinker Board" in model_information:
+                _BACKLIGHT_SYSFS_PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
+        except Exception as error:
+            raise Exception("unsupported OS, or OS could not be detected!")
+
         if backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
             if not _EMULATOR_SYSFS_TMP_FILE_PATH.exists():
                 raise RuntimeError(
