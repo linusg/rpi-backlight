@@ -22,7 +22,9 @@ def _permission_denied() -> None:
         "You must either run this program as root or change the permissions "
         "for the backlight access as described in README.md."
     )
-class Backlight():
+
+    
+class Backlight:
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
