@@ -66,9 +66,6 @@ class Backlight:
             raise e
 
     def _set_value(self, name: str, value: int) -> None:
-        print(self._backlight_sysfs_path)
-        print(name)
-        print(self._backlight_sysfs_path / name)
         try:
             (self._backlight_sysfs_path / name).write_text(str(value))
         except (OSError, IOError) as e:
