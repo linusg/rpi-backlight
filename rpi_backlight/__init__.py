@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from os import PathLike
 
 __author__ = "Linus Groh"
-__version__ = "2.0.2"
+__version__ = "2.0.1"
 __all__ = ["Backlight"]
 
 class BoardType(Enum):
@@ -36,7 +36,6 @@ class Backlight:
 
     def __init__(
         self,
-        # smooth: False,
         backlight_sysfs_path: Union[str, "PathLike[str]"] = None,
         board_type: BoardType = BoardType.RASPBERRY_PI
     ):
@@ -57,7 +56,6 @@ class Backlight:
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._board_type = board_type
         self._fade_duration = 0.0  # in seconds
-        # self._smooth = smooth
 
         if (self._board_type == BoardType.TINKER_BOARD):
         	self._max_brightness = 255
@@ -202,18 +200,6 @@ class Backlight:
                 value = 255
             else:
                 value = 0
-            # if smooth:
-            #     if not isinstance(duration, (int, float)):
-            #         raise ValueError(
-            #             "integer or float required, got '{}'".format(type(duration))
-            #         )
-            #     actual = get_brightness_value()
-            #     diff = abs(value - actual)
-            #     while actual != value:
-            #         actual = actual - 1 if actual > value else actual + 1
-            #         _set_brightness_value(actual)
-            #         time.sleep(duration / diff)
-            # else:
             self._set_value("tinker_mcu_bl", value)
 
 
@@ -227,21 +213,4 @@ class Backlight:
             # 0 is on, 1 is off
             self._set_value("bl_power", int(not on))
         elif self._board_type == BoardType.TINKER_BOARD:
-            if on:
-                value = 255
-            else: 
-                value = 0
-            # if smooth:
-            #     if not isinstance(duration, (int, float)):
-            #         raise ValueError(
-            #             "integer or float required, got '{}'".format(type(duration))
-            #         )
-            #     actual = get_brightness_value()
-            #     diff = abs(value - actual)
-            #     while actual != value:
-            #         actual = actual - 1 if actual > value else actual + 1
-            #         self._set_value("tinker_mcu_bl", actual)
-            #         time.sleep(duration / diff)
-            # else:
-            #     self._set_value("tinker_mcu_bl" ,value)
-            self._set_value("tinker_mcu_bl", value)
+            self._set_value("tinker_mcu_bl", 255 if on else 0)
