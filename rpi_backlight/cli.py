@@ -54,11 +54,13 @@ def _create_argument_parser():
         version="%(prog)s {version}".format(version=__version__),
     )
     parser.add_argument(
-        '-B', '--board', default=1,
-        help='Please provide a board model.\n'
-        '0: Raspberry Pi\n'
-        '1: TinkerBoard\n.')
+        "-B",
+        "--board",
+        default=1,
+        help="Please provide a board model.\n" "0: Raspberry Pi\n" "1: TinkerBoard\n.",
+    )
     return parser
+
 
 def main():
     """Start the command line interface."""
@@ -67,19 +69,22 @@ def main():
 
     if args.board:
         board = int(args.board)
-        if (board != 1 and board != 2):
-            parser.error("Board parameter must be either 1 (Raspberry Pi) or 2 (TinkerBoard)")
+        if board != 1 and board != 2:
+            parser.error(
+                "Board parameter must be either 1 (Raspberry Pi) or 2 (TinkerBoard)"
+            )
 
-    if (board == 2):
-        if (args.sysfs_path is not None):
-            backlight = Backlight(board_type=BoardType.TINKER_BOARD,backlight_sysfs_path=args.sysfs_path)
-        elif (args.sysfs_path is None):
+    if board == 2:
+        if args.sysfs_path is not None:
+            backlight = Backlight(
+                board_type=BoardType.TINKER_BOARD, backlight_sysfs_path=args.sysfs_path
+            )
+        elif args.sysfs_path is None:
             backlight = Backlight(board_type=BoardType.TINKER_BOARD)
-    elif (args.sysfs_path is not None):
-            backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
-    else: 
+    elif args.sysfs_path is not None:
+        backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
+    else:
         backlight = Backlight()
-
 
     if args.get_brightness:
         if any((args.set_brightness, args.get_power, args.set_power, args.duration)):

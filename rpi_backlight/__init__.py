@@ -12,9 +12,11 @@ __author__ = "Linus Groh"
 __version__ = "2.0.1"
 __all__ = ["Backlight"]
 
+
 class BoardType(Enum):
     RASPBERRY_PI = 1
     TINKER_BOARD = 2
+
 
 _BACKLIGHT_SYSFS_PATHS = {
     BoardType.RASPBERRY_PI: "/sys/class/backlight/rpi_backlight/",
@@ -37,11 +39,15 @@ class Backlight:
     def __init__(
         self,
         backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
-        board_type: BoardType = BoardType.RASPBERRY_PI
+        board_type: BoardType = BoardType.RASPBERRY_PI,
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
-            raise TypeError("board_type must be a member of the BoardType enum, got {0}".format(type(board_type)))
+            raise TypeError(
+                "board_type must be a member of the BoardType enum, got {0}".format(
+                    type(board_type)
+                )
+            )
 
         if not backlight_sysfs_path:
             backlight_sysfs_path = _BACKLIGHT_SYSFS_PATHS[board_type]
@@ -57,11 +63,10 @@ class Backlight:
         self._board_type = board_type
         self._fade_duration = 0.0  # in seconds
 
-        if (self._board_type == BoardType.TINKER_BOARD):
+        if self._board_type == BoardType.TINKER_BOARD:
             self._max_brightness = 255
         else:
             self._max_brightness = self._get_value("max_brightness",)  # 255
-
 
     def _get_value(self, name: str) -> int:
         try:
@@ -178,6 +183,7 @@ class Backlight:
                 self._set_value("brightness", self._denormalize_brightness(value))
             elif self._board_type == BoardType.TINKER_BOARD:
                 self._set_value("tinker_mcu_bl", self._denormalize_brightness(value))
+
     @property
     def power(self) -> bool:
         """Turn the display on and off.
@@ -193,15 +199,13 @@ class Backlight:
         """
         # 0 is on, 1 is off
         if self._board_type == BoardType.RASPBERRY_PI:
-            
+
             return not self._get_value("bl_power")
         elif self._board_type == BoardType.TINKER_BOARD:
             if self._get_value("tinker_mcu_bl") == 0:
                 return 0
             else:
                 return 1
-
-
 
     @power.setter
     def power(self, on: bool) -> None:
