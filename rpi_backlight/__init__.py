@@ -176,7 +176,6 @@ class Backlight:
 
     @power.setter
     def power(self, on: bool) -> None:
-        print(self._board_type)
         """Set the display power on or off."""
         if not isinstance(on, bool):
             raise TypeError("value must be a bool, got {0}".format(type(on)))
