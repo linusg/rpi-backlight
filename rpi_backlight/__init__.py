@@ -41,7 +41,7 @@ class Backlight:
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
-            raise TypeError("board_type must be a a member of the BoardType enum, got {0}".format(type(board_type)))
+            raise TypeError("board_type must be a member of the BoardType enum, got {0}".format(type(board_type)))
 
         if not backlight_sysfs_path:
             backlight_sysfs_path = _BACKLIGHT_SYSFS_PATHS[board_type]
