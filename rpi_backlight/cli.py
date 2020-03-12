@@ -1,6 +1,5 @@
 from argparse import ArgumentParser
-from enum import Enum
-from . import Backlight, __version__
+from . import Backlight, __version__, BoardType
 
 
 def _create_argument_parser():
@@ -39,6 +38,12 @@ def _create_argument_parser():
         choices=("on", "off"),
         help="set the display power (on/off)",
     )
+    # parser.add_argument(
+    #     "-s",
+    #     "--smooth",
+    #     action="store_true",
+    #     help="sets a smooth fade",
+    # )
     parser.add_argument(
         "-d", "--duration", type=float, default=0, help="fading duration in seconds"
     )
@@ -54,10 +59,6 @@ def _create_argument_parser():
         '0: Raspberry Pi\n'
         '1: TinkerBoard\n.')
     return parser
-
-class BoardType(Enum):
-    RASPBERRY_PI = 1
-    TINKER_BOARD = 2
 
 def main():
     """Start the command line interface."""
@@ -79,7 +80,7 @@ def main():
             backlight = Backlight()
     elif (args.sysfs_path is not None):
         backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
-    else: # (!TinkerboardSelected and !pathSpecified):
+    else: 
         backlight = Backlight()
 
 
