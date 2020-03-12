@@ -166,13 +166,20 @@ class Backlight:
             diff = abs(value - current_value)
             while current_value != value:
                 current_value += step
-                self._set_value(
-                    "brightness", self._denormalize_brightness(current_value)
-                )
+                if self._board_type == BoardType.RASPBERRY_PI:
+                    self._set_value(
+                        "brightness", self._denormalize_brightness(current_value)
+                    )
+                elif self._board_type == BoardType.TINKER_BOARD:
+                    self._set_value(
+                        "tinker_mcu_bl", self._denormalize_brightness(current_value)
+                    )
                 time.sleep(self.fade_duration / diff)
         else:
-            self._set_value("brightness", self._denormalize_brightness(value))
-
+            if self._board_type == BoardType.RASPBERRY_PI:
+                self._set_value("brightness", self._denormalize_brightness(value))
+            elif self._board_type == BoardType.TINKER_BOARD:
+                self._set_value("tinker_mcu_bl", self._denormalize_brightness(value))
     @property
     def power(self) -> bool:
         """Turn the display on and off.
