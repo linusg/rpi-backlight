@@ -1,15 +1,15 @@
 import time
-import enum
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import gettempdir
 from typing import Any, Callable, Generator, Union, TYPE_CHECKING
+from enum import Enum
 
 if TYPE_CHECKING:
     from os import PathLike
 
 __author__ = "Linus Groh"
-__version__ = "2.0.1"
+__version__ = "2.0.2"
 __all__ = ["Backlight"]
 
 _BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
@@ -23,24 +23,19 @@ def _permission_denied() -> None:
         "for the backlight access as described in README.md."
     )
 
-    
+class BoardType(Enum):
+    RASPBERRY_PI = 1
+    TINKER_BOARD = 2
+
 class Backlight:
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
-        self, backlight_sysfs_path: Union[str, "PathLike[str]"] = _BACKLIGHT_SYSFS_PATH
+        self,
+        backlight_sysfs_path: Union[str, "PathLike[str]"] = _BACKLIGHT_SYSFS_PATH,
+        board_type: BoardType = BoardType.RASPBERRY_PI
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
-        try:
-            with open("/sys/firmware/devicetree/base/model") as f:
-                model_information = f.read()
-            if "Raspberry Pi" in model_information:
-                _BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
-            elif "Tinker Board" in model_information:
-                _BACKLIGHT_SYSFS_PATH = "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/"
-        except Exception as error:
-            raise Exception("unsupported OS, or OS could not be detected!")
-
         if backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
             if not _EMULATOR_SYSFS_TMP_FILE_PATH.exists():
                 raise RuntimeError(
@@ -50,10 +45,15 @@ class Backlight:
                 )
             backlight_sysfs_path = _EMULATOR_SYSFS_TMP_FILE_PATH.read_text()
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
-        self._max_brightness = self._get_value("max_brightness")  # 255
+        self._board_type = board_type
+        self._max_brightness = self._get_value("max_brightness",)  # 255
         self._fade_duration = 0.0  # in seconds
 
+
     def _get_value(self, name: str) -> int:
+        if (self._board_type == BoardType.TINKER_BOARD and name == "max_brightness"):
+            return 255
+
         try:
             return int((self._backlight_sysfs_path / name).read_text())
         except ValueError:
@@ -66,6 +66,9 @@ class Backlight:
             raise e
 
     def _set_value(self, name: str, value: int) -> None:
+        print(self._backlight_sysfs_path)
+        print(name)
+        print(self._backlight_sysfs_path / name)
         try:
             (self._backlight_sysfs_path / name).write_text(str(value))
         except (OSError, IOError) as e:
@@ -176,8 +179,15 @@ class Backlight:
 
     @power.setter
     def power(self, on: bool) -> None:
+        print(self._board_type)
         """Set the display power on or off."""
         if not isinstance(on, bool):
             raise TypeError("value must be a bool, got {0}".format(type(on)))
-        # 0 is on, 1 is off
-        self._set_value("bl_power", int(not on))
+        if self._board_type == BoardType.RASPBERRY_PI:
+            print("yes")
+            # 0 is on, 1 is off
+            self._set_value("bl_power", int(not on))
+        elif self._board_type == BoardType.TINKER_BOARD:
+            print("no")
+            self._set_value("tinker_mcu_bl", 255)
+

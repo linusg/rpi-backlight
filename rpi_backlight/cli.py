@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-
+from enum import Enum
 from . import Backlight, __version__
 
 
@@ -48,18 +48,40 @@ def _create_argument_parser():
         action="version",
         version="%(prog)s {version}".format(version=__version__),
     )
+    parser.add_argument(
+        '-B', '--board', default=1,
+        help='Please provide a board model.\n'
+        '0: Raspberry Pi\n'
+        '1: TinkerBoard\n.')
     return parser
 
+class BoardType(Enum):
+    RASPBERRY_PI = 1
+    TINKER_BOARD = 2
 
 def main():
     """Start the command line interface."""
     parser = _create_argument_parser()
     args = parser.parse_args()
 
-    if args.sysfs_path is not None:
+    if args.board:
+        board = int(args.board)
+        if (board != 1 and board != 2):
+            parser.error("Board parameter must be either 1 (Raspberry Pi) or 2 (TinkerBoard)")
+
+        if (board == 2 and args.sysfs_path is not None):
+            backlight = Backlight(board_type=BoardType.TINKER_BOARD,backlight_sysfs_path=args.sysfs_path)
+        elif (board == 2 and args.sysfs_path is None):
+            backlight = Backlight(board_type=BoardType.TINKER_BOARD,backlight_sysfs_path="/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/")
+        elif (board == 1 and args.sysfs_path is not None):
+            backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
+        elif (board == 1 and args.sysfs_path is None):
+            backlight = Backlight()
+    elif (args.sysfs_path is not None):
         backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
-    else:
+    else: # (!TinkerboardSelected and !pathSpecified):
         backlight = Backlight()
+
 
     if args.get_brightness:
         if any((args.set_brightness, args.get_power, args.set_power, args.duration)):
