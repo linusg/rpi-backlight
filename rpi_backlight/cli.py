@@ -70,16 +70,13 @@ def main():
         if (board != 1 and board != 2):
             parser.error("Board parameter must be either 1 (Raspberry Pi) or 2 (TinkerBoard)")
 
-        if (board == 2 and args.sysfs_path is not None):
+    if (board == 2):
+        if (args.sysfs_path is not None):
             backlight = Backlight(board_type=BoardType.TINKER_BOARD,backlight_sysfs_path=args.sysfs_path)
-        elif (board == 2 and args.sysfs_path is None):
-            backlight = Backlight(board_type=BoardType.TINKER_BOARD,backlight_sysfs_path="/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/")
-        elif (board == 1 and args.sysfs_path is not None):
-            backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
-        elif (board == 1 and args.sysfs_path is None):
-            backlight = Backlight()
+        elif (args.sysfs_path is None):
+            backlight = Backlight(board_type=BoardType.TINKER_BOARD)
     elif (args.sysfs_path is not None):
-        backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
+            backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
     else: 
         backlight = Backlight()
 

@@ -191,26 +191,25 @@ class Backlight:
         :setter: Set the display power on or off.
         :type: bool
         """
-
+        # 0 is on, 1 is off
         if self._board_type == BoardType.RASPBERRY_PI:
-            # 0 is on, 1 is off
+            
             return not self._get_value("bl_power")
         elif self._board_type == BoardType.TINKER_BOARD:
             if self._get_value("tinker_mcu_bl") == 0:
-                value = 255
+                return 0
             else:
-                value = 0
-            self._set_value("tinker_mcu_bl", value)
+                return 1
 
 
 
     @power.setter
     def power(self, on: bool) -> None:
         """Set the display power on or off."""
+        # 0 is on, 1 is off
         if not isinstance(on, bool):
             raise TypeError("value must be a bool, got {0}".format(type(on)))
         if self._board_type == BoardType.RASPBERRY_PI:
-            # 0 is on, 1 is off
             self._set_value("bl_power", int(not on))
         elif self._board_type == BoardType.TINKER_BOARD:
             self._set_value("tinker_mcu_bl", 255 if on else 0)
