@@ -2,7 +2,7 @@ import time
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import gettempdir
-from typing import Any, Callable, Generator, Union, TYPE_CHECKING
+from typing import Any, Callable, Generator, Union, Optional, TYPE_CHECKING
 from enum import Enum
 
 if TYPE_CHECKING:
@@ -58,9 +58,9 @@ class Backlight:
         self._fade_duration = 0.0  # in seconds
 
         if (self._board_type == BoardType.TINKER_BOARD):
-        	self._max_brightness = 255
+            self._max_brightness = 255
         else:
-        	self._max_brightness = self._get_value("max_brightness",)  # 255
+            self._max_brightness = self._get_value("max_brightness",)  # 255
 
 
     def _get_value(self, name: str) -> int:
@@ -196,7 +196,7 @@ class Backlight:
             # 0 is on, 1 is off
             return not self._get_value("bl_power")
         elif self._board_type == BoardType.TINKER_BOARD:
-            if get_brightness_value() == 0:
+            if self._get_value("tinker_mcu_bl") == 0:
                 value = 255
             else:
                 value = 0
