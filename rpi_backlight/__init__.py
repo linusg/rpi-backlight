@@ -201,10 +201,7 @@ class Backlight:
         if self._board_type == BoardType.RASPBERRY_PI:
             return not self._get_value("bl_power")
         elif self._board_type == BoardType.TINKER_BOARD:
-            if self._get_value("tinker_mcu_bl") == 0:
-                return 0
-            else:
-                return 1
+            return bool(self._get_value("tinker_mcu_bl"))
 
     @power.setter
     def power(self, on: bool) -> None:
