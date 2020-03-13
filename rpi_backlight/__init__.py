@@ -199,7 +199,6 @@ class Backlight:
         """
         # 0 is on, 1 is off
         if self._board_type == BoardType.RASPBERRY_PI:
-
             return not self._get_value("bl_power")
         elif self._board_type == BoardType.TINKER_BOARD:
             if self._get_value("tinker_mcu_bl") == 0:
