@@ -47,11 +47,16 @@ def _create_argument_parser():
         action="version",
         version="%(prog)s {version}".format(version=__version__),
     )
+    board_types = {
+        "raspberry_pi": BoardType.RASPBERRY_PI,
+        "tinker_board": BoardType.TINKER_BOARD,
+    }
     parser.add_argument(
         "-B",
-        "--board",
-        default=1,
-        help="Please provide a board model.\n" "0: Raspberry Pi\n" "1: TinkerBoard\n.",
+        "--board-type",
+        default="raspberry_pi",
+        choices=board_types.keys()
+        help="board type",
     )
     return parser
 
