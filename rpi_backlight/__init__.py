@@ -207,6 +207,8 @@ class Backlight:
             return not self._get_value("bl_power")
         elif self._board_type == BoardType.TINKER_BOARD:
             return bool(self._get_value("tinker_mcu_bl"))
+        else:
+            raise RuntimeError("Invalid board type")
 
     @power.setter
     def power(self, on: bool) -> None:
