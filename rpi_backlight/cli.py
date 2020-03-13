@@ -38,12 +38,6 @@ def _create_argument_parser():
         choices=("on", "off"),
         help="set the display power (on/off)",
     )
-    # parser.add_argument(
-    #     "-s",
-    #     "--smooth",
-    #     action="store_true",
-    #     help="sets a smooth fade",
-    # )
     parser.add_argument(
         "-d", "--duration", type=float, default=0, help="fading duration in seconds"
     )
