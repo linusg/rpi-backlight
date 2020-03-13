@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+
 from . import Backlight, __version__, BoardType
 
 
