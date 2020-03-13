@@ -3,10 +3,11 @@ from argparse import ArgumentParser
 from . import Backlight, __version__, BoardType
 
 board_types = {
-        "raspberry_pi": BoardType.RASPBERRY_PI,
-        "tinker_board": BoardType.TINKER_BOARD,
-    }
-    
+    "raspberry_pi": BoardType.RASPBERRY_PI,
+    "tinker_board": BoardType.TINKER_BOARD,
+}
+
+
 def _create_argument_parser():
     parser = ArgumentParser(
         description='Get/set power and brightness of the official Raspberry Pi 7" touch display.'

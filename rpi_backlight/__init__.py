@@ -39,7 +39,7 @@ class Backlight:
     def __init__(
         self,
         board_type: BoardType = BoardType.RASPBERRY_PI,
-        backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None
+        backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
