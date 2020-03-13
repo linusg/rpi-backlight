@@ -66,24 +66,9 @@ def main():
     parser = _create_argument_parser()
     args = parser.parse_args()
 
-    if args.board:
-        board = int(args.board)
-        if board != 1 and board != 2:
-            parser.error(
-                "Board parameter must be either 1 (Raspberry Pi) or 2 (TinkerBoard)"
-            )
-
-    if board == 2:
-        if args.sysfs_path is not None:
-            backlight = Backlight(
-                board_type=BoardType.TINKER_BOARD, backlight_sysfs_path=args.sysfs_path
-            )
-        elif args.sysfs_path is None:
-            backlight = Backlight(board_type=BoardType.TINKER_BOARD)
-    elif args.sysfs_path is not None:
-        backlight = Backlight(backlight_sysfs_path=args.sysfs_path)
-    else:
-        backlight = Backlight()
+    backlight = Backlight(
+        board_type=board_types[args.board_type], backlight_sysfs_path=args.sysfs_path
+    )
 
     if args.get_brightness:
         if any((args.set_brightness, args.get_power, args.set_power, args.duration)):
