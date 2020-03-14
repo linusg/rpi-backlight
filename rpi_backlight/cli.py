@@ -5,7 +5,7 @@ from . import Backlight, __version__, BoardType
 BOARD_TYPES = {
     "raspberry-pi": BoardType.RASPBERRY_PI,
     "tinker-board": BoardType.TINKER_BOARD,
- }
+}
 
 
 def _create_argument_parser():
