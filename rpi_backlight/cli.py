@@ -1,6 +1,6 @@
 from argparse import ArgumentParser
 
-from . import Backlight, __version__, BoardType
+from . import Backlight, BoardType, __version__
 
 BOARD_TYPES = {
     "raspberry-pi": BoardType.RASPBERRY_PI,
