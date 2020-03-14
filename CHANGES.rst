@@ -1,6 +1,11 @@
 Changes
 =======
 
+2.1.0
+-----
+
+- Add support for ASUS Tinker Board (`#19 <https://github.com/linusg/rpi-backlight/pull/19>`_, `@p1r473 <https://github.com/p1r473>`_)
+
 2.0.1
 -----
 
@@ -10,7 +15,6 @@ Changes
 - Fix typo in docs
 - Improve README.md
 - Mark project as stable on PyPI
-
 
 2.0.0
 -----
