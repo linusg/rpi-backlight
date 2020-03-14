@@ -10,11 +10,15 @@ if TYPE_CHECKING:
 
 __author__ = "Linus Groh"
 __version__ = "2.0.1"
-__all__ = ["Backlight"]
+__all__ = ["Backlight", "BoardType"]
 
 
 class BoardType(Enum):
+    """Enum to specify a board type in the :class:`~rpi_backlight.Backlight` constructor."""
+
+    #: Raspberry Pi
     RASPBERRY_PI = 1
+    #: Tinker Board
     TINKER_BOARD = 2
 
 
@@ -38,8 +42,8 @@ class Backlight:
 
     def __init__(
         self,
-        board_type: BoardType = BoardType.RASPBERRY_PI,
         backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
+        board_type: BoardType = BoardType.RASPBERRY_PI
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
