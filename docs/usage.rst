@@ -72,7 +72,8 @@ Available options:
 .. code-block:: none
 
     usage: rpi-backlight [-h] [--get-brightness] [-b VALUE] [--get-power]
-                        [-p VALUE] [-d DURATION] [-V]
+                        [-p VALUE] [-d DURATION] [-B {raspberry-pi,tinker-board}]
+                        [-V]
                         [SYSFS_PATH]
 
     Get/set power and brightness of the official Raspberry Pi 7" touch display.
@@ -91,6 +92,8 @@ Available options:
                             set the display power (on/off)
     -d DURATION, --duration DURATION
                             fading duration in seconds
+    -B {raspberry-pi,tinker-board}, --board-type {raspberry-pi,tinker-board}
+                            board type
     -V, --version         show program's version number and exit
 
 Graphical user interface
