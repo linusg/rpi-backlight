@@ -46,7 +46,7 @@ jobs:
       run: |
         pip install setuptools wheel
         python setup.py sdist bdist_wheel
-    - name: Check long_description
+    - name: Run twine check
       run: |
         pip install twine
         python -m twine check dist/*
