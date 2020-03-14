@@ -1,17 +1,31 @@
 import time
 from contextlib import contextmanager
+from enum import Enum
 from pathlib import Path
 from tempfile import gettempdir
-from typing import Any, Callable, Generator, Union, TYPE_CHECKING
+from typing import Any, Callable, Generator, Union, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from os import PathLike
 
 __author__ = "Linus Groh"
 __version__ = "2.0.1"
-__all__ = ["Backlight"]
+__all__ = ["Backlight", "BoardType"]
 
-_BACKLIGHT_SYSFS_PATH = "/sys/class/backlight/rpi_backlight/"
+
+class BoardType(Enum):
+    """Enum to specify a board type in the :class:`~rpi_backlight.Backlight` constructor."""
+
+    #: Raspberry Pi
+    RASPBERRY_PI = 1
+    #: Tinker Board
+    TINKER_BOARD = 2
+
+
+_BACKLIGHT_SYSFS_PATHS = {
+    BoardType.RASPBERRY_PI: "/sys/class/backlight/rpi_backlight/",
+    BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
+}
 _EMULATOR_SYSFS_TMP_FILE_PATH = Path(gettempdir()) / "rpi-backlight-emulator.sysfs"
 _EMULATOR_MAGIC_STRING = ":emulator:"
 
@@ -27,10 +41,21 @@ class Backlight:
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
-        self, backlight_sysfs_path: Union[str, "PathLike[str]"] = _BACKLIGHT_SYSFS_PATH
+        self,
+        backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
+        board_type: BoardType = BoardType.RASPBERRY_PI,
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
-        if backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
+        if not isinstance(board_type, BoardType):
+            raise TypeError(
+                "board_type must be a member of the BoardType enum, got {0}".format(
+                    type(board_type)
+                )
+            )
+
+        if not backlight_sysfs_path:
+            backlight_sysfs_path = _BACKLIGHT_SYSFS_PATHS[board_type]
+        elif backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
             if not _EMULATOR_SYSFS_TMP_FILE_PATH.exists():
                 raise RuntimeError(
                     "Emulator seems to be not running, {0} not found".format(
@@ -39,8 +64,13 @@ class Backlight:
                 )
             backlight_sysfs_path = _EMULATOR_SYSFS_TMP_FILE_PATH.read_text()
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
-        self._max_brightness = self._get_value("max_brightness")  # 255
+        self._board_type = board_type
         self._fade_duration = 0.0  # in seconds
+
+        if self._board_type == BoardType.RASPBERRY_PI:
+            self._max_brightness = self._get_value("max_brightness")  # 255
+        elif self._board_type == BoardType.TINKER_BOARD:
+            self._max_brightness = 255
 
     def _get_value(self, name: str) -> int:
         try:
@@ -123,7 +153,12 @@ class Backlight:
         :setter: Set the display brightness.
         :type: float
         """
-        return self._normalize_brightness(self._get_value("actual_brightness"))
+        if self._board_type == BoardType.RASPBERRY_PI:
+            return self._normalize_brightness(self._get_value("actual_brightness"))
+        elif self._board_type == BoardType.TINKER_BOARD:
+            return self._normalize_brightness(self._get_value("tinker_mcu_bl"))
+        else:
+            raise RuntimeError("Invalid board type")
 
     @brightness.setter
     def brightness(self, value: float) -> None:
@@ -133,19 +168,30 @@ class Backlight:
             raise TypeError("value must be a number, got {0}".format(type(value)))
         if value < 0 or value > 100:
             raise ValueError("value must be in range 0-100, got {0}".format(value))
-
         if self.fade_duration > 0:
             current_value = self.brightness
             step = 1 if current_value < value else -1
             diff = abs(value - current_value)
             while current_value != value:
                 current_value += step
-                self._set_value(
-                    "brightness", self._denormalize_brightness(current_value)
-                )
+                if self._board_type == BoardType.RASPBERRY_PI:
+                    self._set_value(
+                        "brightness", self._denormalize_brightness(current_value)
+                    )
+                elif self._board_type == BoardType.TINKER_BOARD:
+                    self._set_value(
+                        "tinker_mcu_bl", self._denormalize_brightness(current_value)
+                    )
+                else:
+                    raise RuntimeError("Invalid board type")
                 time.sleep(self.fade_duration / diff)
         else:
-            self._set_value("brightness", self._denormalize_brightness(value))
+            if self._board_type == BoardType.RASPBERRY_PI:
+                self._set_value("brightness", self._denormalize_brightness(value))
+            elif self._board_type == BoardType.TINKER_BOARD:
+                self._set_value("tinker_mcu_bl", self._denormalize_brightness(value))
+            else:
+                raise RuntimeError("Invalid board type")
 
     @property
     def power(self) -> bool:
@@ -160,13 +206,23 @@ class Backlight:
         :setter: Set the display power on or off.
         :type: bool
         """
-        # 0 is on, 1 is off
-        return not self._get_value("bl_power")
+        if self._board_type == BoardType.RASPBERRY_PI:
+            # 0 is on, 1 is off
+            return not self._get_value("bl_power")
+        elif self._board_type == BoardType.TINKER_BOARD:
+            return bool(self._get_value("tinker_mcu_bl"))
+        else:
+            raise RuntimeError("Invalid board type")
 
     @power.setter
     def power(self, on: bool) -> None:
         """Set the display power on or off."""
         if not isinstance(on, bool):
             raise TypeError("value must be a bool, got {0}".format(type(on)))
-        # 0 is on, 1 is off
-        self._set_value("bl_power", int(not on))
+        if self._board_type == BoardType.RASPBERRY_PI:
+            # 0 is on, 1 is off
+            self._set_value("bl_power", int(not on))
+        elif self._board_type == BoardType.TINKER_BOARD:
+            self._set_value("tinker_mcu_bl", 255 if on else 0)
+        else:
+            raise RuntimeError("Invalid board type")
