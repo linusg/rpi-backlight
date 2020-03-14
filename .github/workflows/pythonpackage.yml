@@ -23,9 +23,9 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install package
+    - name: Install dependencies
       run: |
-        python setup.py install
+        python -m pip install --upgrade pip
     - name: Run mypy
       if: ${{ matrix.python-version != 3.5 }}
       run: |
@@ -40,3 +40,11 @@ jobs:
       run: |
         pip install pytest
         python -m pytest
+    - name: Build package
+      run: |
+        pip install setuptools wheel
+        python setup.py sdist bdist_wheel
+    - name: Check long_description
+      run: |
+        pip install twine
+        python -m twine check dist/*
