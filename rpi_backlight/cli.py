@@ -48,17 +48,17 @@ def _create_argument_parser():
         "-d", "--duration", type=float, default=0, help="fading duration in seconds"
     )
     parser.add_argument(
-        "-V",
-        "--version",
-        action="version",
-        version="%(prog)s {version}".format(version=__version__),
-    )
-    parser.add_argument(
         "-B",
         "--board-type",
         default="raspberry-pi",
         choices=BOARD_TYPES.keys(),
         help="board type",
+    )
+    parser.add_argument(
+        "-V",
+        "--version",
+        action="version",
+        version="%(prog)s {version}".format(version=__version__),
     )
     return parser
 
