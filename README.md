@@ -82,6 +82,15 @@ False
 >>>
 ```
 
+To use with ASUS Tinker Board:
+
+```python
+>>> from rpi_backlight import Backlight, BoardType
+>>>
+>>> backlight = Backlight(board_type=BoardType.TINKER_BOARD)
+>>> # continue like above
+```
+
 For more details see [docs](https://rpi-backlight.readthedocs.io/en/latest/api.html).
 
 ### CLI
@@ -100,6 +109,12 @@ $ rpi-backlight --get-power
 off
 $ rpi-backlight --set-power off :emulator:
 $
+```
+
+To use with ASUS Tinker Board:
+
+```console
+$ rpi-backlight --board-type tinker-board ...
 ```
 
 For all available options see [docs](https://rpi-backlight.readthedocs.io/en/latest/usage.html#command-line-interface).

@@ -43,6 +43,15 @@ Now you can get and set the display power and brightness:
     False
     >>>
 
+To use with ASUS Tinker Board:
+
+.. code-block:: python
+
+    >>> from rpi_backlight import Backlight, BoardType
+    >>>
+    >>> backlight = Backlight(board_type=BoardType.TINKER_BOARD)
+    >>> # continue like above
+
 See the :ref:`API reference <api>` for more details.
 
 Command line interface
@@ -63,6 +72,12 @@ Open a terminal and run ``rpi-backlight``.
     off
     $ rpi-backlight --set-power off :emulator:
     $
+
+To use with ASUS Tinker Board:
+
+.. code-block:: console
+
+    $ rpi-backlight --board-type tinker-board ...
 
 You can set the backlight sysfs path using a positional argument, set it to `:emulator:`
 to use with `rpi-backlight-emulator`.
