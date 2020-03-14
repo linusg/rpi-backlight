@@ -27,10 +27,12 @@ jobs:
       run: |
         python setup.py install
     - name: Run mypy
+      if: ${{ matrix.python-version != 3.5 }}
       run: |
         pip install mypy==0.761
         mypy --ignore-missing-imports .
     - name: Run black
+      if: ${{ matrix.python-version != 3.5 }}
       run: |
         pip install black==19.10b0
         black --check --diff rpi_backlight tests
