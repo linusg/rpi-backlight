@@ -111,5 +111,5 @@ def main():
 
     if args.duration:
         parser.error(
-            "-d/--duration must be used with -b/--set-brightness or -p/--set-power"
+            "-d/--duration must be used with -b/--set-brightness or -p/--set-power toggle"
         )
