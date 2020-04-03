@@ -104,7 +104,7 @@ Available options:
                             set the display brightness (0-100)
     --get-power           get the display power (on/off)
     -p VALUE, --set-power VALUE
-                            set the display power (on/off)
+                            set the display power (on/off/toggle)
     -d DURATION, --duration DURATION
                             fading duration in seconds
     -B {raspberry-pi,tinker-board}, --board-type {raspberry-pi,tinker-board}
