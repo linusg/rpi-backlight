@@ -50,7 +50,7 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default="raspberry-pi",
+        default="tinker-board",
         choices=BOARD_TYPES.keys(),
         help="board type",
     )
@@ -100,11 +100,18 @@ def main():
         if any((args.get_brightness, args.set_brightness, args.get_power)):
             parser.error("-p/--set-power may only be used with -d/--duration")
         if args.set_power == "toggle":
-            with backlight.fade(duration=args.duration):
-                if backlight.brightness > 0:
+            if backlight.power:
+                with backlight.fade(duration=args.duration):
                     backlight.brightness = 0
-                else:
+                backlight.power = False
+            else:
+                # Ensure brightness is 0 when we turn the display on
+                backlight.brightness = 0
+                # backlight.power = True
+                print(args.duration)
+                with backlight.fade(duration=args.duration):
                     backlight.brightness = 100
+
         else:
             backlight.power = True if args.set_power == "on" else False
         return
