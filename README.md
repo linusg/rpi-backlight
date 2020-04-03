@@ -27,7 +27,7 @@
 
 ## Requirements
 
-- A **Raspberry Pi or Asus Tinkerboard** including a correctly assembled **7" touch display v1.1 or higher**
+- A **Raspberry Pi or ASUS Tinker Board** including a correctly assembled **7" touch display v1.1 or higher**
   (look on the display's circuit board to see its version) running a Linux-based OS
 - Python 3.5+
 - Optional: Raspberry Pi: ``pygobject`` for the GUI, already installed on a recent Raspbian
