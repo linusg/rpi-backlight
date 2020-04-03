@@ -52,6 +52,7 @@ class Backlight:
                     type(board_type)
                 )
             )
+
         if not backlight_sysfs_path:
             backlight_sysfs_path = _BACKLIGHT_SYSFS_PATHS[board_type]
         elif backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
