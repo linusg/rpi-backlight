@@ -27,10 +27,11 @@
 
 ## Requirements
 
-- A **Raspberry Pi** including a correctly assembled **7" touch display v1.1 or higher**
+- A **Raspberry Pi or Asus Tinkerboard** including a correctly assembled **7" touch display v1.1 or higher**
   (look on the display's circuit board to see its version) running a Linux-based OS
 - Python 3.5+
-- Optional: ``pygobject`` for the GUI, already installed on a recent Raspbian
+- Optional: Raspberry Pi: ``pygobject`` for the GUI, already installed on a recent Raspbian
+- Optional: Tinkerboard: ``gir1.2-gtk-3.0`` for the GUI install
 
 ## Installation
 
@@ -108,6 +109,8 @@ $ rpi-backlight -p off
 $ rpi-backlight --get-power
 off
 $ rpi-backlight --set-power off :emulator:
+$ rpi-backlight -p toggle
+$ rpi-backlight -p toggle -d 1.5
 $
 ```
 
