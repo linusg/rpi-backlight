@@ -31,7 +31,7 @@
   (look on the display's circuit board to see its version) running a Linux-based OS
 - Python 3.5+
 - Optional: Raspberry Pi: ``pygobject`` for the GUI, already installed on a recent Raspbian
-- Optional: Tinkerboard: ``gir1.2-gtk-3.0`` for the GUI install
+- Optional: Tinker Board: ``gir1.2-gtk-3.0`` for the GUI install
 
 ## Installation
 
