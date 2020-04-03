@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from os import PathLike
 
 __author__ = "Linus Groh"
-__version__ = "2.1.0"
+__version__ = "2.0.1"
 __all__ = ["Backlight", "BoardType"]
 
 
@@ -43,7 +43,7 @@ class Backlight:
     def __init__(
         self,
         backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
-        board_type: BoardType = BoardType.RASPBERRY_PI,
+        board_type: BoardType = BoardType.RASPBERRY_PI
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
@@ -52,7 +52,6 @@ class Backlight:
                     type(board_type)
                 )
             )
-
         if not backlight_sysfs_path:
             backlight_sysfs_path = _BACKLIGHT_SYSFS_PATHS[board_type]
         elif backlight_sysfs_path == _EMULATOR_MAGIC_STRING:

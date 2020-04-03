@@ -41,7 +41,7 @@ def _create_argument_parser():
         "--set-power",
         metavar="VALUE",
         type=str,
-        choices=("on", "off"),
+        choices=("on", "off", "toggle"),
         help="set the display power (on/off)",
     )
     parser.add_argument(
@@ -97,12 +97,19 @@ def main():
         return
 
     if args.set_power:
-        if any(
-            (args.get_brightness, args.set_brightness, args.get_power, args.duration)
-        ):
-            parser.error("-p/--set-power must be used without other options")
-        backlight.power = True if args.set_power == "on" else False
+        if any((args.get_brightness, args.set_brightness, args.get_power)):
+            parser.error("-p/--set-power may only be used with -d/--duration")
+        if args.set_power == "toggle":
+            with backlight.fade(duration=args.duration):
+                if backlight.brightness > 0:
+                    backlight.brightness = 0
+                else:
+                    backlight.brightness = 100
+        else:
+            backlight.power = True if args.set_power == "on" else False
         return
 
     if args.duration:
-        parser.error("-d/--duration must be used with -b/--set-brightness")
+        parser.error(
+            "-d/--duration must be used with -b/--set-brightness or -p/--set-power"
+        )
