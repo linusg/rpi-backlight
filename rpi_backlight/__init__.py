@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from os import PathLike
 
 __author__ = "Linus Groh"
-__version__ = "2.0.1"
+__version__ = "2.1.0"
 __all__ = ["Backlight", "BoardType"]
 
 
