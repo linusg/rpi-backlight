@@ -108,7 +108,6 @@ def main():
                 # Ensure brightness is 0 when we turn the display on
                 backlight.brightness = 0
                 # backlight.power = True
-                print(args.duration)
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 100
 
