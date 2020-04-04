@@ -41,8 +41,8 @@ def _create_argument_parser():
         "--set-power",
         metavar="VALUE",
         type=str,
-        choices=("on", "off"),
-        help="set the display power (on/off)",
+        choices=("on", "off", "toggle"),
+        help="set the display power (on/off/toggle)",
     )
     parser.add_argument(
         "-d", "--duration", type=float, default=0, help="fading duration in seconds"
@@ -97,12 +97,26 @@ def main():
         return
 
     if args.set_power:
-        if any(
-            (args.get_brightness, args.set_brightness, args.get_power, args.duration)
-        ):
-            parser.error("-p/--set-power must be used without other options")
-        backlight.power = True if args.set_power == "on" else False
+        if any((args.get_brightness, args.set_brightness, args.get_power)):
+            parser.error("-p/--set-power may only be used with -d/--duration")
+        if args.set_power == "toggle":
+            if backlight.power:
+                with backlight.fade(duration=args.duration):
+                    backlight.brightness = 0
+                if args.board_type == "raspberry-pi":
+                    backlight.power = False
+            else:
+                # Ensure brightness is 0 when we turn the display on
+                backlight.brightness = 0
+                if args.board_type == "raspberry-pi":
+                    backlight.power = True
+                with backlight.fade(duration=args.duration):
+                    backlight.brightness = 100
+        else:
+            backlight.power = True if args.set_power == "on" else False
         return
 
     if args.duration:
-        parser.error("-d/--duration must be used with -b/--set-brightness")
+        parser.error(
+            "-d/--duration must be used with -b/--set-brightness or -p/--set-power toggle"
+        )
