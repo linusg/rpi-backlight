@@ -50,7 +50,7 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default="raspberry-pi",
+        default="tinker-board",
         choices=BOARD_TYPES.keys(),
         help="board type",
     )
@@ -103,13 +103,15 @@ def main():
             if backlight.power:
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 0
-                backlight.power = False
+                if args.board_type == "raspberry-pi":
+                    backlight.power = False
             else:
                 # Ensure brightness is 0 when we turn the display on
                 backlight.brightness = 0
+                if args.board_type == "raspberry-pi":
+                    backlight.power = True
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 100
-                backlight.power = True
 
         else:
             backlight.power = True if args.set_power == "on" else False
