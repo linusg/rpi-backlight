@@ -50,7 +50,7 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default="tinker-board",
+        default="raspberry-pi",
         choices=BOARD_TYPES.keys(),
         help="board type",
     )
