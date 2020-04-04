@@ -42,7 +42,7 @@ def _create_argument_parser():
         metavar="VALUE",
         type=str,
         choices=("on", "off", "toggle"),
-        help="set the display power (on/off/toggle)",
+        help="set the display power (on/off)",
     )
     parser.add_argument(
         "-d", "--duration", type=float, default=0, help="fading duration in seconds"
@@ -50,7 +50,7 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default="tinker-board",
+        default="raspberry-pi",
         choices=BOARD_TYPES.keys(),
         help="board type",
     )
@@ -112,7 +112,6 @@ def main():
                     backlight.power = True
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 100
-
         else:
             backlight.power = True if args.set_power == "on" else False
         return
