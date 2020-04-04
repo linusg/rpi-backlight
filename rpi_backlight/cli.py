@@ -103,7 +103,7 @@ def main():
             if backlight.power:
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 0
-                if args.board_type == BoardType.RASPBERRY_PI:
+                if args.board_type == "raspberry-pi":
                     backlight.power = False
             else:
                 # Ensure brightness is 0 when we turn the display on
