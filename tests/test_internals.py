@@ -19,7 +19,7 @@ def test_set_value() -> None:
     with FakeBacklightSysfs() as backlight_sysfs:
         backlight = Backlight(backlight_sysfs_path=backlight_sysfs.path)
 
-        assert backlight._set_value("brightness", 0) is None
+        assert backlight._set_value("brightness", 0) is None  # type: ignore[func-returns-value]
         assert backlight._get_value("brightness") == 0
 
 

@@ -25,7 +25,7 @@ def test_set_fade_duration() -> None:
             backlight.fade_duration = -1
 
         with pytest.raises(TypeError):
-            backlight.fade_duration = "foo"
+            backlight.fade_duration = "foo"  # type: ignore[assignment]
 
         with pytest.raises(TypeError):
             backlight.fade_duration = True
@@ -49,7 +49,7 @@ def test_set_brightness() -> None:
         assert backlight.brightness == 0
 
         with pytest.raises(TypeError):
-            backlight.brightness = "foo"
+            backlight.brightness = "foo"  # type: ignore[assignment]
 
         with pytest.raises(TypeError):
             backlight.brightness = True
@@ -79,10 +79,10 @@ def test_set_power() -> None:
         assert backlight.power is True
 
         with pytest.raises(TypeError):
-            backlight.power = "foo"
+            backlight.power = "foo"  # type: ignore[assignment]
 
         with pytest.raises(TypeError):
-            backlight.power = 1
+            backlight.power = 1  # type: ignore[assignment]
 
 
 def test_fade() -> None:
