@@ -1,7 +1,16 @@
 import pytest
 
-from rpi_backlight import Backlight
+from rpi_backlight import Backlight, _EMULATOR_SYSFS_TMP_FILE_PATH
 from rpi_backlight.utils import FakeBacklightSysfs
+
+
+def test_constructor() -> None:
+    with pytest.raises(TypeError):
+        Backlight(board_type="foo")  # type: ignore[arg-type]
+
+    assert not _EMULATOR_SYSFS_TMP_FILE_PATH.exists()
+    with pytest.raises(RuntimeError):
+        Backlight(backlight_sysfs_path=":emulator:")
 
 
 def test_get_fade_duration() -> None:
