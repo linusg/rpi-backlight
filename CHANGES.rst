@@ -1,6 +1,13 @@
 Changes
 =======
 
+2.2.0
+-----
+
+- Add toggle functionality to CLI (`#21 <https://github.com/linusg/rpi-backlight/pull/21>`_, `@p1r473 <https://github.com/p1r473>`_)
+- Replace Travis CI with GitHub actions (`#20 <https://github.com/linusg/rpi-backlight/pull/20>`_, `@linusg <https://github.com/linusg>`_)
+- Improve tests
+
 2.1.0
 -----
 
