@@ -1,6 +1,11 @@
 Changes
 =======
 
+2.3.0
+-----
+
+- Add support for ASUS Tinker Board 2 (`#29 <https://github.com/linusg/rpi-backlight/pull/29>`_, `@p1r473 <https://github.com/p1r473>`_)
+
 2.2.0
 -----
 
