@@ -5,6 +5,7 @@ from . import Backlight, BoardType, __version__
 BOARD_TYPES = {
     "raspberry-pi": BoardType.RASPBERRY_PI,
     "tinker-board": BoardType.TINKER_BOARD,
+    "tinker-board2": BoardType.TINKER_BOARD2,
 }
 
 
