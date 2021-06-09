@@ -72,7 +72,10 @@ class Backlight:
 
         if self._board_type == BoardType.RASPBERRY_PI:
             self._max_brightness = self._get_value("max_brightness")  # 255
-        elif self._board_type == BoardType.TINKER_BOARD or self._board_type == BoardType.TINKER_BOARD2:
+        elif (
+            self._board_type == BoardType.TINKER_BOARD
+            or self._board_type == BoardType.TINKER_BOARD2
+        ):
             self._max_brightness = 255
 
     def _get_value(self, name: str) -> int:
@@ -158,7 +161,10 @@ class Backlight:
         """
         if self._board_type == BoardType.RASPBERRY_PI:
             return self._normalize_brightness(self._get_value("actual_brightness"))
-        elif self._board_type == BoardType.TINKER_BOARD or self._board_type == BoardType.TINKER_BOARD2:
+        elif (
+            self._board_type == BoardType.TINKER_BOARD
+            or self._board_type == BoardType.TINKER_BOARD2
+        ):
             return self._normalize_brightness(self._get_value("tinker_mcu_bl"))
         else:
             raise RuntimeError("Invalid board type")
@@ -181,7 +187,10 @@ class Backlight:
                     self._set_value(
                         "brightness", self._denormalize_brightness(current_value)
                     )
-                elif self._board_type == BoardType.TINKER_BOARD or self._board_type == BoardType.TINKER_BOARD2:
+                elif (
+                    self._board_type == BoardType.TINKER_BOARD
+                    or self._board_type == BoardType.TINKER_BOARD2
+                ):
                     self._set_value(
                         "tinker_mcu_bl", self._denormalize_brightness(current_value)
                     )
@@ -191,7 +200,10 @@ class Backlight:
         else:
             if self._board_type == BoardType.RASPBERRY_PI:
                 self._set_value("brightness", self._denormalize_brightness(value))
-            elif self._board_type == BoardType.TINKER_BOARD or self._board_type == BoardType.TINKER_BOARD2:
+            elif (
+                self._board_type == BoardType.TINKER_BOARD
+                or self._board_type == BoardType.TINKER_BOARD2
+            ):
                 self._set_value("tinker_mcu_bl", self._denormalize_brightness(value))
             else:
                 raise RuntimeError("Invalid board type")
@@ -212,7 +224,10 @@ class Backlight:
         if self._board_type == BoardType.RASPBERRY_PI:
             # 0 is on, 1 is off
             return not self._get_value("bl_power")
-        elif self._board_type == BoardType.TINKER_BOARD or self._board_type == BoardType.TINKER_BOARD2:
+        elif (
+            self._board_type == BoardType.TINKER_BOARD
+            or self._board_type == BoardType.TINKER_BOARD2
+        ):
             return bool(self._get_value("tinker_mcu_bl"))
         else:
             raise RuntimeError("Invalid board type")
@@ -225,7 +240,10 @@ class Backlight:
         if self._board_type == BoardType.RASPBERRY_PI:
             # 0 is on, 1 is off
             self._set_value("bl_power", int(not on))
-        elif self._board_type == BoardType.TINKER_BOARD or self._board_type == BoardType.TINKER_BOARD2:
+        elif (
+            self._board_type == BoardType.TINKER_BOARD
+            or self._board_type == BoardType.TINKER_BOARD2
+        ):
             self._set_value("tinker_mcu_bl", 255 if on else 0)
         else:
             raise RuntimeError("Invalid board type")
