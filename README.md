@@ -84,7 +84,6 @@ False
 ```
 
 To use with ASUS Tinker Board:
-
 ```python
 >>> from rpi_backlight import Backlight, BoardType
 >>>
@@ -116,11 +115,10 @@ $
 ```
 
 To use with ASUS Tinker Board:
-
 ```console
 $ rpi-backlight --board-type tinker-board ...
 ```
-When using the ASUS Tinker Board 2, set `board-type` to `tibker-board-2`.
+When using the ASUS Tinker Board 2, set `board-type` to `tinker-board-2`.
 
 For all available options see [docs](https://rpi-backlight.readthedocs.io/en/latest/usage.html#command-line-interface).
 
