@@ -21,7 +21,7 @@ class BoardType(Enum):
     #: Tinker Board
     TINKER_BOARD = 2
     #: Tinker Board 2
-    TINKER_BOARD = 3
+    TINKER_BOARD2 = 3
 
 
 _BACKLIGHT_SYSFS_PATHS = {
