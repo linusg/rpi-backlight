@@ -83,14 +83,26 @@ False
 >>>
 ```
 
-To use with ASUS Tinker Board:
-
-```python
->>> from rpi_backlight import Backlight, BoardType
->>>
->>> backlight = Backlight(board_type=BoardType.TINKER_BOARD)
->>> # continue like above
+### To use with ASUS Tinker Board:
+In `def __init__()` in file `__init__.py`:
 ```
+board_type: BoardType = BoardType.TINKER_BOARD
+```
+In `def _create_argument_parser()` in file `cli.py`:
+```
+default="tinker-board"
+```
+
+### To use with ASUS Tinker Board 2:
+In `def __init__()` in file `__init__.py`:
+```
+board_type: BoardType = BoardType.TINKER_BOARD_2
+```
+In `def _create_argument_parser()` in file `cli.py`:
+```
+default="tinker-board-2"
+```
+
 
 For more details see [docs](https://rpi-backlight.readthedocs.io/en/latest/api.html).
 
