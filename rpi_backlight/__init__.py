@@ -27,7 +27,7 @@ class BoardType(Enum):
 _BACKLIGHT_SYSFS_PATHS = {
     BoardType.RASPBERRY_PI: "/sys/class/backlight/rpi_backlight/",
     BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
-    BoardType.TINKER_BOARD2: "/sys/devices/platform/ff30000.i2c/i2c-8/8-0045/",
+    BoardType.TINKER_BOARD2: "/sys/devices/platform/ff3e0000.i2c/i2c-8/8-0045/",
 }
 _EMULATOR_SYSFS_TMP_FILE_PATH = Path(gettempdir()) / "rpi-backlight-emulator.sysfs"
 _EMULATOR_MAGIC_STRING = ":emulator:"
