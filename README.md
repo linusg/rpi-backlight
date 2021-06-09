@@ -83,7 +83,7 @@ False
 >>>
 ```
 
-### To use with ASUS Tinker Board:
+## To use with ASUS Tinker Board:
 In `def __init__()` in file `__init__.py`:
 ```
 board_type: BoardType = BoardType.TINKER_BOARD
@@ -93,7 +93,7 @@ In `def _create_argument_parser()` in file `cli.py`:
 default="tinker-board"
 ```
 
-### To use with ASUS Tinker Board 2:
+## To use with ASUS Tinker Board 2:
 In `def __init__()` in file `__init__.py`:
 ```
 board_type: BoardType = BoardType.TINKER_BOARD_2
