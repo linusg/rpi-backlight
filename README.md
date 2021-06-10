@@ -6,13 +6,13 @@
 ![Python Version](https://img.shields.io/pypi/pyversions/rpi-backlight)
 [![Downloads](https://pepy.tech/badge/rpi-backlight)](https://pepy.tech/project/rpi-backlight)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://rpi-backlight.readthedocs.io/en/latest/)
-[![License](https://img.shields.io/github/license/linusg/rpi-backlight?color=d63e97)](https://github.com/linusg/rpi-backlight/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/linusg/rpi-backlight?color=d63e97)](https://github.com/linusg/rpi-backlight/blob/main/LICENSE)
 [![Black](https://img.shields.io/badge/code%20style-black-000000)](https://github.com/ambv/black)
 [![Build](https://github.com/linusg/rpi-backlight/workflows/Build/badge.svg)](https://github.com/linusg/rpi-backlight/actions?query=workflow%3ABuild)
 [![Read the Docs](https://img.shields.io/readthedocs/rpi-backlight)](https://rpi-backlight.readthedocs.io/en/latest/)
 [![Issues](https://img.shields.io/github/issues/linusg/rpi-backlight)](https://github.com/linusg/rpi-backlight/issues)
 
-![Example](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/_static/example.gif)
+![Example](https://raw.githubusercontent.com/linusg/rpi-backlight/main/docs/_static/example.gif)
 
 **Note:** _This GIF was created using the old v1 API, so please don't use it as API reference 🙂_
 
@@ -126,12 +126,12 @@ For all available options see [docs](https://rpi-backlight.readthedocs.io/en/lat
 
 Open a terminal and run `rpi-backlight-gui`.
 
-![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/_static/gui.png)
-![Graphical User Interface (2)](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/_static/gui2.png)
+![Graphical User Interface](https://raw.githubusercontent.com/linusg/rpi-backlight/main/docs/_static/gui.png)
+![Graphical User Interface (2)](https://raw.githubusercontent.com/linusg/rpi-backlight/main/docs/_static/gui2.png)
 
 ### Adding a shortcut to the LXDE panel
 
-![Panel result](https://raw.githubusercontent.com/linusg/rpi-backlight/master/docs/_static/panel_result.png)
+![Panel result](https://raw.githubusercontent.com/linusg/rpi-backlight/main/docs/_static/panel_result.png)
 
 See [docs](https://rpi-backlight.readthedocs.io/en/latest/usage.html#adding-a-shortcut-to-the-lxde-panel).
 
