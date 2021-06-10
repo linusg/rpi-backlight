@@ -9,7 +9,6 @@ BOARD_TYPES = {
     "tinker-board-2": BoardType.TINKER_BOARD_2,
 }
 
-
 def _create_argument_parser():
     parser = ArgumentParser(
         description='Get/set power and brightness of the official Raspberry Pi 7" touch display.'
