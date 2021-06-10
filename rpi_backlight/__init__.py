@@ -1,3 +1,4 @@
+import errno
 import time
 from contextlib import contextmanager
 from enum import Enum
@@ -80,7 +81,7 @@ class Backlight:
             # Try again
             return self._get_value(name)
         except (OSError, IOError) as e:
-            if e.errno == 13:
+            if e.errno == errno.EPERM:
                 _permission_denied()
             raise e
 
@@ -88,7 +89,7 @@ class Backlight:
         try:
             (self._backlight_sysfs_path / name).write_text(str(value))
         except (OSError, IOError) as e:
-            if e.errno == 13:
+            if e.errno == errno.EPERM:
                 _permission_denied()
             raise e
 
