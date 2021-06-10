@@ -38,6 +38,7 @@ def _permission_denied() -> None:
         "for the backlight access as described in README.md."
     )
 
+
 def _get_board():
     model_file = Path("/proc/device-tree/model")
     model = model_file.read_text()
@@ -49,6 +50,7 @@ def _get_board():
         return BoardType.RASPBERRY_PI
     else:
         return BoardType.RASPBERRY_PI
+
 
 class Backlight:
     """Main class to access and control the display backlight power and brightness."""
