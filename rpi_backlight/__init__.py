@@ -40,16 +40,19 @@ def _permission_denied() -> None:
 
 
 def _get_board():
-    model_file = Path("/proc/device-tree/model")
-    model = model_file.read_text()
-    if model.rfind("Tinker Board 2"):
-        return BoardType.TINKER_BOARD_2
-    elif model.rfind("Tinker Board"):
-        return BoardType.TINKER_BOARD
-    elif model.rfind("Raspberry Pi"):
-        return BoardType.RASPBERRY_PI
-    else:
-        return BoardType.RASPBERRY_PI
+    try:
+        model_file = Path("/proc/device-tree/model")
+        model = model_file.read_text()
+        if model.rfind("Tinker Board 2"):
+            return BoardType.TINKER_BOARD_2
+        elif model.rfind("Tinker Board"):
+            return BoardType.TINKER_BOARD
+        elif model.rfind("Raspberry Pi"):
+            return BoardType.RASPBERRY_PI
+        else:
+            return BoardType.RASPBERRY_PI
+    except:
+        raise RuntimeError("Invalid board type")
 
 
 class Backlight:

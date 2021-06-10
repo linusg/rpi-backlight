@@ -63,17 +63,19 @@ def _create_argument_parser():
 
 
 def _get_board():
-    model_file = Path("/proc/device-tree/model")
-    model = model_file.read_text()
-    if model.startswith("ASUS Tinker Board 2"):
-        return "tinker-board-2"
-    elif model.startswith("ASUS Tinker Board"):
-        return "tinker-board"
-    elif model.startswith("Raspberry Pi"):
-        return "raspberry-pi"
-    else:
-        return "raspberry-pi"
-
+    try:
+        model_file = Path("/proc/device-tree/model")
+        model = model_file.read_text()
+        if model.startswith("ASUS Tinker Board 2"):
+            return "tinker-board-2"
+        elif model.startswith("ASUS Tinker Board"):
+            return "tinker-board"
+        elif model.startswith("Raspberry Pi"):
+            return "raspberry-pi"
+        else:
+            return "raspberry-pi"
+    except:
+        raise RuntimeError("Invalid board type")
 
 def main():
     """Start the command line interface."""
