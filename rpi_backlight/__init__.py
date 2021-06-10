@@ -7,6 +7,8 @@ from pathlib import Path
 from tempfile import gettempdir
 from typing import Generator, Union, Optional
 
+from . import utils
+
 __author__ = "Linus Groh"
 __version__ = "2.3.0"
 __all__ = ["Backlight", "BoardType"]
@@ -39,29 +41,13 @@ def _permission_denied() -> None:
     )
 
 
-def _get_board():
-    try:
-        model_file = Path("/proc/device-tree/model")
-        model = model_file.read_text()
-        if model.rfind("Tinker Board 2"):
-            return BoardType.TINKER_BOARD_2
-        elif model.rfind("Tinker Board"):
-            return BoardType.TINKER_BOARD
-        elif model.rfind("Raspberry Pi"):
-            return BoardType.RASPBERRY_PI
-        else:
-            return BoardType.RASPBERRY_PI
-    except:
-        return BoardType.RASPBERRY_PI
-
-
 class Backlight:
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
         self,
         backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
-        board_type: BoardType = _get_board(),
+        board_type: BoardType = utils.detect_board_type() or BoardType.RASPBERRY_PI,
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):

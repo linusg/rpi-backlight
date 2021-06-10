@@ -1,7 +1,7 @@
 from argparse import ArgumentParser
 from pathlib import Path
 
-from . import Backlight, BoardType, __version__
+from . import Backlight, BoardType, __version__, utils
 
 BOARD_TYPES = {
     "raspberry-pi": BoardType.RASPBERRY_PI,
@@ -52,30 +52,14 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default=_get_board(),
+        default=utils.detect_board_type() or "raspberry-pi",
         choices=BOARD_TYPES.keys(),
         help="board type",
     )
     parser.add_argument(
-        "-V", "--version", action="version", version=f"%(prog)s {__version__}"
+        "--version", action="version", version=f"%(prog)s {__version__}"
     )
     return parser
-
-
-def _get_board():
-    try:
-        model_file = Path("/proc/device-tree/model")
-        model = model_file.read_text()
-        if model.rfind("Tinker Board 2"):
-            return "tinker-board-2"
-        elif model.rfind("Tinker Board"):
-            return "tinker-board"
-        elif model.rfind("Raspberry Pi"):
-            return "raspberry-pi"
-        else:
-            return "raspberry-pi"
-    except:
-        return "raspberry-pi"
 
 
 def main():
@@ -84,7 +68,8 @@ def main():
     args = parser.parse_args()
 
     backlight = Backlight(
-        board_type=BOARD_TYPES[args.board_type], backlight_sysfs_path=args.sysfs_path
+        board_type=STRING_TO_BOARD_TYPE[args.board_type],
+        backlight_sysfs_path=args.sysfs_path,
     )
 
     if args.get_brightness:
