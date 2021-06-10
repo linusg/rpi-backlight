@@ -60,7 +60,6 @@ def _create_argument_parser():
     )
     return parser
 
-
 def _get_board():
     model_file = Path("/proc/device-tree/model")
     model = model_file.read_text()
@@ -72,7 +71,6 @@ def _get_board():
         return "raspberry-pi"
     else:
         return "raspberry-pi"
-
 
 def main():
     """Start the command line interface."""
