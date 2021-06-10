@@ -3,7 +3,7 @@ from contextlib import contextmanager
 from enum import Enum
 from pathlib import Path
 from tempfile import gettempdir
-from typing import Any, Callable, Generator, Union, Optional, TYPE_CHECKING
+from typing import Generator, Union, Optional, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from os import PathLike
