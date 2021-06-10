@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from pathlib import Path
 
 from . import Backlight, BoardType, __version__
 
@@ -51,17 +52,27 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default="raspberry-pi",
+        default=_get_board(),
         choices=BOARD_TYPES.keys(),
         help="board type",
     )
     parser.add_argument(
-        "-V",
-        "--version",
-        action="version",
-        version=f"%(prog)s {__version__}",
+        "-V", "--version", action="version", version=f"%(prog)s {__version__}"
     )
     return parser
+
+
+def _get_board():
+    model_file = Path("/proc/device-tree/model")
+    model = model_file.read_text()
+    if model.startswith("ASUS Tinker Board 2"):
+        return "tinker-board-2"
+    elif model.startswith("ASUS Tinker Board"):
+        return "tinker-board"
+    elif model.startswith("Raspberry Pi"):
+        return "raspberry-pi"
+    else:
+        return "raspberry-pi"
 
 
 def main():

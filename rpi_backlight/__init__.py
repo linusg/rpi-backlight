@@ -39,13 +39,26 @@ def _permission_denied() -> None:
     )
 
 
+def _get_board():
+    model_file = Path("/proc/device-tree/model")
+    model = model_file.read_text()
+    if model.startswith("ASUS Tinker Board 2"):
+        return BoardType.TINKER_BOARD_2
+    elif model.startswith("ASUS Tinker Board"):
+        return BoardType.TINKER_BOARD
+    elif model.startswith("Raspberry Pi"):
+        return BoardType.RASPBERRY_PI
+    else:
+        return BoardType.RASPBERRY_PI
+
+
 class Backlight:
     """Main class to access and control the display backlight power and brightness."""
 
     def __init__(
         self,
         backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
-        board_type: BoardType = BoardType.RASPBERRY_PI,
+        board_type: BoardType = _get_board(),
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
