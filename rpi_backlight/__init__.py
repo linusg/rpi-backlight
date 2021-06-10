@@ -61,6 +61,10 @@ class Backlight:
                     f"Emulator seems to be not running, {_EMULATOR_SYSFS_TMP_FILE_PATH} not found"
                 )
             backlight_sysfs_path = _EMULATOR_SYSFS_TMP_FILE_PATH.read_text()
+            # The emulator only knows about Raspberry Pi sysfs files
+            # (brightness, bl_power), ignore board_type
+            board_type = BoardType.RASPBERRY_PI
+
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._board_type = board_type
         self._fade_duration = 0.0  # in seconds
