@@ -75,7 +75,7 @@ def _get_board():
         else:
             return "raspberry-pi"
     except:
-        raise RuntimeError("Invalid board type")
+        return "raspberry-pi"
 
 
 def main():

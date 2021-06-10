@@ -52,7 +52,7 @@ def _get_board():
         else:
             return BoardType.RASPBERRY_PI
     except:
-        raise RuntimeError("Invalid board type")
+        return BoardType.RASPBERRY_PI
 
 
 class Backlight:
