@@ -66,11 +66,11 @@ def _get_board():
     try:
         model_file = Path("/proc/device-tree/model")
         model = model_file.read_text()
-        if model.startswith("ASUS Tinker Board 2"):
+        if model.rfind("Tinker Board 2"):
             return "tinker-board-2"
-        elif model.startswith("ASUS Tinker Board"):
+        elif model.rfind("Tinker Board"):
             return "tinker-board"
-        elif model.startswith("Raspberry Pi"):
+        elif model.rfind("Raspberry Pi"):
             return "raspberry-pi"
         else:
             return "raspberry-pi"
