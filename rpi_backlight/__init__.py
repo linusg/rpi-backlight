@@ -42,11 +42,11 @@ def _permission_denied() -> None:
 def _get_board():
     model_file = Path("/proc/device-tree/model")
     model = model_file.read_text()
-    if model.startswith("ASUS Tinker Board 2"):
+    if model.rfind("Tinker Board 2"):
         return BoardType.TINKER_BOARD_2
-    elif model.startswith("ASUS Tinker Board"):
+    elif model.rfind("Tinker Board"):
         return BoardType.TINKER_BOARD
-    elif model.startswith("Raspberry Pi"):
+    elif model.rfind("Raspberry Pi"):
         return BoardType.RASPBERRY_PI
     else:
         return BoardType.RASPBERRY_PI
