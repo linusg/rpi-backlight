@@ -59,7 +59,7 @@ def _create_argument_parser():
         "-V",
         "--version",
         action="version",
-        version="%(prog)s {version}".format(version=__version__),
+        version=f"%(prog)s {__version__}",
     )
     return parser
 
