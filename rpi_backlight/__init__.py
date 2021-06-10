@@ -1,12 +1,10 @@
 import time
 from contextlib import contextmanager
 from enum import Enum
+from os import PathLike
 from pathlib import Path
 from tempfile import gettempdir
-from typing import Generator, Union, Optional, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from os import PathLike
+from typing import Generator, Union, Optional
 
 __author__ = "Linus Groh"
 __version__ = "2.3.0"
