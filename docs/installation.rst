@@ -12,7 +12,7 @@ Requirements
   (look on the display's circuit board to see its version) running a Linux-based OS.
   Alternatively you can use rpi-backlight-emulator_ on all operating systems and without
   the actual hardware.
-- Python 3.5+
+- Python 3.6+
 - Optional: ``pygobject`` for the GUI, already installed on a recent Raspbian
 
 Installation
