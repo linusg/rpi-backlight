@@ -77,6 +77,7 @@ def _get_board():
     except:
         raise RuntimeError("Invalid board type")
 
+
 def main():
     """Start the command line interface."""
     parser = _create_argument_parser()
