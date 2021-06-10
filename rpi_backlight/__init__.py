@@ -51,9 +51,7 @@ class Backlight:
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
             raise TypeError(
-                "board_type must be a member of the BoardType enum, got {0}".format(
-                    type(board_type)
-                )
+                f"board_type must be a member of the BoardType enum, got {type(board_type)}"
             )
 
         if not backlight_sysfs_path:
@@ -61,9 +59,7 @@ class Backlight:
         elif backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
             if not _EMULATOR_SYSFS_TMP_FILE_PATH.exists():
                 raise RuntimeError(
-                    "Emulator seems to be not running, {0} not found".format(
-                        _EMULATOR_SYSFS_TMP_FILE_PATH
-                    )
+                    f"Emulator seems to be not running, {_EMULATOR_SYSFS_TMP_FILE_PATH} not found"
                 )
             backlight_sysfs_path = _EMULATOR_SYSFS_TMP_FILE_PATH.read_text()
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
@@ -141,9 +137,9 @@ class Backlight:
         """Set the fade duration."""
         # isinstance(True, int) is True, so additional check for bool.
         if not isinstance(duration, (int, float)) or isinstance(duration, bool):
-            raise TypeError("value must be a number, got {0}".format(type(duration)))
+            raise TypeError(f"value must be a number, got {type(duration)}")
         if duration < 0:
-            raise ValueError("value must be >= 0, got {0}".format(duration))
+            raise ValueError(f"value must be >= 0, got {duration}")
         self._fade_duration = duration
 
     @property
@@ -174,9 +170,9 @@ class Backlight:
         """Set the display brightness."""
         # isinstance(True, int) is True, so additional check for bool.
         if not isinstance(value, (int, float)) or isinstance(value, bool):
-            raise TypeError("value must be a number, got {0}".format(type(value)))
+            raise TypeError(f"value must be a number, got {type(value)}")
         if value < 0 or value > 100:
-            raise ValueError("value must be in range 0-100, got {0}".format(value))
+            raise ValueError(f"value must be in range 0-100, got {value}")
         if self.fade_duration > 0:
             current_value = self.brightness
             step = 1 if current_value < value else -1
@@ -236,7 +232,7 @@ class Backlight:
     def power(self, on: bool) -> None:
         """Set the display power on or off."""
         if not isinstance(on, bool):
-            raise TypeError("value must be a bool, got {0}".format(type(on)))
+            raise TypeError(f"value must be a bool, got {type(on)}")
         if self._board_type == BoardType.RASPBERRY_PI:
             # 0 is on, 1 is off
             self._set_value("bl_power", int(not on))
