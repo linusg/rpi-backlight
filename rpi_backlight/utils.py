@@ -20,8 +20,8 @@ BOARD_TYPE_TO_STRING = {
 
 
 def detect_board_type() -> Optional[BoardType]:
+    model_file = Path("/proc/device-tree/model")
     try:
-        model_file = Path("/proc/device-tree/model")
         model = model_file.read_text()
     except OSError:
         return None
