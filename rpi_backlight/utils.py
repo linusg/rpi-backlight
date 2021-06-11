@@ -18,9 +18,9 @@ def detect_board_type(boardtype: "BoardType") -> Optional[boardtype]:
     if model.rfind("Tinker Board 2"):
         return boardtype.TINKER_BOARD_2
     elif model.rfind("Tinker Board"):
-        return BoardType.TINKER_BOARD
+        return boardtype.TINKER_BOARD
     elif model.rfind("Raspberry Pi"):
-        return BoardType.RASPBERRY_PI
+        return boardtype.RASPBERRY_PI
     else:
         return None
 
