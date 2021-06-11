@@ -49,18 +49,7 @@ def _create_argument_parser():
     parser.add_argument(
         "-d", "--duration", type=float, default=0, help="fading duration in seconds"
     )
-    parser.add_argument(
-        "-B",
-        "--board-type",
-        default=utils.detect_board_type() or "raspberry-pi",
-        choices=BOARD_TYPES.keys(),
-        help="board type",
-    )
-    parser.add_argument(
-        "-V", "--version", action="version", version=f"%(prog)s {__version__}"
-    )
-    return parser
-
+	
 
 def main():
     """Start the command line interface."""
@@ -68,8 +57,7 @@ def main():
     args = parser.parse_args()
 
     backlight = Backlight(
-        board_type=STRING_TO_BOARD_TYPE[args.board_type],
-        backlight_sysfs_path=args.sysfs_path,
+        board_type=BOARD_TYPES[args.board_type], backlight_sysfs_path=args.sysfs_path
     )
 
     if args.get_brightness:
