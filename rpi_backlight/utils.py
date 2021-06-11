@@ -1,32 +1,22 @@
+from __future__ import annotations
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
-from . import BoardType
+if TYPE_CHECKING:
+    from __init__ import BoardType
 
 __all__ = ["FakeBacklightSysfs"]
 
-STRING_TO_BOARD_TYPE = {
-    "raspberry-pi": BoardType.RASPBERRY_PI,
-    "tinker-board": BoardType.TINKER_BOARD,
-    "tinker-board-2": BoardType.TINKER_BOARD_2,
-}
 
-BOARD_TYPE_TO_STRING = {
-    BoardType.RASPBERRY_PI: "raspberry-pi",
-    BoardType.TINKER_BOARD: "tinker-board",
-    BoardType.TINKER_BOARD_2: "tinker-board-2",
-}
-
-
-def detect_board_type() -> Optional[BoardType]:
+def detect_board_type(boardtype: "BoardType") -> Optional[boardtype]:
     model_file = Path("/proc/device-tree/model")
     try:
         model = model_file.read_text()
     except OSError:
         return None
     if model.rfind("Tinker Board 2"):
-        return BoardType.TINKER_BOARD_2
+        return boardtype.TINKER_BOARD_2
     elif model.rfind("Tinker Board"):
         return BoardType.TINKER_BOARD
     elif model.rfind("Raspberry Pi"):
