@@ -1,4 +1,3 @@
-from __future__ import annotations
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Optional, TYPE_CHECKING
@@ -9,7 +8,7 @@ if TYPE_CHECKING:
 __all__ = ["FakeBacklightSysfs"]
 
 
-def detect_board_type() -> Optional[BoardType]:
+def detect_board_type() -> Optional["BoardType"]:
     from . import BoardType
 
     model_file = Path("/proc/device-tree/model")
