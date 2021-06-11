@@ -9,7 +9,9 @@ if TYPE_CHECKING:
 __all__ = ["FakeBacklightSysfs"]
 
 
-def detect_board_type(boardtype: "BoardType") -> Optional[boardtype]:
+def detect_board_type() -> Optional[BoardType]:
+    from . import BoardType
+
     model_file = Path("/proc/device-tree/model")
     try:
         model = model_file.read_text()
@@ -17,13 +19,13 @@ def detect_board_type(boardtype: "BoardType") -> Optional[boardtype]:
         return None
     # Tinker Board 2/2S starts with ASUS Tinker Board 2 or ASUS Tinker Board 2S
     if model.rfind("Tinker Board 2"):
-        return boardtype.TINKER_BOARD_2
+        return BoardType.TINKER_BOARD_2
     # Tinker Board 1/1S starts with Rockchip RK3288 Asus Tinker Board or Rockchip RK3288 Asus Tinker Board S
     elif model.rfind("Tinker Board"):
-        return boardtype.TINKER_BOARD
+        return BoardType.TINKER_BOARD
     # Raspberry Pi starts with Raspberry Pi
     elif model.rfind("Raspberry Pi"):
-        return boardtype.RASPBERRY_PI
+        return BoardType.RASPBERRY_PI
     else:
         return None
 

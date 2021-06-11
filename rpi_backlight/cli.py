@@ -58,9 +58,7 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default=BOARD_TYPE_TO_STRING.get(
-            utils.detect_board_type(BoardType), "raspberry-pi"
-        ),
+        default=BOARD_TYPE_TO_STRING.get(utils.detect_board_type(), "raspberry-pi"),
         choices=STRING_TO_BOARD_TYPE.keys(),
         help="board type",
     )
