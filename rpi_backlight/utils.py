@@ -15,10 +15,13 @@ def detect_board_type(boardtype: "BoardType") -> Optional[boardtype]:
         model = model_file.read_text()
     except OSError:
         return None
+    # Tinker Board 2/2S starts with ASUS Tinker Board 2 or ASUS Tinker Board 2S
     if model.rfind("Tinker Board 2"):
         return boardtype.TINKER_BOARD_2
+    # Tinker Board 1/1S starts with Rockchip RK3288 Asus Tinker Board or Rockchip RK3288 Asus Tinker Board S
     elif model.rfind("Tinker Board"):
         return boardtype.TINKER_BOARD
+    # Raspberry Pi starts with Raspberry Pi
     elif model.rfind("Raspberry Pi"):
         return boardtype.RASPBERRY_PI
     else:
