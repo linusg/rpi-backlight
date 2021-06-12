@@ -1,5 +1,4 @@
 from argparse import ArgumentParser
-from pathlib import Path
 
 from . import Backlight, BoardType, __version__, utils
 
