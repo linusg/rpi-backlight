@@ -62,7 +62,10 @@ def _create_argument_parser():
         help="board type",
     )
     parser.add_argument(
-        "-V", "--version", action="version", version=f"%(prog)s {__version__}"
+        "-V",
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
     )
     return parser
 
