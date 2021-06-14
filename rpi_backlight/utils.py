@@ -5,7 +5,7 @@ from typing import Optional, TYPE_CHECKING
 if TYPE_CHECKING:
     from __init__ import BoardType
 
-__all__ = ["FakeBacklightSysfs"]
+__all__ = ["detect_board_type", "FakeBacklightSysfs"]
 
 
 def detect_board_type() -> Optional["BoardType"]:
