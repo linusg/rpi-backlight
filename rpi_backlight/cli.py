@@ -1,11 +1,17 @@
 from argparse import ArgumentParser
 
-from . import Backlight, BoardType, __version__
+from . import Backlight, BoardType, __version__, utils
 
-BOARD_TYPES = {
+STRING_TO_BOARD_TYPE = {
     "raspberry-pi": BoardType.RASPBERRY_PI,
     "tinker-board": BoardType.TINKER_BOARD,
     "tinker-board-2": BoardType.TINKER_BOARD_2,
+}
+
+BOARD_TYPE_TO_STRING = {
+    BoardType.RASPBERRY_PI: "raspberry-pi",
+    BoardType.TINKER_BOARD: "tinker-board",
+    BoardType.TINKER_BOARD_2: "tinker-board-2",
 }
 
 
@@ -51,8 +57,8 @@ def _create_argument_parser():
     parser.add_argument(
         "-B",
         "--board-type",
-        default="raspberry-pi",
-        choices=BOARD_TYPES.keys(),
+        default=BOARD_TYPE_TO_STRING.get(utils.detect_board_type(), "raspberry-pi"),
+        choices=STRING_TO_BOARD_TYPE.keys(),
         help="board type",
     )
     parser.add_argument(
@@ -70,7 +76,8 @@ def main():
     args = parser.parse_args()
 
     backlight = Backlight(
-        board_type=BOARD_TYPES[args.board_type], backlight_sysfs_path=args.sysfs_path
+        board_type=STRING_TO_BOARD_TYPE[args.board_type],
+        backlight_sysfs_path=args.sysfs_path,
     )
 
     if args.get_brightness:

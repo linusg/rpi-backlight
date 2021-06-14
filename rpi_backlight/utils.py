@@ -1,7 +1,32 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from __init__ import BoardType
 
 __all__ = ["FakeBacklightSysfs"]
+
+
+def detect_board_type() -> Optional["BoardType"]:
+    from . import BoardType
+
+    model_file = Path("/proc/device-tree/model")
+    try:
+        model = model_file.read_text()
+    except OSError:
+        return None
+    # Tinker Board 2/2S starts with ASUS Tinker Board 2 or ASUS Tinker Board 2S
+    if model.rfind("Tinker Board 2"):
+        return BoardType.TINKER_BOARD_2
+    # Tinker Board 1/1S starts with Rockchip RK3288 Asus Tinker Board or Rockchip RK3288 Asus Tinker Board S
+    elif model.rfind("Tinker Board"):
+        return BoardType.TINKER_BOARD
+    # Raspberry Pi starts with Raspberry Pi
+    elif model.rfind("Raspberry Pi"):
+        return BoardType.RASPBERRY_PI
+    else:
+        return None
 
 
 class FakeBacklightSysfs:

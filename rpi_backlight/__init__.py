@@ -7,6 +7,8 @@ from pathlib import Path
 from tempfile import gettempdir
 from typing import Generator, Union, Optional
 
+from . import utils
+
 __author__ = "Linus Groh"
 __version__ = "2.3.0"
 __all__ = ["Backlight", "BoardType"]
@@ -45,7 +47,7 @@ class Backlight:
     def __init__(
         self,
         backlight_sysfs_path: Optional[Union[str, "PathLike[str]"]] = None,
-        board_type: BoardType = BoardType.RASPBERRY_PI,
+        board_type: BoardType = utils.detect_board_type() or BoardType.RASPBERRY_PI,
     ):
         """Set ``backlight_sysfs_path`` to ``":emulator:"`` to use with rpi-backlight-emulator."""
         if not isinstance(board_type, BoardType):
