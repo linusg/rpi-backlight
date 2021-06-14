@@ -9,6 +9,10 @@ __all__ = ["detect_board_type", "FakeBacklightSysfs"]
 
 
 def detect_board_type() -> Optional["BoardType"]:
+    """Try to detect the board type based on the model string in
+    ``/proc/device-tree/model``.
+    """
+
     from . import BoardType
 
     model_file = Path("/proc/device-tree/model")
