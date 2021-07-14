@@ -100,7 +100,7 @@ class Backlight:
             raise e
 
     def _normalize_brightness(self, value: float) -> int:
-       return max(min(100, int(round(value / self._max_brightness * 100))), 0)
+        return max(min(100, int(round(value / self._max_brightness * 100))), 0)
 
     def _denormalize_brightness(self, value: float) -> int:
         return max(min(255, int(round(value * self._max_brightness / 100))), 0)
