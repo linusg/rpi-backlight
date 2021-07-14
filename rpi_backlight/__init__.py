@@ -100,10 +100,10 @@ class Backlight:
             raise e
 
     def _normalize_brightness(self, value: float) -> int:
-        return int(round(value / self._max_brightness * 100))
+        return max(min(100, int(round(value / self._max_brightness * 100))), 0)
 
     def _denormalize_brightness(self, value: float) -> int:
-        return int(round(value * self._max_brightness / 100))
+        return max(min(255, int(round(value * self._max_brightness / 100))), 0)
 
     @contextmanager
     def fade(self, duration: float) -> Generator:
@@ -182,7 +182,11 @@ class Backlight:
             current_value = self.brightness
             step = 1 if current_value < value else -1
             diff = abs(value - current_value)
-            while current_value != value:
+            while (
+                0.0 <= current_value
+                and current_value != value
+                and current_value <= 100.0
+            ):
                 current_value += step
                 if self._board_type == BoardType.RASPBERRY_PI:
                     self._set_value(
