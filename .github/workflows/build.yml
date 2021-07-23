@@ -28,11 +28,11 @@ jobs:
         python -m pip install --upgrade pip
     - name: Run mypy
       run: |
-        pip install mypy==0.902
+        pip install mypy==0.910
         mypy --ignore-missing-imports .
     - name: Run black
       run: |
-        pip install black==21.5b2
+        pip install black==21.7b0
         black --check --diff rpi_backlight tests
     - name: Test with pytest
       run: |
