@@ -1,6 +1,14 @@
 Changes
 =======
 
+2.4.0
+-----
+
+- Drop support for Python 3.5, which reached end-of-life in late 2020. Supported versions as of this release are 3.6 - 3.9
+- Implement automatic board type detection (`#32 <https://github.com/linusg/rpi-backlight/pull/32>`_, `@p1r473 <https://github.com/p1r473>`_),
+  passing a ``board_type`` to the constructor is no longer necessary in most cases, even when using an ASUS Tinker Board
+- Fix setting brightness to max value and brightness fading loop condition (`#35 <https://github.com/linusg/rpi-backlight/pull/35>`_, `@Martin-HiPi <https://github.com/Martin-HiPi>`_)
+
 2.3.0
 -----
 
