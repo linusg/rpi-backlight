@@ -1,6 +1,11 @@
 Changes
 =======
 
+2.4.1
+-----
+
+- Fix board type detection
+
 2.4.0
 -----
 
