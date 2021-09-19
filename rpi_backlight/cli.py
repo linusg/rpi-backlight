@@ -128,7 +128,7 @@ def main():
                     backlight.brightness = 100
         elif args.set_power == "on":
             if backlight.power:
-                return;
+                return
             with backlight.fade(duration=args.duration):
                 backlight.brightness = 100
             time.sleep(args.duration)
