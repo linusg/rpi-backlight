@@ -129,14 +129,12 @@ def main():
         elif args.set_power == "on":
             if backlight.power:
                 return
-            with backlight.fade(duration=args.duration):
-                backlight.brightness = 100
-            time.sleep(args.duration)
             backlight.power = True
+            with backlight.fade(duration=args.duration):
+                backlight.brightness = 100            
         elif args.set_power == "off":
             with backlight.fade(duration=args.duration):
                 backlight.brightness = 0
-            time.sleep(args.duration)
             backlight.power = False
         else:
             backlight.power = True if args.set_power == "on" else False
