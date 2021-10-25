@@ -101,11 +101,11 @@ def main():
                 "-b/--set-brightness must be used without other options except for -d/--duration"
             )
         # backlight.fade context manager can be used always as args.fade defaults to zero
-        if (backlight.power == False) and (args.set_brightness > 0):
+        if (backlight.power is False) and (args.set_brightness > 0):
             backlight.power = True
         with backlight.fade(duration=args.duration):
             backlight.brightness = args.set_brightness
-        if (backlight.power == True) and (args.set_brightness == 0):
+        if (backlight.power is True) and (args.set_brightness == 0):
             time.sleep(args.duration)
             backlight.power = False
         return
