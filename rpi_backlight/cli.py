@@ -128,11 +128,13 @@ def main():
             if backlight.power:
                 return
             backlight.power = True
-            with backlight.fade(duration=args.duration):
-                backlight.brightness = 100
+            if args.duration:
+                with backlight.fade(duration=args.duration):
+                    backlight.brightness = 100
         elif args.set_power == "off":
-            with backlight.fade(duration=args.duration):
-                backlight.brightness = 0
+            if args.duration:
+                with backlight.fade(duration=args.duration):
+                    backlight.brightness = 0
             backlight.power = False
         else:
             backlight.power = True if args.set_power == "on" else False
