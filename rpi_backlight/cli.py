@@ -1,4 +1,3 @@
-import time
 from argparse import ArgumentParser
 
 from . import Backlight, BoardType, __version__, utils
@@ -106,7 +105,6 @@ def main():
         with backlight.fade(duration=args.duration):
             backlight.brightness = args.set_brightness
         if (backlight.power is True) and (args.set_brightness == 0):
-            time.sleep(args.duration)
             backlight.power = False
         return
 
