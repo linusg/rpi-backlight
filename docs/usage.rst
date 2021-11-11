@@ -67,7 +67,7 @@ Open a terminal and run ``rpi-backlight``.
     20
     $ rpi-backlight --get-power
     on
-    $ rpi-backlight --p off
+    $ rpi-backlight -p off
     $ rpi-backlight --get-power
     off
     $ rpi-backlight --set-power off :emulator:
