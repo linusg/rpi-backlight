@@ -2,8 +2,9 @@ import errno
 import time
 from contextlib import contextmanager
 from enum import Enum
-from os import PathLike
+from os import PathLike, listdir, path
 from pathlib import Path
+from genericpath import exists
 from tempfile import gettempdir
 from typing import Generator, Union, Optional
 
@@ -66,6 +67,11 @@ class Backlight:
             # The emulator only knows about Raspberry Pi sysfs files
             # (brightness, bl_power), ignore board_type
             board_type = BoardType.RASPBERRY_PI
+        
+        # Fix for Bullseye new KMS path
+        if board_type == BoardType.RASPBERRY_PI and not exists(backlight_sysfs_path):
+            backlight_sysfs_path_fix = '/'.join([l for i, l in enumerate(backlight_sysfs_path.split('/')) if i < 4])
+            backlight_sysfs_path = backlight_sysfs_path_fix + '/' + listdir(backlight_sysfs_path_fix)[0] + '/'
 
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._board_type = board_type
