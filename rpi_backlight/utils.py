@@ -16,6 +16,8 @@ def detect_board_type() -> Optional["BoardType"]:
     from . import BoardType
 
     model_file = Path("/proc/device-tree/model")
+    driver_file = Path("/proc/device-tree/soc/hvs@7e400000/status")
+    
     try:
         model = model_file.read_text()
     except OSError:
@@ -28,7 +30,11 @@ def detect_board_type() -> Optional["BoardType"]:
         return BoardType.TINKER_BOARD
     # Raspberry Pi starts with Raspberry Pi
     elif "Raspberry Pi" in model:
-        return BoardType.RASPBERRY_PI
+        # Raspberry Pi with KMS Driver returns okay
+        if "okay" in driver_file.read_text():
+            return BoardType.RASPBERRY_PI_KMS
+        else:
+            return BoardType.RASPBERRY_PI
     else:
         return None
 
