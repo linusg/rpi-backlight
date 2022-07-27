@@ -1,6 +1,5 @@
 import errno
 import time
-
 from contextlib import contextmanager
 from enum import Enum
 from os import PathLike, path
