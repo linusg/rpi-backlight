@@ -1,7 +1,6 @@
 import errno
 import time
 
-# import lsb_release
 from contextlib import contextmanager
 from enum import Enum
 from os import PathLike, path
