@@ -1,5 +1,6 @@
 import errno
 import time
+import lsb_release
 from contextlib import contextmanager
 from enum import Enum
 from os import PathLike
@@ -26,7 +27,9 @@ class BoardType(Enum):
 
 
 _BACKLIGHT_SYSFS_PATHS = {
-    BoardType.RASPBERRY_PI: "/sys/class/backlight/rpi_backlight/",
+    BoardType.RASPBERRY_PI: (
+    "/sys/class/backlight/10-0045/" if lsb_release.get_distro_information()['CODENAME'] == 'bullseye' 
+    else "/sys/class/backlight/rpi_backlight/"),
     BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
     BoardType.TINKER_BOARD_2: "/sys/devices/platform/ff3e0000.i2c/i2c-8/8-0045/",
 }
@@ -70,7 +73,6 @@ class Backlight:
         self._backlight_sysfs_path = Path(backlight_sysfs_path)
         self._board_type = board_type
         self._fade_duration = 0.0  # in seconds
-
         if self._board_type == BoardType.RASPBERRY_PI:
             self._max_brightness = self._get_value("max_brightness")  # 255
         elif (
