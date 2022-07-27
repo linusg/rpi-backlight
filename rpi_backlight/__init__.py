@@ -1,9 +1,10 @@
 import errno
 import time
-import lsb_release
+#import lsb_release
 from contextlib import contextmanager
 from enum import Enum
 from os import PathLike
+from os import path
 from pathlib import Path
 from tempfile import gettempdir
 from typing import Generator, Union, Optional
@@ -28,7 +29,8 @@ class BoardType(Enum):
 
 _BACKLIGHT_SYSFS_PATHS = {
     BoardType.RASPBERRY_PI: (
-    "/sys/class/backlight/10-0045/" if lsb_release.get_distro_information()['CODENAME'] == 'bullseye' 
+    #"/sys/class/backlight/10-0045/" if lsb_release.get_distro_information()['CODENAME'] == 'bullseye' 
+    "/sys/class/backlight/10-0045/" if path.exists("/sys/class/backlight/10-0045/")
     else "/sys/class/backlight/rpi_backlight/"),
     BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
     BoardType.TINKER_BOARD_2: "/sys/devices/platform/ff3e0000.i2c/i2c-8/8-0045/",
