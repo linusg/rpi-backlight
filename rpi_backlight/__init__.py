@@ -2,7 +2,7 @@ import errno
 import time
 from contextlib import contextmanager
 from enum import Enum
-from os import PathLike, path
+from os import PathLike
 from pathlib import Path
 from tempfile import gettempdir
 from typing import Generator, Union, Optional
