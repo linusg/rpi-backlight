@@ -21,7 +21,7 @@ from rpi_backlight import __version__
 # -- Project information -----------------------------------------------------
 
 project = "rpi-backlight"
-copyright = "2016-2021, Linus Groh"
+copyright = "2016-2022, Linus Groh"
 author = "Linus Groh"
 
 # The full version, including alpha/beta/rc tags
