@@ -1,6 +1,12 @@
 Changes
 =======
 
+2.5.0
+-----
+
+- Add Python 3.10 as supported version
+- Support alternate backlight sysfs path (`#50 <https://github.com/linusg/rpi-backlight/pull/50>`_, `@j-coopz <https://github.com/j-coopz>`_)
+
 2.4.1
 -----
 
