@@ -23,6 +23,8 @@ class BoardType(Enum):
     TINKER_BOARD = 2
     #: Tinker Board 2
     TINKER_BOARD_2 = 3
+    #: Microsoft Surface RT
+    MICROSOFT_SURFACE_RT = 4
 
 
 _BACKLIGHT_SYSFS_PATHS = {
@@ -33,6 +35,7 @@ _BACKLIGHT_SYSFS_PATHS = {
     ),
     BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
     BoardType.TINKER_BOARD_2: "/sys/devices/platform/ff3e0000.i2c/i2c-8/8-0045/",
+    BoardType.MICROSOFT_SURFACE_RT: "/sys/class/backlight/backlight/"
 }
 _EMULATOR_SYSFS_TMP_FILE_PATH = Path(gettempdir()) / "rpi-backlight-emulator.sysfs"
 _EMULATOR_MAGIC_STRING = ":emulator:"
@@ -75,7 +78,10 @@ class Backlight:
         self._board_type = board_type
         self._fade_duration = 0.0  # in seconds
 
-        if self._board_type == BoardType.RASPBERRY_PI:
+        if (
+            self._board_type == BoardType.RASPBERRY_PI
+            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
+        ):
             self._max_brightness = self._get_value("max_brightness")  # 255
         elif (
             self._board_type == BoardType.TINKER_BOARD
@@ -164,7 +170,10 @@ class Backlight:
         :setter: Set the display brightness.
         :type: float
         """
-        if self._board_type == BoardType.RASPBERRY_PI:
+        if (
+            self._board_type == BoardType.RASPBERRY_PI
+            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
+        ):
             return self._normalize_brightness(self._get_value("actual_brightness"))
         elif (
             self._board_type == BoardType.TINKER_BOARD
@@ -192,7 +201,10 @@ class Backlight:
                 and current_value <= 100.0
             ):
                 current_value += step
-                if self._board_type == BoardType.RASPBERRY_PI:
+                if (
+                    self._board_type == BoardType.RASPBERRY_PI
+                    or self._board_type == BoardType.MICROSOFT_SURFACE_RT
+                ):
                     self._set_value(
                         "brightness", self._denormalize_brightness(current_value)
                     )
@@ -207,7 +219,10 @@ class Backlight:
                     raise RuntimeError("Invalid board type")
                 time.sleep(self.fade_duration / diff)
         else:
-            if self._board_type == BoardType.RASPBERRY_PI:
+            if (
+                self._board_type == BoardType.RASPBERRY_PI
+                or self._board_type == BoardType.MICROSOFT_SURFACE_RT
+            ):
                 self._set_value("brightness", self._denormalize_brightness(value))
             elif (
                 self._board_type == BoardType.TINKER_BOARD
@@ -230,7 +245,10 @@ class Backlight:
         :setter: Set the display power on or off.
         :type: bool
         """
-        if self._board_type == BoardType.RASPBERRY_PI:
+        if (
+            self._board_type == BoardType.RASPBERRY_PI
+            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
+        ):
             # 0 is on, 1 is off
             return not self._get_value("bl_power")
         elif (
@@ -246,7 +264,10 @@ class Backlight:
         """Set the display power on or off."""
         if not isinstance(on, bool):
             raise TypeError(f"value must be a bool, got {type(on)}")
-        if self._board_type == BoardType.RASPBERRY_PI:
+        if (
+            self._board_type == BoardType.RASPBERRY_PI
+            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
+        ):
             # 0 is on, 1 is off
             self._set_value("bl_power", int(not on))
         elif (
