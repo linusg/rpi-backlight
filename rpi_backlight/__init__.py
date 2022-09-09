@@ -78,10 +78,7 @@ class Backlight:
         self._board_type = board_type
         self._fade_duration = 0.0  # in seconds
 
-        if (
-            self._board_type == BoardType.RASPBERRY_PI
-            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
-        ):
+        if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
             self._max_brightness = self._get_value("max_brightness")  # 255
         elif (
             self._board_type == BoardType.TINKER_BOARD
