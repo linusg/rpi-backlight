@@ -28,7 +28,7 @@
 ## Requirements
 
 - A **Raspberry Pi or ASUS Tinker Board** including a correctly assembled **7" touch display v1.1 or higher**
-  (look on the display's circuit board to see its version) running a Linux-based OS
+  (look on the display's circuit board to see its version), or as [Surface RT](https://openrt.gitbook.io/open-surfacert/surface-rt/linux/root-filesystem/distros/raspberry-pi-os) running a Linux-based OS
 - Python 3.6+
 - Optional: Raspberry Pi: ``pygobject`` for the GUI, already installed on a recent Raspbian
 - Optional: Tinker Board: ``gir1.2-gtk-3.0`` for the GUI install
