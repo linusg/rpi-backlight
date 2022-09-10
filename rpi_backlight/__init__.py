@@ -167,10 +167,7 @@ class Backlight:
         :setter: Set the display brightness.
         :type: float
         """
-        if (
-            self._board_type == BoardType.RASPBERRY_PI
-            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
-        ):
+        if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
             return self._normalize_brightness(self._get_value("actual_brightness"))
         elif (
             self._board_type == BoardType.TINKER_BOARD
@@ -198,10 +195,7 @@ class Backlight:
                 and current_value <= 100.0
             ):
                 current_value += step
-                if (
-                    self._board_type == BoardType.RASPBERRY_PI
-                    or self._board_type == BoardType.MICROSOFT_SURFACE_RT
-                ):
+                if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
                     self._set_value(
                         "brightness", self._denormalize_brightness(current_value)
                     )
@@ -216,10 +210,7 @@ class Backlight:
                     raise RuntimeError("Invalid board type")
                 time.sleep(self.fade_duration / diff)
         else:
-            if (
-                self._board_type == BoardType.RASPBERRY_PI
-                or self._board_type == BoardType.MICROSOFT_SURFACE_RT
-            ):
+            if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
                 self._set_value("brightness", self._denormalize_brightness(value))
             elif (
                 self._board_type == BoardType.TINKER_BOARD
@@ -242,10 +233,7 @@ class Backlight:
         :setter: Set the display power on or off.
         :type: bool
         """
-        if (
-            self._board_type == BoardType.RASPBERRY_PI
-            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
-        ):
+        if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
             # 0 is on, 1 is off
             return not self._get_value("bl_power")
         elif (
@@ -261,10 +249,7 @@ class Backlight:
         """Set the display power on or off."""
         if not isinstance(on, bool):
             raise TypeError(f"value must be a bool, got {type(on)}")
-        if (
-            self._board_type == BoardType.RASPBERRY_PI
-            or self._board_type == BoardType.MICROSOFT_SURFACE_RT
-        ):
+        if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
             # 0 is on, 1 is off
             self._set_value("bl_power", int(not on))
         elif (
