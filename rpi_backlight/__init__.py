@@ -35,7 +35,7 @@ _BACKLIGHT_SYSFS_PATHS = {
     ),
     BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
     BoardType.TINKER_BOARD_2: "/sys/devices/platform/ff3e0000.i2c/i2c-8/8-0045/",
-    BoardType.MICROSOFT_SURFACE_RT: "/sys/class/backlight/backlight/"
+    BoardType.MICROSOFT_SURFACE_RT: "/sys/class/backlight/backlight/",
 }
 _EMULATOR_SYSFS_TMP_FILE_PATH = Path(gettempdir()) / "rpi-backlight-emulator.sysfs"
 _EMULATOR_MAGIC_STRING = ":emulator:"
@@ -195,7 +195,10 @@ class Backlight:
                 and current_value <= 100.0
             ):
                 current_value += step
-                if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
+                if self._board_type in (
+                    BoardType.RASPBERRY_PI,
+                    BoardType.MICROSOFT_SURFACE_RT,
+                ):
                     self._set_value(
                         "brightness", self._denormalize_brightness(current_value)
                     )
@@ -210,7 +213,10 @@ class Backlight:
                     raise RuntimeError("Invalid board type")
                 time.sleep(self.fade_duration / diff)
         else:
-            if self._board_type in (BoardType.RASPBERRY_PI, BoardType.MICROSOFT_SURFACE_RT):
+            if self._board_type in (
+                BoardType.RASPBERRY_PI,
+                BoardType.MICROSOFT_SURFACE_RT,
+            ):
                 self._set_value("brightness", self._denormalize_brightness(value))
             elif (
                 self._board_type == BoardType.TINKER_BOARD
