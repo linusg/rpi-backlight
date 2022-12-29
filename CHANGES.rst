@@ -1,6 +1,12 @@
 Changes
 =======
 
+2.6.0
+-----
+
+- Add Python 3.11 as supported version, drop 3.6
+- Add support for Microsoft Surface RT (`#54 <https://github.com/linusg/rpi-backlight/pull/54>`_, `@apandada1 <https://github.com/apandada1>`_)
+
 2.5.0
 -----
 
