@@ -6,7 +6,7 @@ STRING_TO_BOARD_TYPE = {
     "raspberry-pi": BoardType.RASPBERRY_PI,
     "tinker-board": BoardType.TINKER_BOARD,
     "tinker-board-2": BoardType.TINKER_BOARD_2,
-     "microsoft-surface-rt": BoardType.MICROSOFT_SURFACE_RT,
+    "microsoft-surface-rt": BoardType.MICROSOFT_SURFACE_RT,
 }
 
 BOARD_TYPE_TO_STRING = {
