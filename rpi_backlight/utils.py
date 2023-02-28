@@ -29,6 +29,9 @@ def detect_board_type() -> Optional["BoardType"]:
     # Raspberry Pi starts with Raspberry Pi
     elif "Raspberry Pi" in model:
         return BoardType.RASPBERRY_PI
+    # Microsoft Surface RT starts with Microsoft Surface RT
+    elif "Microsoft Surface RT" in model:
+        return BoardType.MICROSOFT_SURFACE_RT
     else:
         return None
 
