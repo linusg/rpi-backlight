@@ -127,17 +127,31 @@ def main():
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 100
         elif args.set_power == "on":
-            if backlight.power:
-                return
-            backlight.power = True
-            if args.duration:
-                with backlight.fade(duration=args.duration):
-                    backlight.brightness = 100
+            # Ensure brightness is 0 when we turn the display on
+            backlight.brightness = 0
+            if args.board_type == "raspberry-pi":
+                backlight.power = True
+            with backlight.fade(duration=args.duration):
+                backlight.brightness = 100
         elif args.set_power == "off":
-            if args.duration:
+            if backlight.power:
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 0
-            backlight.power = False
+                if args.board_type == "raspberry-pi":
+                    backlight.power = False
+
+#       elif args.set_power == "on":
+#           if backlight.power:
+#               return
+#           backlight.power = True
+#           if args.duration:
+#               with backlight.fade(duration=args.duration):
+#                   backlight.brightness = 100
+#       elif args.set_power == "off":
+#          if args.duration:
+#               with backlight.fade(duration=args.duration):
+#                   backlight.brightness = 0
+#           backlight.power = False
         else:
             backlight.power = True if args.set_power == "on" else False
         return
