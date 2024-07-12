@@ -138,7 +138,7 @@ First, create a ``.desktop`` file for rpi-backlight (e.g.
     Terminal=false
     Name=rpi-backlight GUI
     Exec=/home/pi/.local/bin/rpi-backlight-gui
-    Icon=/usr/share/icons/HighContrast/256x256/status/display-brightness.png
+    Icon=/usr/share/icons/Adwaita/scalable/status/display-brightness-symbolic.svg
     Categories=Utility;
 
 *The absolute path to* ``rpi-backlight-gui`` *might differ if you did not follow the
