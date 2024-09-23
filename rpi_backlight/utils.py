@@ -31,7 +31,10 @@ def detect_board_type() -> Optional["BoardType"]:
         return BoardType.RASPBERRY_PI
     # Microsoft Surface RT starts with Microsoft Surface RT
     elif "Microsoft Surface RT" in model:
-        return BoardType.MICROSOFT_SURFACE_RT
+        return BoardType.GENERIC
+    # Google Chromebooks start with Google
+    elif "Google" in model:
+        return BoardType.GENERIC
     else:
         return None
 
