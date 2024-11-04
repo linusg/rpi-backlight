@@ -29,7 +29,11 @@ class BoardType(Enum):
 
 _BACKLIGHT_SYSFS_PATHS = {
     BoardType.RASPBERRY_PI: (
-        "/sys/class/backlight/10-0045/"
+        "/sys/class/backlight/4-0045/"
+        if Path("/sys/class/backlight/4-0045/").exists()
+        else "/sys/class/backlight/6-0045/"
+        if Path("/sys/class/backlight/6-0045/").exists()
+        else "/sys/class/backlight/10-0045/"
         if Path("/sys/class/backlight/10-0045/").exists()
         else "/sys/class/backlight/rpi_backlight/"
     ),
