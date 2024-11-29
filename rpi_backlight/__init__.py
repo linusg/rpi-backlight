@@ -10,7 +10,7 @@ from typing import Generator, Union, Optional
 from . import utils
 
 __author__ = "Linus Groh"
-__version__ = "2.6.0"
+__version__ = "2.7.0"
 __all__ = ["Backlight", "BoardType"]
 
 

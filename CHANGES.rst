@@ -1,6 +1,12 @@
 Changes
 =======
 
+2.7.0
+-----
+
+- Drop ``microsoft-surface-rt`` board type in favor of ``generic`` with support for Chromebooks (`#65 <https://github.com/linusg/rpi-backlight/pull/65>`_, `@archisman-panigrahi <https://github.com/archisman-panigrahi>`_)
+- Add Raspberry Pi 5 support (`#66 <https://github.com/linusg/rpi-backlight/pull/66>`_, `@jamesecc <https://github.com/jamesecc>`_)
+
 2.6.0
 -----
 
