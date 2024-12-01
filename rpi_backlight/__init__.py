@@ -6,6 +6,7 @@ from os import PathLike
 from pathlib import Path
 from tempfile import gettempdir
 from typing import Generator, Union, Optional
+from glob import iglob
 
 from . import utils
 
@@ -28,17 +29,7 @@ class BoardType(Enum):
 
 
 _BACKLIGHT_SYSFS_PATHS = {
-    BoardType.RASPBERRY_PI: (
-        "/sys/class/backlight/4-0045/"
-        if Path("/sys/class/backlight/4-0045/").exists()
-        else "/sys/class/backlight/6-0045/"
-        if Path("/sys/class/backlight/6-0045/").exists()
-        else "/sys/class/backlight/10-0045/"
-        if Path("/sys/class/backlight/10-0045/").exists()
-        else "/sys/class/backlight/11-0045/"
-        if Path("/sys/class/backlight/11-0045/").exists()
-        else "/sys/class/backlight/rpi_backlight/"
-    ),
+    BoardType.RASPBERRY_PI: next(iglob("/sys/class/backlight/*-0045/"), "/sys/class/backlight/rpi_backlight/"),
     BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
     BoardType.TINKER_BOARD_2: "/sys/devices/platform/ff3e0000.i2c/i2c-8/8-0045/",
     BoardType.GENERIC: "/sys/class/backlight/backlight/",
