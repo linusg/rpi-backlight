@@ -29,13 +29,65 @@ class BoardType(Enum):
 
 
 _BACKLIGHT_SYSFS_PATHS = {
-    BoardType.RASPBERRY_PI: next(iglob("/sys/class/backlight/*-0045/"), "/sys/class/backlight/rpi_backlight/"),
+    BoardType.RASPBERRY_PI: next(
+        iglob("/sys/class/backlight/*-0045/"), "/sys/class/backlight/rpi_backlight/"
+    ),
     BoardType.TINKER_BOARD: "/sys/devices/platform/ff150000.i2c/i2c-3/3-0045/",
     BoardType.TINKER_BOARD_2: "/sys/devices/platform/ff3e0000.i2c/i2c-8/8-0045/",
     BoardType.GENERIC: "/sys/class/backlight/backlight/",
 }
 _EMULATOR_SYSFS_TMP_FILE_PATH = Path(gettempdir()) / "rpi-backlight-emulator.sysfs"
 _EMULATOR_MAGIC_STRING = ":emulator:"
+
+
+def _detect_working_rpi_backlight_sysfs_path() -> Path:
+    """
+    Pick a working backlight device on systems that expose multiple
+    /sys/class/backlight/* entries (e.g. Pi 5 + KMS/DSI).
+    We probe by writing the current brightness value back to 'brightness'.
+    """
+    base = Path("/sys/class/backlight")
+    if not base.exists():
+        return Path("/sys/class/backlight/rpi_backlight/")
+
+    try:
+        candidates = sorted(p for p in base.iterdir() if p.is_dir())
+    except OSError:
+        return Path(
+            next(
+                iglob("/sys/class/backlight/*-0045/"),
+                "/sys/class/backlight/rpi_backlight/",
+            )
+        )
+
+    def _read_int(path: Path):
+        try:
+            return int(path.read_text())
+        except Exception:
+            return None
+
+    for p in candidates:
+        brightness = p / "brightness"
+        if not brightness.exists():
+            continue
+
+        current = _read_int(p / "actual_brightness")
+        if current is None:
+            current = _read_int(brightness)
+        if current is None:
+            continue
+
+        try:
+            brightness.write_text(str(current))
+            return p
+        except OSError as e:
+            if e.errno in (errno.EINVAL, errno.EIO, getattr(errno, "EREMOTEIO", 121)):
+                continue
+            if e.errno == errno.EPERM:
+                raise
+            continue
+
+    return Path("/sys/class/backlight/rpi_backlight/")
 
 
 def _permission_denied() -> None:
@@ -60,7 +112,10 @@ class Backlight:
             )
 
         if not backlight_sysfs_path:
-            backlight_sysfs_path = _BACKLIGHT_SYSFS_PATHS[board_type]
+            if board_type == BoardType.RASPBERRY_PI:
+                backlight_sysfs_path = str(_detect_working_rpi_backlight_sysfs_path())
+            else:
+                backlight_sysfs_path = _BACKLIGHT_SYSFS_PATHS[board_type]
         elif backlight_sysfs_path == _EMULATOR_MAGIC_STRING:
             if not _EMULATOR_SYSFS_TMP_FILE_PATH.exists():
                 raise RuntimeError(

@@ -77,6 +77,11 @@ def main():
     parser = _create_argument_parser()
     args = parser.parse_args()
 
+    if args.sysfs_path in ("on", "off"):
+        parser.error(
+            "invalid SYSFS_PATH. Use -p on/off (or -p toggle) instead of 'rpi-backlight on|off'."
+        )
+
     backlight = Backlight(
         board_type=STRING_TO_BOARD_TYPE[args.board_type],
         backlight_sysfs_path=args.sysfs_path,
@@ -102,8 +107,12 @@ def main():
                 "-b/--set-brightness must be used without other options except for -d/--duration"
             )
         # backlight.fade context manager can be used always as args.fade defaults to zero
+        if (backlight.power is False) and (args.set_brightness > 0):
+            backlight.power = True
         with backlight.fade(duration=args.duration):
             backlight.brightness = args.set_brightness
+        if (backlight.power is True) and (args.set_brightness == 0):
+            backlight.power = False
         return
 
     if args.set_power:
@@ -122,6 +131,19 @@ def main():
                     backlight.power = True
                 with backlight.fade(duration=args.duration):
                     backlight.brightness = 100
+        elif args.set_power == "on":
+            # Ensure brightness is 0 when we turn the display on
+            backlight.brightness = 0
+            if args.board_type == "raspberry-pi":
+                backlight.power = True
+            with backlight.fade(duration=args.duration):
+                backlight.brightness = 100
+        elif args.set_power == "off":
+            if backlight.power:
+                with backlight.fade(duration=args.duration):
+                    backlight.brightness = 0
+                if args.board_type == "raspberry-pi":
+                    backlight.power = False
         else:
             backlight.power = True if args.set_power == "on" else False
         return
