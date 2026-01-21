@@ -77,6 +77,11 @@ def main():
     parser = _create_argument_parser()
     args = parser.parse_args()
 
+    if args.sysfs_path in ("on", "off"):
+        parser.error(
+            "invalid SYSFS_PATH. Use -p on/off (or -p toggle) instead of 'rpi-backlight on|off'."
+        )
+
     backlight = Backlight(
         board_type=STRING_TO_BOARD_TYPE[args.board_type],
         backlight_sysfs_path=args.sysfs_path,
